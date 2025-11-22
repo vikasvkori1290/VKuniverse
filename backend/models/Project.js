@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+
+const projectSchema = mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    techStack: [{
+        type: String,
+    }],
+    liveLink: {
+        type: String,
+    },
+    githubLink: {
+        type: String,
+    },
+    images: [{
+        type: String,
+    }],
+    status: {
+        type: String,
+        enum: ['completed', 'in-progress'],
+        default: 'completed',
+    },
+    isPublished: {
+        type: Boolean,
+        default: true,
+    }
+}, {
+    timestamps: true,
+});
+
+module.exports = mongoose.model('Project', projectSchema);

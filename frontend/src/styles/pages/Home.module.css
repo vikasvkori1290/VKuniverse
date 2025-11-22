@@ -1,0 +1,24 @@
+.home {
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+}
+
+.contactSection {
+    text-align: center;
+    padding: var(--spacing-4xl) 0;
+    background: var(--bg-tertiary);
+}
+
+.contactTitle {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.contactSubtitle {
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}

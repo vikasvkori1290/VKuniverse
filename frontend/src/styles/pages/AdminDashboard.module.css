@@ -1,0 +1,31 @@
+.dashboard {
+    min-height: 100vh;
+    background: var(--bg-secondary);
+}
+
+.header {
+    background: var(--bg-primary);
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-xl);
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.content {
+    background: var(--bg-primary);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    min-height: 400px;
+}

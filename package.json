@@ -1,0 +1,17 @@
+{
+    "name": "vkportfolio",
+    "version": "1.0.0",
+    "description": "MERN Portfolio",
+    "main": "backend/server.js",
+    "scripts": {
+        "start": "node backend/server.js",
+        "server": "nodemon backend/server.js",
+        "client": "npm run dev --prefix frontend",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "author": "Vikas Kumar",
+    "license": "ISC",
+    "dependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
