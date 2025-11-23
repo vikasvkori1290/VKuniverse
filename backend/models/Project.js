@@ -19,7 +19,18 @@ const projectSchema = mongoose.Schema({
         type: String,
     },
     images: [{
-        type: String,
+        url: {
+            type: String,
+            required: true,
+        },
+        isThumbnail: {
+            type: Boolean,
+            default: false,
+        },
+        order: {
+            type: Number,
+            default: 0,
+        }
     }],
     status: {
         type: String,

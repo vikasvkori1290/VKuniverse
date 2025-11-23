@@ -1,4 +1,5 @@
 const Skill = require('../models/Skill');
+const { fetchIconUrl, searchTechnologies } = require('../services/iconService');
 
 // @desc    Get all skills
 // @route   GET /api/skills
@@ -61,9 +62,58 @@ const deleteSkill = async (req, res) => {
     res.status(200).json({ id: req.params.id });
 };
 
+// @desc    Get recently uploaded skills
+// @route   GET /api/skills/recent
+// @access  Private
+const getRecentSkills = async (req, res) => {
+    try {
+        const skills = await Skill.find({})
+            .sort({ createdAt: -1 })
+            .limit(10);
+        res.status(200).json(skills);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Fetch icon for skill
+// @route   POST /api/skills/fetch-icon
+// @access  Private
+const fetchIcon = async (req, res) => {
+    try {
+        const { skillName } = req.body;
+
+        if (!skillName) {
+            return res.status(400).json({ message: 'Skill name is required' });
+        }
+
+        const { url, source } = await fetchIconUrl(skillName);
+
+        res.status(200).json({ iconUrl: url, iconSource: source });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Search available technologies
+// @route   GET /api/skills/search-tech
+// @access  Public
+const searchTech = async (req, res) => {
+    try {
+        const { q } = req.query;
+        const results = searchTechnologies(q || '');
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getSkills,
     setSkill,
     updateSkill,
     deleteSkill,
+    getRecentSkills,
+    fetchIcon,
+    searchTech,
 };

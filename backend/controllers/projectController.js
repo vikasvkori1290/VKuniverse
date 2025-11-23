@@ -90,6 +90,78 @@ const deleteProject = async (req, res) => {
     res.status(200).json({ id: req.params.id });
 };
 
+// @desc    Get recently uploaded projects
+// @route   GET /api/projects/recent
+// @access  Private
+const getRecentProjects = async (req, res) => {
+    try {
+        const projects = await Project.find({})
+            .sort({ createdAt: -1 })
+            .limit(10);
+        res.status(200).json(projects);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Set thumbnail image for project
+// @route   PUT /api/projects/:id/thumbnail
+// @access  Private
+const setThumbnail = async (req, res) => {
+    try {
+        const { imageUrl } = req.body;
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        // Reset all thumbnails
+        project.images.forEach(img => img.isThumbnail = false);
+
+        // Set new thumbnail
+        const imageIndex = project.images.findIndex(img => img.url === imageUrl);
+        if (imageIndex !== -1) {
+            project.images[imageIndex].isThumbnail = true;
+        }
+
+        await project.save();
+        res.status(200).json(project);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Reorder project images
+// @route   PUT /api/projects/:id/reorder-images
+// @access  Private
+const reorderImages = async (req, res) => {
+    try {
+        const { images } = req.body; // Array of {url, order}
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        // Update order for each image
+        images.forEach(({ url, order }) => {
+            const imageIndex = project.images.findIndex(img => img.url === url);
+            if (imageIndex !== -1) {
+                project.images[imageIndex].order = order;
+            }
+        });
+
+        // Sort images by order
+        project.images.sort((a, b) => a.order - b.order);
+
+        await project.save();
+        res.status(200).json(project);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getProjects,
     getAdminProjects,
@@ -97,4 +169,7 @@ module.exports = {
     setProject,
     updateProject,
     deleteProject,
+    getRecentProjects,
+    setThumbnail,
+    reorderImages,
 };

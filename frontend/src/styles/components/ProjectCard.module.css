@@ -10,7 +10,6 @@
     height: 100%;
     position: relative;
     text-align: left;
-    /* Reverted to left align */
 }
 
 .projectCard:hover {
@@ -124,6 +123,23 @@
     box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
 }
 
+/* Image Count Badge */
+.imageCountBadge {
+    position: absolute;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+}
+
 /* Card Content */
 .cardContent {
     padding: var(--spacing-xl);
@@ -131,7 +147,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* Reverted to left align */
 }
 
 .title {
@@ -170,7 +185,6 @@
     gap: var(--spacing-sm);
     margin-bottom: var(--spacing-xl);
     justify-content: flex-start;
-    /* Reverted to left align */
 }
 
 .techBadge {
@@ -198,7 +212,6 @@
     gap: var(--spacing-md);
     width: 100%;
     justify-content: flex-start;
-    /* Reverted to left align */
 }
 
 .actionButton {
@@ -217,7 +230,6 @@
     position: relative;
     overflow: hidden;
     max-width: none;
-    /* Removed width limit */
 }
 
 .actionButton::before {

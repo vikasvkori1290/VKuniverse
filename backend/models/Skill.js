@@ -15,7 +15,15 @@ const skillSchema = mongoose.Schema({
         max: 100,
     },
     icon: {
-        type: String, // URL or icon class
+        type: String, // URL or icon class (for custom uploads)
+    },
+    iconUrl: {
+        type: String, // Auto-fetched icon URL from CDN
+    },
+    iconSource: {
+        type: String,
+        enum: ['devicon', 'simpleicons', 'custom', 'none'],
+        default: 'none',
     }
 }, {
     timestamps: true,

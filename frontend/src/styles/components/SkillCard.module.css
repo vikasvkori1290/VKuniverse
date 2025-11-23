@@ -49,6 +49,23 @@
     font-size: 3rem;
     color: var(--accent-primary);
     margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+
+.iconImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.fallbackIcon {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-primary);
 }
 
 .name {

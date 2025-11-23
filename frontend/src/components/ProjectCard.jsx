@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaImages } from 'react-icons/fa';
 import styles from '../styles/components/ProjectCard.module.css';
 
 const ProjectCard = ({ project }) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    // Get thumbnail image
+    const getThumbnailUrl = () => {
+        if (!project.images || project.images.length === 0) return null;
+
+        // Check for new format (array of objects)
+        if (typeof project.images[0] === 'object') {
+            const thumbnail = project.images.find(img => img.isThumbnail) || project.images[0];
+            const url = thumbnail.url;
+            return url.startsWith('http') ? url : `http://localhost:5000${url}`;
+        }
+
+        // Fallback for old format (array of strings)
+        const url = project.images[0];
+        return url.startsWith('http') ? url : `http://localhost:5000${url}`;
+    };
+
+    const thumbnailUrl = getThumbnailUrl();
+    const imageCount = project.images?.length || 0;
 
     return (
         <div
@@ -12,9 +31,9 @@ const ProjectCard = ({ project }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className={styles.imageContainer}>
-                {project.images && project.images.length > 0 ? (
+                {thumbnailUrl ? (
                     <img
-                        src={project.images[0].startsWith('http') ? project.images[0] : `http://localhost:5000${project.images[0]}`}
+                        src={thumbnailUrl}
                         alt={project.title}
                         className={styles.projectImage}
                     />
@@ -35,6 +54,13 @@ const ProjectCard = ({ project }) => {
                 <div className={`${styles.statusBadge} ${project.status === 'completed' ? styles.statusCompleted : styles.statusInProgress}`}>
                     {project.status === 'completed' ? '✓ Completed' : '⏱ In Progress'}
                 </div>
+
+                {/* Multiple Images Indicator */}
+                {imageCount > 1 && (
+                    <div className={styles.imageCountBadge}>
+                        <FaImages /> {imageCount}
+                    </div>
+                )}
             </div>
 
             <div className={styles.cardContent}>

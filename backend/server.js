@@ -24,10 +24,37 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/achievements', require('./routes/achievements'));
 app.use('/api/skills', require('./routes/skills'));
 
-// Upload Route
-const upload = require('./middleware/upload');
-app.post('/api/upload', upload.single('image'), (req, res) => {
-    res.send(`/${req.file.path.replace(/\\/g, '/')}`);
+// Upload Routes
+const { upload, compressImage } = require('./middleware/upload');
+
+// Single image upload
+app.post('/api/upload', upload.single('image'), async (req, res) => {
+    try {
+        const filePath = req.file.path;
+        await compressImage(filePath);
+        res.send(`/${filePath.replace(/\\/g, '/')}`);
+    } catch (error) {
+        res.status(500).json({ message: 'Error uploading image' });
+    }
+});
+
+// Multiple images upload
+app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) => {
+    try {
+        const uploadedFiles = [];
+
+        for (const file of req.files) {
+            await compressImage(file.path);
+            uploadedFiles.push({
+                url: `/${file.path.replace(/\\/g, '/')}`,
+                order: uploadedFiles.length
+            });
+        }
+
+        res.json(uploadedFiles);
+    } catch (error) {
+        res.status(500).json({ message: 'Error uploading images' });
+    }
 });
 
 // Error Handler
