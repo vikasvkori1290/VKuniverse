@@ -37,16 +37,16 @@ const Hero = () => {
                         </div>
 
                         <div className={styles.socialLinks}>
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="GitHub">
+                            <a href="https://github.com/vikasvkori1290" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="GitHub">
                                 <FaGithub />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="LinkedIn">
+                            <a href="https://www.linkedin.com/in/vikas-v-4a4749330/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="LinkedIn">
                                 <FaLinkedin />
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Twitter">
                                 <FaTwitter />
                             </a>
-                            <a href="mailto:vikas@example.com" className={styles.socialIcon} aria-label="Email">
+                            <a href="mailto:vikasvkori129@gmail.com" className={styles.socialIcon} aria-label="Email">
                                 <FaEnvelope />
                             </a>
                         </div>
