@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
-import ParticleBackground from '../components/ParticleBackground';
 import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -13,7 +12,6 @@ const ProjectsPage = () => {
 
     return (
         <div className={styles.projectsPage}>
-            <ParticleBackground />
             <ScrollProgress />
             <Navbar />
             <main className={styles.mainContent}>

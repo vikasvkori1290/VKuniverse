@@ -20,7 +20,7 @@ const Hero = () => {
                     <div className={`${styles.heroContent} animate-on-scroll`}>
                         <p className={styles.greeting}>Hello, I'm</p>
                         <h1 className={styles.title}>
-                            Vikas <span className={styles.highlight}>Kumar</span>
+                            Vikas <span className={styles.highlight}>V</span>
                         </h1>
                         <h2 className={styles.subtitle}>
                             <span className={styles.typingText}>

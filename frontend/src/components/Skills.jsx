@@ -37,7 +37,7 @@ const Skills = () => {
 
     return (
         <section className={styles.skillsSection} id="skills">
-            <div className="container">
+            <div className={styles.container}>
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <h2 className={styles.title}>Technical Skills</h2>
                     <p className={styles.subtitle}>My proficiency in various technologies and tools.</p>

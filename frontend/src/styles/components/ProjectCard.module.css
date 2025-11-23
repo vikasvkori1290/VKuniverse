@@ -9,6 +9,8 @@
     flex-direction: column;
     height: 100%;
     position: relative;
+    text-align: left;
+    /* Reverted to left align */
 }
 
 .projectCard:hover {
@@ -70,7 +72,8 @@
     opacity: 0;
     transition: opacity var(--transition-normal);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     padding: var(--spacing-lg);
     z-index: 1;
 }
@@ -81,6 +84,7 @@
 
 .overlayContent {
     width: 100%;
+    text-align: center;
 }
 
 .overlayText {
@@ -126,6 +130,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    /* Reverted to left align */
 }
 
 .title {
@@ -163,6 +169,8 @@
     flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-bottom: var(--spacing-xl);
+    justify-content: flex-start;
+    /* Reverted to left align */
 }
 
 .techBadge {
@@ -188,6 +196,9 @@
 .actions {
     display: flex;
     gap: var(--spacing-md);
+    width: 100%;
+    justify-content: flex-start;
+    /* Reverted to left align */
 }
 
 .actionButton {
@@ -205,6 +216,8 @@
     gap: var(--spacing-sm);
     position: relative;
     overflow: hidden;
+    max-width: none;
+    /* Removed width limit */
 }
 
 .actionButton::before {
@@ -272,6 +285,7 @@
 
     .actions {
         flex-direction: column;
+        align-items: center;
     }
 
     .actionButton {

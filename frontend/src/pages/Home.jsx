@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
-import ParticleBackground from '../components/ParticleBackground';
 import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -13,7 +12,6 @@ const Home = () => {
 
     return (
         <div className={styles.home}>
-            <ParticleBackground />
             <ScrollProgress />
             <Navbar />
             <main>

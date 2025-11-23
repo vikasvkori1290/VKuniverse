@@ -6,6 +6,7 @@
     overflow: hidden;
     background: var(--bg-primary);
     padding: var(--spacing-4xl) 0;
+    width: 100%;
 }
 
 .heroContainer {
@@ -15,10 +16,18 @@
     align-items: center;
     position: relative;
     z-index: 1;
+    width: 100%;
+    padding: 0 var(--spacing-3xl);
 }
 
 .heroContent {
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Align text to the left */
+    text-align: left;
+    /* Ensure text alignment is left */
 }
 
 .greeting {
@@ -52,6 +61,9 @@
     color: var(--text-secondary);
     margin-bottom: var(--spacing-lg);
     min-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .typingText {
@@ -210,10 +222,14 @@
         grid-template-columns: 1fr;
         gap: var(--spacing-3xl);
         text-align: center;
+        padding: 0 var(--spacing-lg);
     }
 
     .heroContent {
         max-width: 100%;
+        align-items: center;
+        /* Center align on mobile */
+        text-align: center;
     }
 
     .ctaButtons {
@@ -227,6 +243,8 @@
 
     .heroVisual {
         height: 400px;
+        order: -1;
+        /* Move image to top on mobile if desired, or keep below */
     }
 
     .profileImage {
@@ -253,6 +271,8 @@
 
     .subtitle {
         font-size: 1.5rem;
+        justify-content: center;
+        /* Center subtitle on mobile */
     }
 
     .description {

@@ -28,7 +28,7 @@ const Achievements = () => {
 
     return (
         <section className={styles.achievementsSection} id="achievements">
-            <div className="container">
+            <div className={styles.container}>
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <h2 className={styles.title}>Achievements</h2>
                     <p className={styles.subtitle}>Milestones and recognitions along my journey.</p>

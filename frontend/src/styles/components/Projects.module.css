@@ -1,16 +1,22 @@
 .projectsSection {
     padding: var(--spacing-4xl) 0;
-    background: var(--bg-secondary);
+    background: transparent;
     width: 100%;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .sectionHeader {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--spacing-lg);
 }
 
 .title {
@@ -29,7 +35,6 @@
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-2xl);
     flex-wrap: wrap;
-    padding: 0 var(--spacing-lg);
 }
 
 .filterButton {
@@ -61,28 +66,30 @@
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-2xl);
-    max-width: var(--container-xl);
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--spacing-lg);
+    width: 100%;
+    justify-content: center;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .projectsGrid {
         grid-template-columns: 1fr;
-        padding: 0 var(--spacing-md);
+        max-width: 400px;
+        /* Limit width on mobile for better centering */
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .projectsGrid {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
     }
 }
 
 @media (min-width: 1025px) {
     .projectsGrid {
         grid-template-columns: repeat(3, 1fr);
+        max-width: 1200px;
+        /* Keep it reasonable on large screens */
     }
 }

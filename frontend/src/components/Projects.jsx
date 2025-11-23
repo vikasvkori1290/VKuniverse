@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import styles from '../styles/components/Projects.module.css';
-import api from '../services/api'; // Will create this later
+import api from '../services/api';
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [filter, setFilter] = useState('All');
     const [loading, setLoading] = useState(true);
 
-    // Mock data for initial display if API fails or is empty
+    // Mock data
     const mockProjects = [
         {
             _id: '1',
@@ -45,10 +45,7 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                // Uncomment when API is ready
-                // const { data } = await api.get('/projects');
-                // setProjects(data);
-                setProjects(mockProjects); // Using mock data for now
+                setProjects(mockProjects);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching projects:', error);
@@ -68,7 +65,7 @@ const Projects = () => {
 
     return (
         <section className={styles.projectsSection} id="projects">
-            <div className="container">
+            <div className={styles.container}>
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <h2 className={styles.title}>Featured Projects</h2>
                     <p className={styles.subtitle}>A selection of my recent work and side projects.</p>
