@@ -1,30 +1,21 @@
 import React from 'react';
 import styles from '../styles/components/Achievements.module.css';
+import api from '../services/api';
 
 const Achievements = () => {
-    const achievements = [
-        {
-            id: 1,
-            title: 'Hackathon Winner',
-            description: 'Secured 1st place in the National Coding Hackathon 2024 solving complex algorithmic problems.',
-            date: '2024-03-15',
-            category: 'Competition'
-        },
-        {
-            id: 2,
-            title: 'Open Source Contributor',
-            description: 'Merged 5+ PRs to major React libraries including bug fixes and performance improvements.',
-            date: '2023-11-20',
-            category: 'Open Source'
-        },
-        {
-            id: 3,
-            title: 'AWS Certified Developer',
-            description: 'Achieved AWS Certified Developer - Associate certification with a score of 950/1000.',
-            date: '2023-08-10',
-            category: 'Certification'
-        }
-    ];
+    const [achievements, setAchievements] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchAchievements = async () => {
+            try {
+                const { data } = await api.get('/achievements');
+                setAchievements(data);
+            } catch (error) {
+                console.error('Error fetching achievements:', error);
+            }
+        };
+        fetchAchievements();
+    }, []);
 
     return (
         <section className={styles.achievementsSection} id="achievements">

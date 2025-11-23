@@ -8,48 +8,14 @@ const Projects = () => {
     const [filter, setFilter] = useState('All');
     const [loading, setLoading] = useState(true);
 
-    // Mock data
-    const mockProjects = [
-        {
-            _id: '1',
-            title: 'E-Commerce Dashboard',
-            description: 'A comprehensive dashboard for managing online stores with real-time analytics and inventory management.',
-            techStack: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
-            status: 'completed',
-            liveLink: '#',
-            githubLink: '#',
-            images: []
-        },
-        {
-            _id: '2',
-            title: 'AI Image Generator',
-            description: 'An application that uses OpenAI API to generate images from text prompts with a gallery showcase.',
-            techStack: ['React', 'OpenAI API', 'Express', 'Tailwind'],
-            status: 'in-progress',
-            liveLink: '#',
-            githubLink: '#',
-            images: []
-        },
-        {
-            _id: '3',
-            title: 'Task Management App',
-            description: 'A collaborative task manager with real-time updates, drag-and-drop interface, and team features.',
-            techStack: ['Vue.js', 'Firebase', 'Vuex'],
-            status: 'completed',
-            liveLink: '#',
-            githubLink: '#',
-            images: []
-        }
-    ];
-
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                setProjects(mockProjects);
+                const { data } = await api.get('/projects');
+                setProjects(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching projects:', error);
-                setProjects(mockProjects);
                 setLoading(false);
             }
         };

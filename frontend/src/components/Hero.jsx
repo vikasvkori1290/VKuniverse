@@ -54,15 +54,18 @@ const Hero = () => {
 
                     <div className={`${styles.heroVisual} animate-on-scroll animate-delay-2`}>
                         <div className={styles.visualPlaceholder}>
-                            <div className={`${styles.blob} ${styles.blob1}`}></div>
-                            <div className={`${styles.blob} ${styles.blob2}`}></div>
-                            <div className={`${styles.blob} ${styles.blob3}`}></div>
-                            <div className={styles.profileImageContainer}>
-                                <div className={styles.profileImage}>
-                                    <div className={styles.placeholder}>VK</div>
-                                </div>
+                            {/* Front of the card (Initial View) */}
+                            <div className={styles.flipCardFront}>
+                                {/* USER: Replace with your front image */}
+                                {/* <img src="/front-photo.jpg" alt="Front View" className={styles.userPhoto} /> */}
+                            </div>
+
+                            {/* Back of the card (Revealed on Hover) */}
+                            <div className={styles.flipCardBack}>
+                                <img src="/my-photo.jpg" alt="Vikas V" className={styles.userPhoto} />
                             </div>
                         </div>
+                        <div className={`${styles.blob} ${styles.blob1}`}></div>
                     </div>
                 </div>
             </div>

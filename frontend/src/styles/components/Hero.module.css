@@ -25,9 +25,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* Align text to the left */
     text-align: left;
-    /* Ensure text alignment is left */
 }
 
 .greeting {
@@ -47,10 +45,7 @@
 }
 
 .highlight {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent-primary);
     position: relative;
     display: inline-block;
 }
@@ -67,16 +62,12 @@
 }
 
 .typingText {
-    background: var(--gradient-blue);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-primary);
     font-weight: var(--font-weight-bold);
 }
 
 .cursor {
     color: var(--accent-primary);
-    -webkit-text-fill-color: var(--accent-primary);
     font-weight: var(--font-weight-normal);
     animation: blink 1s step-end infinite;
 }
@@ -115,105 +106,96 @@
 
 .socialIcon:hover {
     color: var(--bg-primary);
-    background: var(--gradient-primary);
-    transform: translateY(-5px) rotate(5deg);
-    box-shadow: var(--shadow-glow);
+    background: var(--accent-primary);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
 }
 
-/* Hero Visual */
+/* Hero Visual & 3D Flip */
 .heroVisual {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 500px;
+    perspective: 1000px;
 }
 
 .visualPlaceholder {
     position: relative;
+    width: 350px;
+    height: 350px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.heroVisual:hover .visualPlaceholder {
+    transform: rotateY(180deg);
+}
+
+.flipCardFront,
+.flipCardBack {
+    position: absolute;
     width: 100%;
     height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    box-shadow: var(--shadow-2xl);
+}
+
+.flipCardFront {
+    background: transparent;
+    border: none;
+}
+
+.flipCardBack {
+    background: transparent;
+    transform: rotateY(180deg);
+    border: none;
+}
+
+/* Placeholder for user image */
+.userPhotoPlaceholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 20px;
+}
+
+.userPhoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Animated Blobs */
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.7;
-    animation: float 6s ease-in-out infinite;
+    filter: blur(60px);
+    opacity: 0.4;
+    z-index: -1;
 }
 
 .blob1 {
-    width: 300px;
-    height: 300px;
-    background: var(--gradient-primary);
-    top: 10%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.blob2 {
-    width: 250px;
-    height: 250px;
-    background: var(--gradient-blue);
-    bottom: 10%;
-    right: 10%;
-    animation-delay: 2s;
-}
-
-.blob3 {
-    width: 200px;
-    height: 200px;
-    background: var(--gradient-sunset);
+    width: 400px;
+    height: 400px;
+    background: var(--accent-primary-light);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation-delay: 4s;
-}
-
-/* Profile Image Container */
-.profileImageContainer {
-    position: relative;
-    z-index: 2;
-    animation: float 3s ease-in-out infinite;
-}
-
-.profileImage {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: var(--gradient-cosmic);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-shadow: var(--shadow-2xl);
-    border: 5px solid var(--bg-primary);
-    overflow: hidden;
-}
-
-.profileImage::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: var(--gradient-primary);
-    border-radius: 50%;
-    z-index: -1;
-    animation: rotate 10s linear infinite;
-}
-
-.placeholder {
-    font-size: 5rem;
-    font-weight: var(--font-weight-extrabold);
-    color: white;
-    font-family: var(--font-display);
 }
 
 /* Responsive Design */
@@ -228,7 +210,6 @@
     .heroContent {
         max-width: 100%;
         align-items: center;
-        /* Center align on mobile */
         text-align: center;
     }
 
@@ -244,19 +225,11 @@
     .heroVisual {
         height: 400px;
         order: -1;
-        /* Move image to top on mobile if desired, or keep below */
     }
 
-    .profileImage {
-        width: 250px;
-        height: 250px;
-    }
-
-    .blob1,
-    .blob2,
-    .blob3 {
-        width: 200px;
-        height: 200px;
+    .visualPlaceholder {
+        width: 280px;
+        height: 280px;
     }
 }
 
@@ -272,44 +245,21 @@
     .subtitle {
         font-size: 1.5rem;
         justify-content: center;
-        /* Center subtitle on mobile */
     }
 
-    .description {
-        font-size: var(--font-size-base);
-    }
-
-    .heroVisual {
-        height: 300px;
-    }
-
-    .profileImage {
-        width: 200px;
-        height: 200px;
-    }
-
-    .placeholder {
-        font-size: 3rem;
-    }
-
-    .blob1,
-    .blob2,
-    .blob3 {
-        width: 150px;
-        height: 150px;
+    .visualPlaceholder {
+        width: 240px;
+        height: 240px;
     }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-
-    .blob,
-    .profileImageContainer,
-    .profileImage::before {
-        animation: none;
+    .visualPlaceholder {
+        transition: none;
     }
 
-    .socialIcon:hover {
+    .heroVisual:hover .visualPlaceholder {
         transform: none;
     }
 }

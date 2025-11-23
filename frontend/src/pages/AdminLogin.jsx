@@ -7,8 +7,14 @@ const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useContext(AuthContext);
+    const { login, admin } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (admin) {
+            navigate('/admin/dashboard');
+        }
+    }, [admin, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

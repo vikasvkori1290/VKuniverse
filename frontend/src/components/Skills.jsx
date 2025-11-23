@@ -1,68 +1,44 @@
 import React from 'react';
+import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGitAlt, FaDocker } from 'react-icons/fa';
+import { SiMongodb, SiExpress, SiTailwindcss, SiTypescript } from 'react-icons/si';
+import SkillCard from './SkillCard';
+import api from '../services/api';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import styles from '../styles/components/Skills.module.css';
 
 const Skills = () => {
-    const skillCategories = [
-        {
-            title: 'Frontend',
-            skills: [
-                { name: 'React', level: 90 },
-                { name: 'JavaScript (ES6+)', level: 85 },
-                { name: 'HTML5/CSS3', level: 95 },
-                { name: 'Redux', level: 80 },
-                { name: 'Next.js', level: 75 }
-            ]
-        },
-        {
-            title: 'Backend',
-            skills: [
-                { name: 'Node.js', level: 85 },
-                { name: 'Express', level: 85 },
-                { name: 'MongoDB', level: 80 },
-                { name: 'REST APIs', level: 90 },
-                { name: 'GraphQL', level: 70 }
-            ]
-        },
-        {
-            title: 'Tools & Others',
-            skills: [
-                { name: 'Git/GitHub', level: 90 },
-                { name: 'Docker', level: 65 },
-                { name: 'AWS', level: 60 },
-                { name: 'Figma', level: 75 },
-                { name: 'Agile/Scrum', level: 85 }
-            ]
-        }
-    ];
+    useScrollAnimation({ threshold: 0.1 });
+
+    const [skills, setSkills] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchSkills = async () => {
+            try {
+                const { data } = await api.get('/skills');
+                setSkills(data);
+            } catch (error) {
+                console.error('Error fetching skills:', error);
+            }
+        };
+        fetchSkills();
+    }, []);
 
     return (
         <section className={styles.skillsSection} id="skills">
-            <div className={styles.container}>
+            <div className="container">
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <h2 className={styles.title}>Technical Skills</h2>
-                    <p className={styles.subtitle}>My proficiency in various technologies and tools.</p>
+                    <p className={styles.subtitle}>My expertise in the modern web development stack</p>
                 </div>
 
                 <div className={styles.skillsGrid}>
-                    {skillCategories.map((category, index) => (
-                        <div key={index} className={`${styles.skillCategory} animate-on-scroll animate-delay-${index + 1}`}>
-                            <h3 className={styles.categoryTitle}>{category.title}</h3>
-                            <div className={styles.skillList}>
-                                {category.skills.map((skill, idx) => (
-                                    <div key={idx} className={styles.skillItem}>
-                                        <div className={styles.skillInfo}>
-                                            <span className={styles.skillName}>{skill.name}</span>
-                                            <span className={styles.skillLevel}>{skill.level}%</span>
-                                        </div>
-                                        <div className={styles.progressBar}>
-                                            <div
-                                                className={styles.progressFill}
-                                                style={{ width: `${skill.level}%` }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                    {skills.map((skill, index) => (
+                        <div
+                            key={index}
+                            className="animate-on-scroll"
+                            style={{ transitionDelay: `${index * 100}ms` }}
+                        >
+                            <SkillCard {...skill} />
                         </div>
                     ))}
                 </div>

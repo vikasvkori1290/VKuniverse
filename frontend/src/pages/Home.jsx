@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import About from '../components/About';
 import styles from '../styles/pages/Home.module.css';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
             <Navbar />
             <main>
                 <Hero />
+                <About />
                 <section id="contact" className={styles.contactSection}>
                     <div className="container">
                         <div className="animate-on-scroll">
