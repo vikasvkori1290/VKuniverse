@@ -23,6 +23,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/achievements', require('./routes/achievements'));
 app.use('/api/skills', require('./routes/skills'));
+app.use('/api/messages', require('./routes/messages'));
+app.use('/api/blog', require('./routes/blog'));
 
 // Upload Routes
 const { upload, compressImage } = require('./middleware/upload');

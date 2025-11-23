@@ -18,6 +18,7 @@ const Footer = () => {
                     </div>
                 </div>
 
+
                 {/* Footer Content */}
                 <div className={styles.footerContent}>
                     <div className={styles.footerInfo}>

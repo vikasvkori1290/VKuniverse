@@ -65,6 +65,13 @@ const Navbar = () => {
                         >
                             Achievements
                         </Link>
+                        {/* <Link
+                            to="/blog"
+                            className={isActive('/blog') ? styles.activeLink : ''}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Blog
+                        </Link> */}
                         <a
                             href="#contact"
                             onClick={() => setMenuOpen(false)}

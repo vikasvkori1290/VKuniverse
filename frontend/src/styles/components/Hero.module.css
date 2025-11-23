@@ -83,6 +83,18 @@
     display: flex;
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-2xl);
+    flex-wrap: wrap;
+}
+
+.resumeBtn {
+    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-secondary-hover));
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.resumeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
 }
 
 .socialLinks {

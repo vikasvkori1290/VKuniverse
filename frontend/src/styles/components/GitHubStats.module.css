@@ -1,0 +1,87 @@
+.githubSection {
+    padding: var(--spacing-4xl) 0;
+    background: var(--bg-primary);
+    width: 100%;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin: 0 auto var(--spacing-3xl);
+    max-width: 800px;
+}
+
+.title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+}
+
+.statsContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.statCard,
+.languagesCard,
+.calendarCard {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal);
+}
+
+.statCard:hover,
+.languagesCard:hover,
+.calendarCard:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.statImage {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md);
+}
+
+.calendarTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.calendarWrapper {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .calendarWrapper {
+        overflow-x: scroll;
+    }
+}

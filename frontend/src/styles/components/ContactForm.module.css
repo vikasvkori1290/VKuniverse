@@ -1,0 +1,123 @@
+.contactSection {
+    padding: var(--spacing-4xl) 0;
+    background: var(--bg-primary);
+    width: 100%;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin: 0 auto var(--spacing-3xl);
+    max-width: 800px;
+}
+
+.title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+}
+
+.formContainer {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.form {
+    background: var(--bg-secondary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+.formGroup {
+    margin-bottom: var(--spacing-lg);
+}
+
+.formGroup label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    transition: all var(--transition-normal);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-primary-light);
+}
+
+.formGroup textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.statusMessage {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+    font-weight: var(--font-weight-medium);
+}
+
+.statusMessage.success {
+    background: var(--color-success-light);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+
+.statusMessage.error {
+    background: var(--color-error-light);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+}
+
+.submitBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-lg);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+
+    .form {
+        padding: var(--spacing-lg);
+    }
+}
