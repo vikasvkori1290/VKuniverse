@@ -34,13 +34,7 @@ const Hero = () => {
                         <div className={styles.ctaButtons}>
                             <a href="#projects" className="btn btn-primary btn-lg">View Projects</a>
                             <a href="#contact" className="btn btn-secondary btn-lg">Contact Me</a>
-                            <a
-                                href="/resume.pdf"
-                                download="Vikas_V_Resume.pdf"
-                                className={`btn btn-lg ${styles.resumeBtn}`}
-                            >
-                                📄 Download Resume
-                            </a>
+
                         </div>
 
                         <div className={styles.socialLinks}>

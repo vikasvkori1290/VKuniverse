@@ -173,6 +173,24 @@
     line-height: 1.6;
 }
 
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-3xl);
+    width: 100%;
+}
+
+.resumeBtn {
+    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-secondary-hover));
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.resumeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .timeline::before {

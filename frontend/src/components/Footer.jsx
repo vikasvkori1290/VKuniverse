@@ -7,16 +7,7 @@ const Footer = () => {
         <footer className={styles.footer} id="contact">
             <div className={styles.gradientOverlay}></div>
             <div className="container">
-                {/* Contact Section */}
-                <div className={styles.contactSection}>
-                    <div className="animate-on-scroll">
-                        <h2 className={styles.contactTitle}>Get In Touch</h2>
-                        <p className={styles.contactSubtitle}>
-                            Have a project in mind or just want to say hi? I'd love to hear from you.
-                        </p>
-                        <a href="mailto:vikasvkori129@gmail.com" className="btn btn-primary btn-lg">Say Hello</a>
-                    </div>
-                </div>
+
 
 
                 {/* Footer Content */}
