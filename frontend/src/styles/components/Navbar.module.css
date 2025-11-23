@@ -105,22 +105,23 @@
     width: 40px;
     height: 40px;
     border-radius: var(--border-radius-full);
-    border: none;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--accent-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     transition: all var(--transition-normal);
 }
 
 .themeToggle:hover {
-    background: var(--gradient-primary);
+    background: var(--accent-primary);
     color: white;
-    transform: rotate(15deg) scale(1.1);
+    transform: rotate(180deg) scale(1.1);
     box-shadow: var(--shadow-glow);
+    border-color: var(--accent-primary);
 }
 
 .adminBtn {

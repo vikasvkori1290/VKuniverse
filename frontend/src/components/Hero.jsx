@@ -57,7 +57,7 @@ const Hero = () => {
                             {/* Front of the card (Initial View) */}
                             <div className={styles.flipCardFront}>
                                 {/* USER: Replace with your front image */}
-                                {/* <img src="/front-photo.jpg" alt="Front View" className={styles.userPhoto} /> */}
+                                <img src="/front-photo.png" alt="Front View" className={styles.userPhoto} />
                             </div>
 
                             {/* Back of the card (Revealed on Hover) */}
