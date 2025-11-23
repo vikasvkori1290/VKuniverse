@@ -32,8 +32,7 @@ const Navbar = () => {
             <div className="container">
                 <div className={styles.navContent}>
                     <Link to="/" className={styles.logo}>
-                        <span className={styles.logoText}>VK</span>
-                        <span className={styles.logoSubtext}>Portfolio</span>
+                        <img src="/logo.png" alt="VKuniverse Logo" className={styles.logoImage} />
                     </Link>
 
                     <div className={`${styles.navLinks} ${menuOpen ? styles.active : ''}`}>

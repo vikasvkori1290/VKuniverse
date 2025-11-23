@@ -5,10 +5,10 @@ import styles from '../styles/components/Hero.module.css';
 
 const Hero = () => {
     const titles = [
-        'Full Stack Developer',
+        'Aspiring FullStack Developer',
         'Problem Solver',
         'UI/UX Enthusiast',
-        'Tech Innovator'
+        'API Expert'
     ];
 
     const { text: typingText, cursor } = useTypingEffect(titles, 80, 40, 2000);
@@ -63,7 +63,7 @@ const Hero = () => {
 
                             {/* Back of the card (Revealed on Hover) */}
                             <div className={styles.flipCardBack}>
-                                <img src="/my-photo.jpg" alt="Vikas V" className={styles.userPhoto} />
+                                <img src="/my-photo.png" alt="Vikas V" className={styles.userPhoto} />
                             </div>
                         </div>
                         <div className={`${styles.blob} ${styles.blob1}`}></div>

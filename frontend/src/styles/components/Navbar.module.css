@@ -27,6 +27,7 @@
 
 /* Logo */
 .logo {
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -37,24 +38,18 @@
     text-decoration: none;
     transition: transform var(--transition-normal);
 }
+.logo img, .logo svg {
+    margin-top: 10px;
+    height: 50px;  /* or whatever height suits you */
+    width: auto;
+    max-width: 100%;
+}
+
 
 .logo:hover {
     transform: scale(1.05);
 }
 
-.logoText {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 1.75rem;
-}
-
-.logoSubtext {
-    font-size: 1rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--text-secondary);
-}
 
 /* Nav Links */
 .navLinks {

@@ -20,9 +20,9 @@ const Footer = () => {
                     </div>
 
                     <div className={styles.socialLinks}>
-                        <a href="#" className={styles.socialIcon} aria-label="GitHub"><FaGithub /></a>
-                        <a href="#" className={styles.socialIcon} aria-label="LinkedIn"><FaLinkedin /></a>
-                        <a href="#" className={styles.socialIcon} aria-label="Twitter"><FaTwitter /></a>
+                        <a href="https://github.com/vikasvkori1290" className={styles.socialIcon} aria-label="GitHub"><FaGithub /></a>
+                        <a href="https://www.linkedin.com/in/vikas-v-4a4749330/" className={styles.socialIcon} aria-label="LinkedIn"><FaLinkedin /></a>
+                        <a href="https://twitter.com/vikasvkori1290" className={styles.socialIcon} aria-label="Twitter"><FaTwitter /></a>
                         <a href="mailto:vikasvkori129@gmail.com" className={styles.socialIcon} aria-label="Email"><FaEnvelope /></a>
                     </div>
                 </div>

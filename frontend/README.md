@@ -1,16 +1,43 @@
-# React + Vite
+# VKuniverse Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, premium portfolio built with React + Vite, showcasing a dynamic UI and full‑stack features.
 
-Currently, two official plugins are available:
+## Highlights & Unique Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Starry Background** – Animated star field component (`StarBackground`) integrated globally.
+- **Contact Page** – Dedicated `/contact` route with reusable `ContactForm`.
+- **Achievements Filters** – Category buttons (All, Hackathon, LeetCode, Certification, Award) with smooth UI.
+- **Scroll‑to‑Top on Navigation** – `ScrollToTopOnMount` ensures each route loads at the top.
+- **Line‑Clamp Compatibility** – Added standard `line‑clamp` property for blog excerpts and project cards.
+- **Admin Dashboard Enhancements**
+  - Logout redirects to home page.
+  - New **Messages** tab to view, mark as read, and delete contact form submissions.
+  - Integrated `Messages` component with styled UI.
+- **Hero Section Updates** – New tagline, updated titles, and personalized welcome text.
+- **Responsive Design** – Fluid layouts, glass‑morphism effects, and micro‑animations throughout.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React, Vite, vanilla CSS (CSS variables for design tokens)
+- **Backend:** Node.js, Express, MongoDB (API for messages, authentication)
+- **Icons:** React‑Icons, custom SVG assets
+- **Deployment:** Runs with `npm run dev` (frontend) and `node server.js` (backend)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Install dependencies
+npm install
+
+# Run frontend
+npm run dev
+
+# Run backend
+node server.js
+```
+
+Explore the live site at `http://localhost:5173`. The admin panel is accessible at `/admin` (login required).
+
+---
+
+Feel free to customize further—add new sections, update styles, or extend backend routes. Happy coding!

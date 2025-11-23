@@ -15,9 +15,18 @@ const projectSchema = mongoose.Schema({
     liveLink: {
         type: String,
     },
+    liveDemoUrl: {
+        type: String,
+    },
     githubLink: {
         type: String,
     },
+    sourceCodeUrl: {
+        type: String,
+    },
+    screenshots: [{
+        type: String,
+    }],
     images: [{
         url: {
             type: String,

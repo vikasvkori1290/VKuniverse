@@ -1,4 +1,5 @@
 const Message = require('../models/Message');
+const { sendNotificationEmail } = require('../services/email');
 
 // Create new message
 exports.createMessage = async (req, res) => {
@@ -18,6 +19,12 @@ exports.createMessage = async (req, res) => {
         });
 
         await newMessage.save();
+
+        // Send notification email (don't wait for it or fail if it errors)
+        sendNotificationEmail(newMessage).catch(err => {
+            console.error('Failed to send notification email:', err);
+        });
+
         res.status(201).json({ message: 'Message sent successfully!', data: newMessage });
     } catch (error) {
         console.error('Error creating message:', error);
