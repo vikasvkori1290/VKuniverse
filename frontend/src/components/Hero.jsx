@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
@@ -32,9 +33,8 @@ const Hero = () => {
                             Welcome to VKuniverse , I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.
                         </p>
                         <div className={styles.ctaButtons}>
-                            <a href="#projects" className="btn btn-primary btn-lg">View Projects</a>
+                            <Link to="/projects" className="btn btn-primary btn-lg">View Projects</Link>
                             <a href="#contact" className="btn btn-secondary btn-lg">Contact Me</a>
-
                         </div>
 
                         <div className={styles.socialLinks}>

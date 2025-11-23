@@ -9,7 +9,7 @@
     align-items: center;
     gap: var(--spacing-sm);
     padding: var(--spacing-sm) var(--spacing-md);
-    margin: var(--spacing-xl) 0;
+    margin: var(--spacing-2xl) 0 var(--spacing-xl) 0;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
@@ -22,29 +22,6 @@
 .backButton:hover {
     background: var(--bg-tertiary);
     transform: translateX(-4px);
-}
-
-.hero {
-    padding: var(--spacing-3xl) 0;
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-    margin-bottom: var(--spacing-3xl);
-}
-
-.title {
-    font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-extrabold);
-    color: white;
-    margin-bottom: var(--spacing-md);
-}
-
-.status {
-    display: flex;
-    gap: var(--spacing-sm);
-}
-
-.badge {
-    display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-md);
     border-radius: var(--border-radius-full);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);

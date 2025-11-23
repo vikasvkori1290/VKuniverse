@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaGithub, FaExternalLinkAlt, FaImages } from 'react-icons/fa';
 import styles from '../styles/components/ProjectCard.module.css';
 
@@ -25,7 +26,8 @@ const ProjectCard = ({ project }) => {
     const imageCount = project.images?.length || 0;
 
     return (
-        <div
+        <Link
+            to={`/projects/${project._id}`}
             className={`${styles.projectCard} animate-on-scroll`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -88,6 +90,7 @@ const ProjectCard = ({ project }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`${styles.actionButton} ${styles.liveButton}`}
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <FaExternalLinkAlt />
                             <span>Live Demo</span>
@@ -99,6 +102,7 @@ const ProjectCard = ({ project }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`${styles.actionButton} ${styles.githubButton}`}
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <FaGithub />
                             <span>GitHub</span>
@@ -106,7 +110,7 @@ const ProjectCard = ({ project }) => {
                     )}
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

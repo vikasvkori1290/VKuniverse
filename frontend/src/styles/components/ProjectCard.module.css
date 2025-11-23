@@ -1,15 +1,17 @@
 .projectCard {
+    display: block;
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-xl);
     overflow: hidden;
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-md);
-    display: flex;
     flex-direction: column;
     height: 100%;
     position: relative;
     text-align: left;
+    text-decoration: none;
+    color: inherit;
 }
 
 .projectCard:hover {

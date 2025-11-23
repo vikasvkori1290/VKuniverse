@@ -20,8 +20,8 @@ const AdminDashboard = () => {
     description: '',
     images: [], // Array of { url, isThumbnail, order }
     tags: '',
-    link: '',
-    github: '',
+    liveLink: '',
+    githubLink: '',
     status: 'completed'
   });
 
@@ -72,8 +72,8 @@ const AdminDashboard = () => {
         description: '',
         images: [],
         tags: '',
-        link: '',
-        github: '',
+        liveLink: '',
+        githubLink: '',
         status: 'completed'
       });
     } catch (error) {
@@ -196,11 +196,11 @@ const AdminDashboard = () => {
                   <div className={styles.row}>
                     <div className={styles.formGroup}>
                       <label>Live Link</label>
-                      <input type="text" className={styles.input} placeholder="https://example.com" value={projectForm.link} onChange={e => setProjectForm({ ...projectForm, link: e.target.value })} />
+                      <input type="text" className={styles.input} placeholder="https://example.com" value={projectForm.liveLink} onChange={e => setProjectForm({ ...projectForm, liveLink: e.target.value })} />
                     </div>
                     <div className={styles.formGroup}>
                       <label>GitHub Link</label>
-                      <input type="text" className={styles.input} placeholder="https://github.com/user/repo" value={projectForm.github} onChange={e => setProjectForm({ ...projectForm, github: e.target.value })} />
+                      <input type="text" className={styles.input} placeholder="https://github.com/user/repo" value={projectForm.githubLink} onChange={e => setProjectForm({ ...projectForm, githubLink: e.target.value })} />
                     </div>
                   </div>
 
