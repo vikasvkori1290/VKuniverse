@@ -1,6 +1,7 @@
 @import './variables.css';
 @import './reset.css';
 @import './animations.css';
+@import './utilities.css';
 
 body {
     font-family: var(--font-primary);
@@ -92,12 +93,12 @@ a:hover {
 .btn-primary {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
     color: white;
-    box-shadow: 0 4px 12px rgba(32, 190, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(32, 190, 255, 0.3);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
 
 .btn-secondary {

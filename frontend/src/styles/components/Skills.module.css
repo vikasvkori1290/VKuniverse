@@ -1,11 +1,16 @@
 .skillsSection {
     padding: var(--spacing-4xl) 0;
     background: var(--bg-primary);
+    width: 100%;
 }
 
 .sectionHeader {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .title {
@@ -22,6 +27,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-2xl);
+    max-width: var(--container-xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .skillCategory {
@@ -75,4 +84,11 @@
     background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
     border-radius: var(--border-radius-full);
     transition: width 1s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .skillsGrid {
+        grid-template-columns: 1fr;
+        padding: 0 var(--spacing-md);
+    }
 }

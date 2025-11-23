@@ -1,21 +1,23 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Projects from '../components/Projects';
-import Skills from '../components/Skills';
-import Achievements from '../components/Achievements';
 import Footer from '../components/Footer';
+import ParticleBackground from '../components/ParticleBackground';
+import ScrollProgress from '../components/ScrollProgress';
+import ScrollToTop from '../components/ScrollToTop';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import styles from '../styles/pages/Home.module.css';
 
 const Home = () => {
+    useScrollAnimation({ threshold: 0.15, triggerOnce: true });
+
     return (
         <div className={styles.home}>
+            <ParticleBackground />
+            <ScrollProgress />
             <Navbar />
             <main>
                 <Hero />
-                <Projects />
-                <Skills />
-                <Achievements />
                 <section id="contact" className={styles.contactSection}>
                     <div className="container">
                         <div className="animate-on-scroll">
@@ -29,6 +31,7 @@ const Home = () => {
                 </section>
             </main>
             <Footer />
+            <ScrollToTop />
         </div>
     );
 };

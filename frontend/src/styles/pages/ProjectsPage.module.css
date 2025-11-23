@@ -1,0 +1,12 @@
+.projectsPage {
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.mainContent {
+    padding-top: 80px;
+    min-height: calc(100vh - 200px);
+    width: 100%;
+    max-width: 100%;
+}

@@ -1,0 +1,23 @@
+.scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: var(--z-fixed);
+    pointer-events: none;
+}
+
+.progressBar {
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .progressBar {
+        transition: none;
+    }
+}

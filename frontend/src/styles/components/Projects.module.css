@@ -1,11 +1,16 @@
 .projectsSection {
     padding: var(--spacing-4xl) 0;
     background: var(--bg-secondary);
+    width: 100%;
 }
 
 .sectionHeader {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .title {
@@ -24,6 +29,7 @@
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-2xl);
     flex-wrap: wrap;
+    padding: 0 var(--spacing-lg);
 }
 
 .filterButton {
@@ -55,12 +61,17 @@
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-2xl);
+    max-width: var(--container-xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .projectsGrid {
         grid-template-columns: 1fr;
+        padding: 0 var(--spacing-md);
     }
 }
 

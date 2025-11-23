@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { FaMoon, FaSun } from 'react-icons/fa';
 import styles from '../styles/components/Navbar.module.css';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [theme, setTheme] = useState('light');
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,27 +22,86 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+    };
+
+    const isActive = (path) => {
+        return location.pathname === path;
+    };
+
     return (
         <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
             <div className="container">
                 <div className={styles.navContent}>
                     <Link to="/" className={styles.logo}>
-                        Portfolio<span className={styles.dot}>.</span>
+                        <span className={styles.logoText}>VK</span>
+                        <span className={styles.logoSubtext}>Portfolio</span>
                     </Link>
 
                     <div className={`${styles.navLinks} ${menuOpen ? styles.active : ''}`}>
-                        <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-                        <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
-                        <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
-                        <a href="#achievements" onClick={() => setMenuOpen(false)}>Achievements</a>
-                        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-                        <Link to="/admin/login" className="btn btn-sm btn-primary" onClick={() => setMenuOpen(false)}>Admin</Link>
+                        <Link
+                            to="/"
+                            className={isActive('/') ? styles.activeLink : ''}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            to="/projects"
+                            className={isActive('/projects') ? styles.activeLink : ''}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Projects
+                        </Link>
+                        <Link
+                            to="/skills"
+                            className={isActive('/skills') ? styles.activeLink : ''}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Skills
+                        </Link>
+                        <Link
+                            to="/achievements"
+                            className={isActive('/achievements') ? styles.activeLink : ''}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Achievements
+                        </Link>
+                        <a
+                            href="#contact"
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Contact
+                        </a>
                     </div>
 
-                    <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
-                        <span className={menuOpen ? styles.barOpen : ''}></span>
-                        <span className={menuOpen ? styles.barOpen : ''}></span>
-                        <span className={menuOpen ? styles.barOpen : ''}></span>
+                    <div className={styles.navActions}>
+                        <button
+                            className={styles.themeToggle}
+                            onClick={toggleTheme}
+                            aria-label="Toggle theme"
+                        >
+                            {theme === 'light' ? <FaMoon /> : <FaSun />}
+                        </button>
+
+                        <Link
+                            to="/admin/login"
+                            className={`btn btn-sm btn-primary ${styles.adminBtn}`}
+                        >
+                            Admin
+                        </Link>
+
+                        <div
+                            className={`${styles.hamburger} ${menuOpen ? styles.active : ''}`}
+                            onClick={() => setMenuOpen(!menuOpen)}
+                        >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </div>

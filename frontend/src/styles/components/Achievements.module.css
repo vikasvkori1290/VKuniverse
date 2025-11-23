@@ -1,11 +1,16 @@
 .achievementsSection {
     padding: var(--spacing-4xl) 0;
     background: var(--bg-secondary);
+    width: 100%;
 }
 
 .sectionHeader {
     text-align: center;
     margin-bottom: var(--spacing-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .title {
@@ -20,8 +25,9 @@
 
 .timeline {
     position: relative;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0 var(--spacing-lg);
 }
 
 .timeline::before {
@@ -115,6 +121,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .timeline {
+        padding: 0 var(--spacing-md);
+    }
+
     .timeline::before {
         left: 20px;
     }
