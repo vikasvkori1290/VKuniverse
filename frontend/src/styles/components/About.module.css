@@ -1,6 +1,6 @@
 .aboutSection {
     padding: var(--spacing-4xl) 0;
-    background: var(--bg-primary);
+    /* background: var(--bg-primary); */
     /* Match Hero section */
     width: 100%;
 }

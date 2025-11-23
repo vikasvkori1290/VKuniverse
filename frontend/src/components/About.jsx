@@ -7,28 +7,28 @@ const About = () => {
 
     const timelineData = [
         {
-            year: '2023 - Present',
-            title: 'Senior Full Stack Developer',
-            institution: 'Tech Solutions Inc.',
-            description: 'Leading a team of developers in building scalable web applications using MERN stack. Implemented CI/CD pipelines and improved application performance by 40%.'
+            year: '2025 – Present',
+            title: 'Aspiring MERN Stack Engineer',
+            institution: 'Building Future-ready Web Solutions',
+            description: 'Fueled by a passion for solving real-world problems, currently mastering Data Structures & Algorithms in Python while specializing in developing robust APIs and scalable web applications. Eager to innovate and contribute to impactful projects as a full-stack developer, combining technical expertise with strong problem-solving abilities.'
         },
         {
-            year: '2021 - 2023',
-            title: 'Full Stack Developer',
-            institution: 'Digital Innovations',
-            description: 'Developed and maintained multiple client projects. Specialized in React frontend architecture and Node.js backend services.'
+            year: 'October 2025 – Present',
+            title: 'DSA & MERN Stack Enthusiast',
+            institution: 'Deep Dive into Advanced Concepts',
+            description: 'Started an intensive journey into Data Structures and Algorithms along with the MERN stack, focusing on hands-on projects and practical applications. Striving to bridge the gap between core programming concepts and the complexities of modern web development.'
         },
         {
-            year: '2019 - 2021',
-            title: 'Frontend Developer',
-            institution: 'Creative Web Agency',
-            description: 'Collaborated with designers to translate UI/UX wireframes into high-quality code. Built responsive and interactive websites.'
+            year: '2024 – 2025',
+            title: 'Explored Diverse Development Domains',
+            institution: 'First Year, Infinite Possibilities',
+            description: 'Embraced and explored every major area of software development—from frontend interfaces to backend logic, mobile apps to hardware projects. Enjoyed a dynamic first year of experimentation, laying the foundation for a well-rounded developer mindset.'
         },
         {
-            year: '2015 - 2019',
-            title: 'B.Tech in Computer Science',
-            institution: 'University of Technology',
-            description: 'Graduated with Honors. Focused on Data Structures, Algorithms, and Web Technologies. Led the university coding club.'
+            year: '2024',
+            title: 'B.Tech Computer Science Engineer',
+            institution: 'CMR University, Bangalore',
+            description: 'Embarked on a transformative journey at CMR University, Bangalore, as a B.Tech student specializing in Computer Science. Developing skills through academic rigor, practical projects, and active participation in the tech community.'
         }
     ];
 

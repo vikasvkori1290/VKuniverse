@@ -1,0 +1,122 @@
+.messagesContainer {
+    padding: var(--spacing-xl);
+}
+
+.messagesContainer h2 {
+    margin-bottom: var(--spacing-2xl);
+    color: var(--text-primary);
+}
+
+.messagesList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.messageCard {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-normal);
+}
+
+.messageCard.unread {
+    border-left: 4px solid var(--accent-primary);
+    background: var(--bg-primary);
+}
+
+.messageCard:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.messageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+}
+
+.senderInfo h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+}
+
+.email {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.messageActions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.actionBtn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionBtn:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.deleteBtn:hover {
+    background: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.messageSubject {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+}
+
+.messageBody {
+    background: var(--bg-tertiary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    color: var(--text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-md);
+    white-space: pre-wrap;
+}
+
+.messageFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.unreadBadge {
+    background: var(--accent-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.loading,
+.empty {
+    text-align: center;
+    padding: var(--spacing-4xl);
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+}

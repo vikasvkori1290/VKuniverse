@@ -4,7 +4,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    background: var(--bg-primary);
+    /* background: var(--bg-primary); */
     padding: var(--spacing-4xl) 0;
     width: 100%;
 }

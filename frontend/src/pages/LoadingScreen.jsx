@@ -8,7 +8,7 @@ const LoadingScreen = () => {
         // Start fade out after 3 seconds
         const timer = setTimeout(() => {
             setFadeOut(true);
-        }, 3000);
+        },4000);
         return () => clearTimeout(timer);
     }, []);
 

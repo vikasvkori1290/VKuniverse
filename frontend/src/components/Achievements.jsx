@@ -4,6 +4,11 @@ import api from '../services/api';
 
 const Achievements = () => {
     const [achievements, setAchievements] = React.useState([]);
+    const [activeFilter, setActiveFilter] = React.useState('All');
+
+    const filteredAchievements = achievements.filter(item =>
+        activeFilter === 'All' ? true : item.category === activeFilter
+    );
 
     React.useEffect(() => {
         const fetchAchievements = async () => {
@@ -45,8 +50,20 @@ const Achievements = () => {
                     <p className={styles.subtitle}>Milestones and recognitions along my journey.</p>
                 </div>
 
+                <div className={styles.filterContainer}>
+                    {['All', 'Hackathon', 'LeetCode', 'Certification', 'Award'].map(filter => (
+                        <button
+                            key={filter}
+                            className={`${styles.filterBtn} ${activeFilter === filter ? styles.active : ''}`}
+                            onClick={() => setActiveFilter(filter)}
+                        >
+                            {filter}
+                        </button>
+                    ))}
+                </div>
+
                 <div className={styles.timeline}>
-                    {achievements.map((item, index) => (
+                    {filteredAchievements.map((item, index) => (
                         <div key={item._id || index} className={`${styles.timelineItem} animate-on-scroll animate-delay-${index + 1}`}>
                             <div className={styles.timelineDot}></div>
                             <div className={styles.timelineContent}>

@@ -72,12 +72,13 @@ const Navbar = () => {
                         >
                             Blog
                         </Link> */}
-                        <a
-                            href="#contact"
+                        <Link
+                            to="/contact"
+                            className={isActive('/contact') ? styles.activeLink : ''}
                             onClick={() => setMenuOpen(false)}
                         >
                             Contact
-                        </a>
+                        </Link>
                     </div>
 
                     <div className={styles.navActions}>

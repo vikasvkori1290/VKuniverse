@@ -29,7 +29,7 @@ const Hero = () => {
                             </span>
                         </h2>
                         <p className={styles.description}>
-                            I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.
+                            Welcome to VKuniverse , I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.
                         </p>
                         <div className={styles.ctaButtons}>
                             <a href="#projects" className="btn btn-primary btn-lg">View Projects</a>

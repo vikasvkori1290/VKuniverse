@@ -6,6 +6,7 @@ import styles from '../styles/pages/AdminDashboard.module.css';
 import ImageUploader from '../components/admin/ImageUploader';
 import SkillIconPicker from '../components/admin/SkillIconPicker';
 import RecentlyUploaded from '../components/admin/RecentlyUploaded';
+import Messages from '../components/admin/Messages';
 
 const AdminDashboard = () => {
   const { admin, logout } = useContext(AuthContext);
@@ -49,8 +50,11 @@ const AdminDashboard = () => {
   }, [admin, navigate]);
 
   const handleLogout = () => {
-    logout();
-    navigate('/admin/login');
+    navigate('/');
+    // Use setTimeout to allow navigation to start before logout clears state
+    setTimeout(() => {
+      logout();
+    }, 0);
   };
 
   const handleProjectSubmit = async (e) => {
@@ -147,6 +151,7 @@ const AdminDashboard = () => {
             <button className={`${styles.tab} ${activeTab === 'projects' ? styles.active : ''}`} onClick={() => setActiveTab('projects')}>Projects</button>
             <button className={`${styles.tab} ${activeTab === 'skills' ? styles.active : ''}`} onClick={() => setActiveTab('skills')}>Skills</button>
             <button className={`${styles.tab} ${activeTab === 'achievements' ? styles.active : ''}`} onClick={() => setActiveTab('achievements')}>Achievements</button>
+            <button className={`${styles.tab} ${activeTab === 'messages' ? styles.active : ''}`} onClick={() => setActiveTab('messages')}>Messages</button>
             <button className={`${styles.tab} ${activeTab === 'recent' ? styles.active : ''}`} onClick={() => setActiveTab('recent')}>History</button>
           </div>
 
@@ -282,6 +287,9 @@ const AdminDashboard = () => {
                         <option>Certification</option>
                         <option>Award</option>
                         <option>Hackathon</option>
+                        <option>LeetCode</option>
+                        <option>Certification</option>
+                        <option>Award</option>
                         <option>Education</option>
                       </select>
                     </div>
@@ -294,6 +302,12 @@ const AdminDashboard = () => {
 
                   <button type="submit" className="btn btn-primary">Add Achievement</button>
                 </form>
+              </div>
+            )}
+
+            {activeTab === 'messages' && (
+              <div className={styles.section}>
+                <Messages />
               </div>
             )}
 
