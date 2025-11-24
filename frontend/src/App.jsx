@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Home from './pages/Home';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetail from './pages/ProjectDetail';
+import ResumeBuilder from './pages/ResumeBuilder';
 import SkillsPage from './pages/SkillsPage';
 import AchievementsPage from './pages/AchievementsPage';
 import ContactPage from './pages/ContactPage';
@@ -49,6 +50,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
+              <Route path="/resume-builder" element={<ResumeBuilder />} /> {/* Added route */}
               <Route path="/skills" element={<SkillsPage />} />
               <Route path="/achievements" element={<AchievementsPage />} />
               <Route path="/contact" element={<ContactPage />} />

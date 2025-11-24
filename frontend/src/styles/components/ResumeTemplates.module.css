@@ -1,0 +1,344 @@
+/* Common Styles */
+.resumeContainer {
+    width: 100%;
+    min-height: 800px;
+    background: white;
+    color: #333;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+}
+
+/* Template 1: Classic */
+.classic {
+    font-family: 'Times New Roman', serif;
+}
+
+.classicHeader {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+}
+
+.classicHeader h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.classicContact {
+    font-size: 14px;
+    color: #666;
+}
+
+.classicSection {
+    margin-bottom: 25px;
+}
+
+.classicSectionTitle {
+    font-size: 18px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Template 2: Modern */
+.modern {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 100%;
+    padding: 0;
+    /* Override padding */
+}
+
+.modernSidebar {
+    background-color: #f4f4f4;
+    padding: 30px 20px;
+    height: 100%;
+}
+
+.modernMain {
+    padding: 30px;
+}
+
+.modernHeader {
+    margin-bottom: 30px;
+}
+
+.modernName {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.modernRole {
+    font-size: 18px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modernSectionTitle {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+}
+
+/* Template 3: Minimalist */
+.minimalist {
+    font-family: 'Inter', sans-serif;
+    padding: 50px;
+}
+
+.minimalistHeader {
+    margin-bottom: 40px;
+}
+
+.minimalistName {
+    font-size: 42px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.minimalistContact {
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.minimalistSection {
+    margin-bottom: 30px;
+}
+
+.minimalistSectionTitle {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* Template 4: Creative */
+.creative {
+    font-family: 'Poppins', sans-serif;
+    padding: 0;
+}
+
+.creativeHeader {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.creativeName {
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.creativeContact {
+    text-align: right;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.creativeBody {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.creativeSectionTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Template 5: Professional */
+.professional {
+    font-family: 'Georgia', serif;
+}
+
+.professionalHeader {
+    border-bottom: 4px solid var(--accent-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.professionalName {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.professionalContact {
+    text-align: right;
+    font-size: 13px;
+}
+
+.professionalGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.professionalSectionTitle {
+    background-color: #f0f0f0;
+    padding: 8px 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--accent-color);
+}
+
+/* Common Item Styles */
+.item {
+    margin-bottom: 15px;
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.itemRole {
+    font-weight: bold;
+}
+
+.itemCompany {
+    font-style: italic;
+}
+
+.itemDate {
+    font-size: 13px;
+    color: #666;
+}
+
+.skillTag {
+    display: inline-block;
+    background: #eee;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+/* Photo Template Styles */
+.photoContainer {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 3px solid var(--accent-color);
+}
+
+.photoContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Classic Photo */
+.classicPhotoHeader {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.classicPhotoHeader .photoContainer {
+    margin: 0;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+}
+
+/* Modern Photo */
+.modernPhotoSidebar {
+    text-align: center;
+}
+
+.modernPhotoSidebar .photoContainer {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+    border-color: white;
+}
+
+/* Minimalist Photo */
+.minimalistPhotoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+.minimalistPhotoHeader .photoContainer {
+    margin: 0;
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Creative Photo */
+.creativePhotoHeader {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    gap: 30px;
+}
+
+.creativePhotoHeader .photoContainer {
+    margin: 0;
+    width: 130px;
+    height: 130px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Professional Photo */
+.professionalPhotoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.professionalPhotoHeader .photoContainer {
+    margin: 0;
+    width: 110px;
+    height: 110px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}

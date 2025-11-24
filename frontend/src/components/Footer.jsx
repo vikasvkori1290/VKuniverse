@@ -13,7 +13,7 @@ const Footer = () => {
                 {/* Footer Content */}
                 <div className={styles.footerContent}>
                     <div className={styles.footerInfo}>
-                        <h3 className={styles.footerLogo}>Portfolio.</h3>
+                        <h3 className={styles.footerLogo}>VKuniverse</h3>
                         <p className={styles.footerText}>
                             Building digital experiences with passion and precision.
                         </p>
