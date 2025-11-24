@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import api from '../services/api';
+import { getFileURL } from '../utils/urlHelper';
 import styles from '../styles/components/FeaturedProjects.module.css';
 
 const FeaturedProjects = () => {
@@ -44,7 +45,7 @@ const FeaturedProjects = () => {
                                 <div className={styles.imageWrapper}>
                                     {thumbnail && (
                                         <img
-                                            src={thumbnail.startsWith('http') ? thumbnail : `http://localhost:5000${thumbnail}`}
+                                            src={getFileURL(thumbnail)}
                                             alt={project.title}
                                             className={styles.projectImage}
                                         />

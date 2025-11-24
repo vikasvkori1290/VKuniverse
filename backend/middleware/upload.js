@@ -1,20 +1,36 @@
 const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const path = require('path');
-const sharp = require('sharp');
-const fs = require('fs').promises;
 
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename(req, file, cb) {
-        cb(
-            null,
-            `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-        );
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Image Storage Engine
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'vk_portfolio/images',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+        transformation: [{ width: 1920, height: 1080, crop: 'limit' }] // Resize large images
     },
 });
 
+// Video Storage Engine
+const videoStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'vk_portfolio/videos',
+        allowed_formats: ['mp4', 'webm', 'ogg'],
+        resource_type: 'video'
+    },
+});
+
+// File Filter for Images
 function checkFileType(file, cb) {
     const filetypes = /jpg|jpeg|png|webp/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -27,29 +43,7 @@ function checkFileType(file, cb) {
     }
 }
 
-const upload = multer({
-    storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB limit
-    },
-    fileFilter: function (req, file, cb) {
-        checkFileType(file, cb);
-    },
-});
-
-// Video Upload Configuration
-const videoStorage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename(req, file, cb) {
-        cb(
-            null,
-            `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-        );
-    },
-});
-
+// File Filter for Videos
 function checkVideoType(file, cb) {
     const filetypes = /mp4|webm|ogg/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -62,6 +56,17 @@ function checkVideoType(file, cb) {
     }
 }
 
+// Initialize Upload Middleware
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+    },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
+    },
+});
+
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
@@ -72,54 +77,17 @@ const videoUpload = multer({
     },
 });
 
-/**
- * Middleware to compress uploaded images
- */
+// Helper functions (No longer needed for Cloudinary but kept for compatibility if imported elsewhere)
+// These now just return the path/url as Cloudinary handles optimization
 async function compressImage(filePath) {
-    try {
-        const outputPath = filePath.replace(/\.(jpg|jpeg|png)$/i, '-compressed.jpg');
-
-        await sharp(filePath)
-            .resize(1920, null, {
-                withoutEnlargement: true,
-                fit: 'inside'
-            })
-            .jpeg({ quality: 85 })
-            .toFile(outputPath);
-
-        // Replace original with compressed
-        await fs.unlink(filePath);
-        await fs.rename(outputPath, filePath);
-
-        return filePath;
-    } catch (error) {
-        console.error('Error compressing image:', error);
-        return filePath; // Return original if compression fails
-    }
+    return filePath;
 }
 
-/**
- * Middleware to generate thumbnail
- */
 async function generateThumbnail(filePath) {
-    try {
-        const thumbnailPath = filePath.replace(/(\.[^.]+)$/, '-thumb$1');
-
-        await sharp(filePath)
-            .resize(400, 400, {
-                fit: 'cover',
-                position: 'center'
-            })
-            .jpeg({ quality: 80 })
-            .toFile(thumbnailPath);
-
-        return thumbnailPath;
-    } catch (error) {
-        console.error('Error generating thumbnail:', error);
-        return null;
-    }
+    // Cloudinary can generate thumbnails on the fly using URL transformations
+    // We can just return the original URL or append transformation parameters
+    return filePath;
 }
-
 
 module.exports = {
     upload,

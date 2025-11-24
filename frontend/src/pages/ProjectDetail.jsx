@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import styles from '../styles/pages/ProjectDetail.module.css';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { getFileURL } from '../utils/urlHelper';
 
 const ProjectDetail = () => {
     const { id } = useParams();
@@ -62,8 +63,7 @@ const ProjectDetail = () => {
 
     // Helper function to format image URLs
     const formatImageUrl = (url) => {
-        if (!url) return '';
-        return url.startsWith('http') ? url : `http://localhost:5000${url}`;
+        return getFileURL(url);
     };
 
     // Get screenshots - either from screenshots array or from images array
