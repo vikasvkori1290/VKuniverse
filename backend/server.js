@@ -26,6 +26,7 @@ app.use('/api/skills', require('./routes/skills'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/blog', require('./routes/blog'));
 app.use('/api/resumes', require('./routes/resumes'));
+app.use('/api/ai', require('./routes/ai'));
 
 // Upload Routes
 const { upload, compressImage } = require('./middleware/upload');

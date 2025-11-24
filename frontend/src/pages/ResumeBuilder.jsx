@@ -22,6 +22,8 @@ const ResumeBuilder = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [savedResumeId, setSavedResumeId] = useState(id || null);
     const [showShareLink, setShowShareLink] = useState(false);
+    const [aiLoading, setAiLoading] = useState({});
+
 
     const componentRef = useRef();
 
@@ -309,6 +311,11 @@ const ResumeBuilder = () => {
         alert('Link copied to clipboard!');
     };
 
+    // Enhance content with AI - Coming Soon
+    const handleEnhanceWithAI = async (type, field, id = null) => {
+        alert('🚀 AI Enhancement feature will be integrated soon! Stay tuned for automatic content improvement.');
+    };
+
     const nextStep = () => setActiveStep(prev => prev + 1);
     const prevStep = () => setActiveStep(prev => prev - 1);
 
@@ -480,7 +487,14 @@ const ResumeBuilder = () => {
                                     </div>
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label>Professional Summary <button className={styles.aiBtn}><FaMagic /> Enhance with AI</button></label>
+                                    <label>Professional Summary <button
+                                        className={styles.aiBtn}
+                                        onClick={() => handleEnhanceWithAI('summary')}
+                                        disabled={aiLoading['summary']}
+                                    >
+                                        {aiLoading['summary'] ? <FaSpinner className="fa-spin" /> : <FaMagic />}
+                                        {aiLoading['summary'] ? ' Enhancing...' : ' Enhance with AI'}
+                                    </button></label>
                                     <textarea name="summary" value={resumeData.personalInfo.summary} onChange={handlePersonalInfoChange} rows="4" placeholder="Briefly describe your professional background..." />
                                 </div>
                             </div>
@@ -514,7 +528,14 @@ const ResumeBuilder = () => {
                                             </div>
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <label>Description <button className={styles.aiBtn}><FaMagic /> Enhance with AI</button></label>
+                                            <label>Description <button
+                                                className={styles.aiBtn}
+                                                onClick={() => handleEnhanceWithAI('experience', null, exp.id)}
+                                                disabled={aiLoading[`experience-${exp.id}`]}
+                                            >
+                                                {aiLoading[`experience-${exp.id}`] ? <FaSpinner className="fa-spin" /> : <FaMagic />}
+                                                {aiLoading[`experience-${exp.id}`] ? ' Enhancing...' : ' Enhance with AI'}
+                                            </button></label>
                                             <textarea name="description" value={exp.description} onChange={(e) => handleExperienceChange(exp.id, e)} rows="3" placeholder="Describe your responsibilities and achievements..." />
                                         </div>
                                     </div>
@@ -550,7 +571,14 @@ const ResumeBuilder = () => {
                                             </div>
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <label>Description <button className={styles.aiBtn}><FaMagic /> Enhance with AI</button></label>
+                                            <label>Description <button
+                                                className={styles.aiBtn}
+                                                onClick={() => handleEnhanceWithAI('internship', null, int.id)}
+                                                disabled={aiLoading[`internship-${int.id}`]}
+                                            >
+                                                {aiLoading[`internship-${int.id}`] ? <FaSpinner className="fa-spin" /> : <FaMagic />}
+                                                {aiLoading[`internship-${int.id}`] ? ' Enhancing...' : ' Enhance with AI'}
+                                            </button></label>
                                             <textarea name="description" value={int.description} onChange={(e) => handleInternshipChange(int.id, e)} rows="3" placeholder="Describe your responsibilities..." />
                                         </div>
                                     </div>
@@ -583,7 +611,14 @@ const ResumeBuilder = () => {
                                             </div>
                                         </div>
                                         <div className={styles.formGroup}>
-                                            <label>Description <button className={styles.aiBtn}><FaMagic /> Enhance with AI</button></label>
+                                            <label>Description <button
+                                                className={styles.aiBtn}
+                                                onClick={() => handleEnhanceWithAI('project', null, proj.id)}
+                                                disabled={aiLoading[`project-${proj.id}`]}
+                                            >
+                                                {aiLoading[`project-${proj.id}`] ? <FaSpinner className="fa-spin" /> : <FaMagic />}
+                                                {aiLoading[`project-${proj.id}`] ? ' Enhancing...' : ' Enhance with AI'}
+                                            </button></label>
                                             <textarea name="description" value={proj.description} onChange={(e) => handleProjectChange(proj.id, e)} rows="3" placeholder="Describe the project..." />
                                         </div>
                                     </div>

@@ -322,9 +322,15 @@
     padding: var(--spacing-sm);
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
-    margin-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    font-family: inherit;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
 }
 
 .addBtn {
