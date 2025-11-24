@@ -36,10 +36,10 @@ const ImageUploader = ({ images = [], onImagesChange, maxFiles = 10 }) => {
             // We need to map them to our format if needed, but { url, order } is good.
             // We also need to handle 'isThumbnail'. First image is default thumbnail if none exists.
 
-            const newImages = res.data.map(img => ({
+            const newImages = res.data.map((img, index) => ({
                 url: img.url,
                 isThumbnail: false,
-                // We'll manage order in the frontend state
+                order: images.length + index, // Set proper order based on existing images
             }));
 
             const updatedImages = [...images, ...newImages];

@@ -44,6 +44,7 @@ const setProject = async (req, res) => {
         techStack: req.body.techStack, // Expecting array or string
         liveLink: req.body.liveLink,
         githubLink: req.body.githubLink,
+        video: req.body.video,
         images: req.body.images,
         status: req.body.status,
         isPublished: req.body.isPublished

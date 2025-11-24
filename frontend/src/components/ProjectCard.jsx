@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaExternalLinkAlt, FaImages } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaImages, FaVideo } from 'react-icons/fa';
 import styles from '../styles/components/ProjectCard.module.css';
 
 const ProjectCard = ({ project }) => {
@@ -33,7 +33,17 @@ const ProjectCard = ({ project }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className={styles.imageContainer}>
-                {thumbnailUrl ? (
+                {project.video ? (
+                    <video
+                        src={project.video.startsWith('http') ? project.video : `http://localhost:5000${project.video}`}
+                        className={styles.projectImage}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        style={{ objectFit: 'cover' }}
+                    />
+                ) : thumbnailUrl ? (
                     <img
                         src={thumbnailUrl}
                         alt={project.title}
@@ -45,12 +55,14 @@ const ProjectCard = ({ project }) => {
                     </div>
                 )}
 
-                {/* Overlay on hover */}
-                <div className={`${styles.overlay} ${isHovered ? styles.visible : ''}`}>
-                    <div className={styles.overlayContent}>
-                        <p className={styles.overlayText}>{project.description}</p>
+                {/* Overlay on hover - Only show for images, not videos */}
+                {!project.video && (
+                    <div className={`${styles.overlay} ${isHovered ? styles.visible : ''}`}>
+                        <div className={styles.overlayContent}>
+                            <p className={styles.overlayText}>{project.description}</p>
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Status Badge */}
                 <div className={`${styles.statusBadge} ${project.status === 'completed' ? styles.statusCompleted : styles.statusInProgress}`}>
@@ -58,9 +70,16 @@ const ProjectCard = ({ project }) => {
                 </div>
 
                 {/* Multiple Images Indicator */}
-                {imageCount > 1 && (
+                {imageCount > 1 && !project.video && (
                     <div className={styles.imageCountBadge}>
                         <FaImages /> {imageCount}
+                    </div>
+                )}
+
+                {/* Video Indicator */}
+                {project.video && (
+                    <div className={styles.imageCountBadge}>
+                        <FaVideo />
                     </div>
                 )}
             </div>

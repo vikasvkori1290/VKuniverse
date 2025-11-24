@@ -1,10 +1,15 @@
 import React from 'react';
 import styles from '../styles/components/Achievements.module.css';
 import api from '../services/api';
+import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Achievements = () => {
     const [achievements, setAchievements] = React.useState([]);
     const [activeFilter, setActiveFilter] = React.useState('All');
+    const [lightboxOpen, setLightboxOpen] = React.useState(false);
+    const [currentImage, setCurrentImage] = React.useState(null);
+    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+    const [currentImages, setCurrentImages] = React.useState([]);
 
     const filteredAchievements = achievements.filter(item =>
         activeFilter === 'All' ? true : item.category === activeFilter
@@ -22,6 +27,50 @@ const Achievements = () => {
         fetchAchievements();
     }, []);
 
+    // Handle keyboard navigation
+    React.useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!lightboxOpen) return;
+
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                navigateImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigateImage(1);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [lightboxOpen, currentImageIndex, currentImages]);
+
+    const openLightbox = (images, index) => {
+        const processedImages = images.map(img => ({
+            ...img,
+            url: img.url.startsWith('http') ? img.url : `http://localhost:5000${img.url}`
+        }));
+        setCurrentImages(processedImages);
+        setCurrentImageIndex(index);
+        setCurrentImage(processedImages[index]);
+        setLightboxOpen(true);
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+
+    const closeLightbox = () => {
+        setLightboxOpen(false);
+        setCurrentImage(null);
+        setCurrentImages([]);
+        setCurrentImageIndex(0);
+        document.body.style.overflow = 'auto';
+    };
+
+    const navigateImage = (direction) => {
+        const newIndex = (currentImageIndex + direction + currentImages.length) % currentImages.length;
+        setCurrentImageIndex(newIndex);
+        setCurrentImage(currentImages[newIndex]);
+    };
+
     const renderCollage = (images, layout) => {
         if (!images || images.length === 0) return null;
 
@@ -34,7 +83,12 @@ const Achievements = () => {
         return (
             <div className={`${styles.collage} ${styles[layout || 'grid']}`}>
                 {processedImages.map((img, idx) => (
-                    <div key={idx} className={styles.collageItem}>
+                    <div
+                        key={idx}
+                        className={styles.collageItem}
+                        onClick={() => openLightbox(images, idx)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <img src={img.url} alt={`Achievement ${idx}`} />
                     </div>
                 ))}
@@ -79,6 +133,47 @@ const Achievements = () => {
                     ))}
                 </div>
             </div>
+
+            {/* Lightbox Modal */}
+            {lightboxOpen && (
+                <div className={styles.lightbox} onClick={closeLightbox}>
+                    <button className={styles.closeBtn} onClick={closeLightbox}>
+                        <FaTimes />
+                    </button>
+
+                    {currentImages.length > 1 && (
+                        <>
+                            <button
+                                className={`${styles.navBtn} ${styles.prevBtn}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigateImage(-1);
+                                }}
+                            >
+                                <FaChevronLeft />
+                            </button>
+                            <button
+                                className={`${styles.navBtn} ${styles.nextBtn}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigateImage(1);
+                                }}
+                            >
+                                <FaChevronRight />
+                            </button>
+                        </>
+                    )}
+
+                    <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
+                        <img src={currentImage?.url} alt="Achievement" />
+                        {currentImages.length > 1 && (
+                            <div className={styles.imageCounter}>
+                                {currentImageIndex + 1} / {currentImages.length}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </section>
     );
 };

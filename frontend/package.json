@@ -13,6 +13,8 @@
     "@hello-pangea/dnd": "^18.0.1",
     "@imgly/background-removal": "^1.7.0",
     "axios": "^1.13.2",
+    "html2canvas": "^1.4.1",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-dropzone": "^14.3.8",

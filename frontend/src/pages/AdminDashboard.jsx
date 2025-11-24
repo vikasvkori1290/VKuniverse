@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import styles from '../styles/pages/AdminDashboard.module.css';
 import ImageUploader from '../components/admin/ImageUploader';
+import VideoUploader from '../components/admin/VideoUploader';
 import SkillIconPicker from '../components/admin/SkillIconPicker';
 import RecentlyUploaded from '../components/admin/RecentlyUploaded';
 import Messages from '../components/admin/Messages';
@@ -19,6 +20,7 @@ const AdminDashboard = () => {
     title: '',
     description: '',
     images: [], // Array of { url, isThumbnail, order }
+    video: '', // Video URL
     tags: '',
     liveLink: '',
     githubLink: '',
@@ -71,6 +73,7 @@ const AdminDashboard = () => {
         title: '',
         description: '',
         images: [],
+        video: '',
         tags: '',
         liveLink: '',
         githubLink: '',
@@ -125,8 +128,9 @@ const AdminDashboard = () => {
         collageLayout: 'grid'
       });
     } catch (error) {
-      console.error(error);
-      setMessage('Failed to add achievement');
+      console.error('Achievement submission error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to add achievement';
+      setMessage(errorMessage);
     }
   };
 
@@ -171,6 +175,14 @@ const AdminDashboard = () => {
                       images={projectForm.images}
                       onImagesChange={imgs => setProjectForm({ ...projectForm, images: imgs })}
                       maxFiles={10}
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label>Project Video (Optional - Auto plays in project card)</label>
+                    <VideoUploader
+                      video={projectForm.video}
+                      onVideoChange={vid => setProjectForm({ ...projectForm, video: vid })}
                     />
                   </div>
 

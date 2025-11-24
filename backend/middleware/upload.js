@@ -37,6 +37,41 @@ const upload = multer({
     },
 });
 
+// Video Upload Configuration
+const videoStorage = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename(req, file, cb) {
+        cb(
+            null,
+            `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+        );
+    },
+});
+
+function checkVideoType(file, cb) {
+    const filetypes = /mp4|webm|ogg/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (extname && mimetype) {
+        return cb(null, true);
+    } else {
+        cb('Videos only (mp4, webm, ogg)!');
+    }
+}
+
+const videoUpload = multer({
+    storage: videoStorage,
+    limits: {
+        fileSize: 50 * 1024 * 1024, // 50MB limit
+    },
+    fileFilter: function (req, file, cb) {
+        checkVideoType(file, cb);
+    },
+});
+
 /**
  * Middleware to compress uploaded images
  */
@@ -85,8 +120,10 @@ async function generateThumbnail(filePath) {
     }
 }
 
+
 module.exports = {
     upload,
+    videoUpload,
     compressImage,
     generateThumbnail
 };

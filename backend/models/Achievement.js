@@ -18,7 +18,11 @@ const achievementSchema = mongoose.Schema({
     images: [{
         url: {
             type: String,
-            required: true,
+            required: false, // Made optional so achievements can be created without images
+        },
+        isThumbnail: {
+            type: Boolean,
+            default: false,
         },
         order: {
             type: Number,

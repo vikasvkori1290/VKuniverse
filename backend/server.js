@@ -29,7 +29,7 @@ app.use('/api/resumes', require('./routes/resumes'));
 app.use('/api/ai', require('./routes/ai'));
 
 // Upload Routes
-const { upload, compressImage } = require('./middleware/upload');
+const { upload, videoUpload, compressImage } = require('./middleware/upload');
 
 // Single image upload
 app.post('/api/upload', upload.single('image'), async (req, res) => {
@@ -58,6 +58,18 @@ app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) =>
         res.json(uploadedFiles);
     } catch (error) {
         res.status(500).json({ message: 'Error uploading images' });
+    }
+});
+
+// Video upload
+app.post('/api/upload-video', videoUpload.single('video'), async (req, res) => {
+    try {
+        const filePath = req.file.path;
+        // No compression for now, just return path
+        res.send(`/${filePath.replace(/\\/g, '/')}`);
+    } catch (error) {
+        console.error('Video upload error:', error);
+        res.status(500).json({ message: 'Error uploading video' });
     }
 });
 

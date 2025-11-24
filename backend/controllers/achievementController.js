@@ -12,21 +12,29 @@ const getAchievements = async (req, res) => {
 // @route   POST /api/achievements
 // @access  Private
 const setAchievement = async (req, res) => {
-    if (!req.body.title) {
-        res.status(400).json({ message: 'Please add a title' });
-        return;
+    try {
+        if (!req.body.title) {
+            return res.status(400).json({ message: 'Please add a title' });
+        }
+
+        if (!req.body.description) {
+            return res.status(400).json({ message: 'Please add a description' });
+        }
+
+        const achievement = await Achievement.create({
+            title: req.body.title,
+            description: req.body.description,
+            date: req.body.date,
+            category: req.body.category,
+            images: req.body.images || [],
+            collageLayout: req.body.collageLayout,
+        });
+
+        res.status(200).json(achievement);
+    } catch (error) {
+        console.error('Error creating achievement:', error);
+        res.status(500).json({ message: error.message || 'Failed to create achievement' });
     }
-
-    const achievement = await Achievement.create({
-        title: req.body.title,
-        description: req.body.description,
-        date: req.body.date,
-        category: req.body.category,
-        images: req.body.images,
-        collageLayout: req.body.collageLayout,
-    });
-
-    res.status(200).json(achievement);
 };
 
 // @desc    Update achievement

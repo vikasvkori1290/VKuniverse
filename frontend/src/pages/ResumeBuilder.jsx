@@ -92,16 +92,25 @@ const ResumeBuilder = () => {
         { id: 'creative-photo', name: 'Creative w/ Photo', component: TemplateCreativePhoto },
         { id: 'professional-photo', name: 'Professional w/ Photo', component: TemplateProfessionalPhoto }
     ];
-
     const colors = [
         '#3b82f6', // Blue
         '#ef4444', // Red
         '#10b981', // Green
         '#8b5cf6', // Purple
-        '#f59e0b', // Amber
+        '#f97316', // Orange
+        '#14b8a6', // Teal
+        '#6366f1', // Indigo
         '#ec4899', // Pink
-        '#333333', // Black
-        '#0ea5e9'  // Sky
+        '#64748b', // Slate
+        '#059669', // Emerald
+        '#06b6d4', // Cyan
+        '#f43f5e', // Rose
+        '#f59e0b', // Amber
+        '#7c3aed', // Violet
+        '#d946ef', // Fuchsia
+        '#1e3a8a', // Navy
+        '#1f2937', // Dark Gray
+        '#000000', // Black
     ];
 
     const handlePrint = useReactToPrint({

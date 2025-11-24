@@ -9,6 +9,9 @@ const projectSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    video: {
+        type: String, // URL to the video file
+    },
     techStack: [{
         type: String,
     }],
