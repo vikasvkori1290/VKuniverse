@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
@@ -87,3 +88,18 @@ app.get('/ping', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+// Keep-Alive Mechanism for Render Free Tier
+// Pings the server every 10 minutes (600,000 ms) to prevent it from spinning down (15 min inactivity limit)
+const keepAlive = () => {
+    const url = process.env.RENDER_EXTERNAL_URL
+        ? `${process.env.RENDER_EXTERNAL_URL}/ping`
+        : `http://localhost:${PORT}/ping`;
+
+    axios.get(url)
+        .then(() => console.log(`Keep-Alive Ping successful to ${url}`))
+        .catch(err => console.error(`Keep-Alive Ping failed: ${err.message}`));
+};
+
+// Start the interval
+setInterval(keepAlive, 10 * 60 * 1000); // 10 minutes
