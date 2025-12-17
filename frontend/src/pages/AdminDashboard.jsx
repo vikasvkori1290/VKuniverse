@@ -61,18 +61,14 @@ const AdminDashboard = () => {
   });
 
   // Redirect if not logged in
-  useEffect(() => {
-    if (!admin) {
-      navigate('/admin/login');
-    }
-  }, [admin, navigate]);
+
 
   const handleLogout = () => {
+    // Navigate first, then logout to avoid PrivateRoute redirecting to login
     navigate('/');
-    // Use setTimeout to allow navigation to start before logout clears state
     setTimeout(() => {
       logout();
-    }, 0);
+    }, 100);
   };
 
   const handleProjectSubmit = async (e) => {
