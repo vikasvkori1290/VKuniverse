@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Serve static files from uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -32,16 +32,18 @@ app.use('/api/ai', require('./routes/ai'));
 const { upload, videoUpload, compressImage } = require('./middleware/upload');
 
 // Single image upload
+// Single image upload
 app.post('/api/upload', upload.single('image'), async (req, res) => {
     try {
         const filePath = req.file.path;
         await compressImage(filePath);
-        res.send(`/${filePath.replace(/\\/g, '/')}`);
+        res.send(filePath);
     } catch (error) {
         res.status(500).json({ message: 'Error uploading image' });
     }
 });
 
+// Multiple images upload
 // Multiple images upload
 app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) => {
     try {
@@ -50,7 +52,7 @@ app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) =>
         for (const file of req.files) {
             await compressImage(file.path);
             uploadedFiles.push({
-                url: `/${file.path.replace(/\\/g, '/')}`,
+                url: file.path,
                 order: uploadedFiles.length
             });
         }
@@ -66,7 +68,7 @@ app.post('/api/upload-video', videoUpload.single('video'), async (req, res) => {
     try {
         const filePath = req.file.path;
         // No compression for now, just return path
-        res.send(`/${filePath.replace(/\\/g, '/')}`);
+        res.send(filePath);
     } catch (error) {
         console.error('Video upload error:', error);
         res.status(500).json({ message: 'Error uploading video' });
@@ -74,7 +76,13 @@ app.post('/api/upload-video', videoUpload.single('video'), async (req, res) => {
 });
 
 // Error Handler
-// app.use(errorHandler); // Will create next
+app.use(errorHandler);
+
+
+// Health Check / Ping Route for Uptime Monitoring
+app.get('/ping', (req, res) => {
+    res.status(200).send('Pong');
+});
 
 const PORT = process.env.PORT || 5000;
 

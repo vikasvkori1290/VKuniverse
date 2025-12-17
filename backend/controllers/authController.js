@@ -25,36 +25,8 @@ const registerAdmin = async (req, res) => {
         return res.status(400).json({ message: 'Admin already exists' });
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     // Create admin
-    const admin = await Admin.create({
-        username,
-        email,
-        password: hashedPassword, // In the model we also have pre-save hook, so we can just pass password if we remove the manual hash here. 
-        // Actually, since I added a pre-save hook in the model, I should just pass the plain password.
-        // Let's fix that.
-    });
-
-    // Wait, if I pass hashed password to create, the pre-save hook might hash it again if I'm not careful.
-    // The pre-save hook checks `isModified('password')`.
-    // If I pass the plain password, it will be hashed.
-    // Let's correct this to pass plain password and let the model handle hashing.
-
-    // RE-WRITING LOGIC TO USE MODEL HOOK
-};
-
-// Correct implementation below
-const registerAdminCorrect = async (req, res) => {
-    const { username, email, password } = req.body;
-
-    const adminExists = await Admin.findOne({ email });
-    if (adminExists) {
-        return res.status(400).json({ message: 'Admin already exists' });
-    }
-
+    // Note: Password hashing is handled in the Admin model pre-save hook
     const admin = await Admin.create({
         username,
         email,
@@ -71,42 +43,15 @@ const registerAdminCorrect = async (req, res) => {
     } else {
         res.status(400).json({ message: 'Invalid admin data' });
     }
-}
+};
 
-// @desc    Authenticate a admin
-// @route   POST /api/auth/login
-// @access  Public
 // @desc    Authenticate a admin
 // @route   POST /api/auth/login
 // @access  Public
 const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
-    // Hardcoded check for specific user
-    if (email === 'vikasvkori129@gmail.com' && password === '18Nov2005') {
-        let admin = await Admin.findOne({ email });
-
-        if (!admin) {
-            // Auto-create if doesn't exist
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(password, salt);
-
-            admin = await Admin.create({
-                username: 'Vikas V',
-                email: email,
-                password: hashedPassword
-            });
-        }
-
-        return res.json({
-            _id: admin.id,
-            username: admin.username,
-            email: admin.email,
-            token: generateToken(admin._id),
-        });
-    }
-
-    // Standard login for other users (if any)
+    // Standard login
     const admin = await Admin.findOne({ email });
 
     if (admin && (await admin.matchPassword(password))) {
@@ -129,7 +74,7 @@ const getMe = async (req, res) => {
 };
 
 module.exports = {
-    registerAdmin: registerAdminCorrect,
+    registerAdmin,
     loginAdmin,
     getMe,
 };
