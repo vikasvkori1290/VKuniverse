@@ -12,8 +12,24 @@ import Messages from '../components/admin/Messages';
 const AdminDashboard = () => {
   const { admin, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('projects');
+  const [activeTab, setActiveTab] = useState('overview');
   const [message, setMessage] = useState('');
+  const [dashboardStats, setDashboardStats] = useState(null);
+
+  // Fetch stats
+  useEffect(() => {
+    if (activeTab === 'overview') {
+      const fetchStats = async () => {
+        try {
+          const { data } = await api.get('/analytics/dashboard');
+          setDashboardStats(data);
+        } catch (error) {
+          console.error('Error fetching stats:', error);
+        }
+      };
+      fetchStats();
+    }
+  }, [activeTab]);
 
   // Form states
   const [projectForm, setProjectForm] = useState({
@@ -152,6 +168,7 @@ const AdminDashboard = () => {
           {message && <div className={styles.message}>{message}</div>}
 
           <div className={styles.tabs}>
+            <button className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`} onClick={() => setActiveTab('overview')}>Overview</button>
             <button className={`${styles.tab} ${activeTab === 'projects' ? styles.active : ''}`} onClick={() => setActiveTab('projects')}>Projects</button>
             <button className={`${styles.tab} ${activeTab === 'skills' ? styles.active : ''}`} onClick={() => setActiveTab('skills')}>Skills</button>
             <button className={`${styles.tab} ${activeTab === 'achievements' ? styles.active : ''}`} onClick={() => setActiveTab('achievements')}>Achievements</button>
@@ -160,6 +177,63 @@ const AdminDashboard = () => {
           </div>
 
           <div className={styles.tabContent}>
+            {activeTab === 'overview' && dashboardStats && (
+              <div className={styles.section}>
+                <h2>Dashboard Overview</h2>
+                <div className={styles.statsGrid} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                  <div style={{ background: '#1a1a1a', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#888' }}>Total Projects</h3>
+                    <p style={{ margin: 0, fontSize: '2rem', fontWeight: 'bold' }}>{dashboardStats.stats.projects}</p>
+                  </div>
+                  <div style={{ background: '#1a1a1a', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#888' }}>Total Messages</h3>
+                    <p style={{ margin: 0, fontSize: '2rem', fontWeight: 'bold' }}>{dashboardStats.stats.messages}</p>
+                  </div>
+                  <div style={{ background: '#1a1a1a', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#888' }}>Unread Messages</h3>
+                    <p style={{ margin: 0, fontSize: '2rem', fontWeight: 'bold', color: dashboardStats.stats.unreadMessages > 0 ? '#ff4d4d' : 'inherit' }}>
+                      {dashboardStats.stats.unreadMessages}
+                    </p>
+                  </div>
+                </div>
+
+                <div className={styles.recentActivity} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                  <div>
+                    <h3>Recent Messages</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      {dashboardStats.recentActivity.messages.map(msg => (
+                        <div key={msg._id} style={{ background: '#1a1a1a', padding: '1rem', borderRadius: '8px', borderLeft: `4px solid ${msg.isRead ? '#4caf50' : '#ff9800'}` }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                            <strong>{msg.name}</strong>
+                            <span style={{ fontSize: '0.8rem', color: '#888' }}>{new Date(msg.createdAt).toLocaleDateString()}</span>
+                          </div>
+                          <p style={{ margin: 0, fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{msg.subject}</p>
+                        </div>
+                      ))}
+                      {dashboardStats.recentActivity.messages.length === 0 && <p style={{ color: '#666' }}>No messages yet.</p>}
+                    </div>
+                  </div>
+                  <div>
+                    <h3>Recent Projects</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      {dashboardStats.recentActivity.projects.map(proj => (
+                        <div key={proj._id} style={{ background: '#1a1a1a', padding: '1rem', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                          {proj.images && proj.images.length > 0 && (
+                            <img src={proj.images.find(img => img.isThumbnail)?.url || proj.images[0].url} alt={proj.title} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} />
+                          )}
+                          <div>
+                            <strong>{proj.title}</strong>
+                            <div style={{ fontSize: '0.8rem', color: '#888' }}>{new Date(proj.createdAt).toLocaleDateString()} • <span style={{ textTransform: 'capitalize', color: proj.status === 'completed' ? '#4caf50' : '#2196f3' }}>{proj.status}</span></div>
+                          </div>
+                        </div>
+                      ))}
+                      {dashboardStats.recentActivity.projects.length === 0 && <p style={{ color: '#666' }}>No projects yet.</p>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {activeTab === 'projects' && (
               <div className={styles.section}>
                 <h2>Add New Project</h2>
