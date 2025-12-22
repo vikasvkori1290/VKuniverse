@@ -44,7 +44,9 @@ const Hero = () => {
                             </span>
                         </h2>
                         <p className={styles.description}>
-                            Welcome to VKuniverse , I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.
+                            I build end-to-end—from design to deployment—crafting full-stack and AI experiences that people love using.
+
+
                         </p>
                         <div className={styles.ctaButtons}>
                             <Link to="/projects" className="btn btn-primary btn-lg">View Projects</Link>
