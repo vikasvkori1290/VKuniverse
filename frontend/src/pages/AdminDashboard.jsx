@@ -51,6 +51,8 @@ const AdminDashboard = () => {
     proficiency: ''
   });
 
+  const [editingId, setEditingId] = useState(null);
+
   const [achievementForm, setAchievementForm] = useState({
     title: '',
     date: '',
@@ -59,6 +61,44 @@ const AdminDashboard = () => {
     images: [],
     collageLayout: 'grid'
   });
+
+  // Handle Edit from History
+  const handleEdit = (item, type) => {
+    setEditingId(item._id);
+
+    if (type === 'projects') {
+      setProjectForm({
+        title: item.title,
+        description: item.description,
+        images: item.images || [],
+        video: item.video || '',
+        tags: item.techStack ? item.techStack.join(', ') : '',
+        liveLink: item.liveLink || '',
+        githubLink: item.githubLink || '',
+        status: item.status || 'completed'
+      });
+      setActiveTab('projects');
+    } else if (type === 'skills') {
+      setSkillForm({
+        name: item.name,
+        icon: item.icon || item.iconUrl || '',
+        iconSource: item.iconSource || 'none',
+        category: item.category || 'Frontend',
+        proficiency: item.proficiency || ''
+      });
+      setActiveTab('skills');
+    } else if (type === 'achievements') {
+      setAchievementForm({
+        title: item.title,
+        date: item.date || '',
+        description: item.description || '',
+        category: item.category || 'Certification',
+        images: item.images || [],
+        collageLayout: item.collageLayout || 'grid'
+      });
+      setActiveTab('achievements');
+    }
+  };
 
   // Redirect if not logged in
 
@@ -74,13 +114,20 @@ const AdminDashboard = () => {
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/projects', {
+      const payload = {
         ...projectForm,
         techStack: projectForm.tags.split(',').map(tag => tag.trim()),
-        // Backend expects images array with { url, isThumbnail, order }
         images: projectForm.images
-      });
-      setMessage('Project added successfully!');
+      };
+
+      if (editingId) {
+        await api.put(`/projects/${editingId}`, payload);
+        setMessage('Project updated successfully!');
+      } else {
+        await api.post('/projects', payload);
+        setMessage('Project added successfully!');
+      }
+
       setProjectForm({
         title: '',
         description: '',
@@ -91,24 +138,33 @@ const AdminDashboard = () => {
         githubLink: '',
         status: 'completed'
       });
+      setEditingId(null);
     } catch (error) {
       console.error(error);
-      setMessage('Failed to add project');
+      setMessage(editingId ? 'Failed to update project' : 'Failed to add project');
     }
   };
 
   const handleSkillSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/skills', {
+      const payload = {
         name: skillForm.name,
         category: skillForm.category,
         proficiency: Number(skillForm.proficiency),
-        icon: skillForm.icon, // This field is used for custom/legacy
-        iconUrl: skillForm.icon, // We use the same for now or separate if backend distinguishes
+        icon: skillForm.icon,
+        iconUrl: skillForm.icon,
         iconSource: skillForm.iconSource
-      });
-      setMessage('Skill added successfully!');
+      };
+
+      if (editingId) {
+        await api.put(`/skills/${editingId}`, payload);
+        setMessage('Skill updated successfully!');
+      } else {
+        await api.post('/skills', payload);
+        setMessage('Skill added successfully!');
+      }
+
       setSkillForm({
         name: '',
         icon: '',
@@ -116,21 +172,29 @@ const AdminDashboard = () => {
         category: 'Frontend',
         proficiency: ''
       });
+      setEditingId(null);
     } catch (error) {
       console.error(error);
-      setMessage('Failed to add skill');
+      setMessage(editingId ? 'Failed to update skill' : 'Failed to add skill');
     }
   };
 
   const handleAchievementSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/achievements', {
+      const payload = {
         ...achievementForm,
-        // Backend expects images array
         images: achievementForm.images
-      });
-      setMessage('Achievement added successfully!');
+      };
+
+      if (editingId) {
+        await api.put(`/achievements/${editingId}`, payload);
+        setMessage('Achievement updated successfully!');
+      } else {
+        await api.post('/achievements', payload);
+        setMessage('Achievement added successfully!');
+      }
+
       setAchievementForm({
         title: '',
         date: '',
@@ -139,9 +203,10 @@ const AdminDashboard = () => {
         images: [],
         collageLayout: 'grid'
       });
+      setEditingId(null);
     } catch (error) {
       console.error('Achievement submission error:', error);
-      const errorMessage = error.response?.data?.message || error.message || 'Failed to add achievement';
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to save achievement';
       setMessage(errorMessage);
     }
   };
@@ -232,8 +297,9 @@ const AdminDashboard = () => {
 
             {activeTab === 'projects' && (
               <div className={styles.section}>
-                <h2>Add New Project</h2>
+                <h2>{editingId ? 'Edit Project' : 'Add New Project'}</h2>
                 <form className={styles.form} onSubmit={handleProjectSubmit}>
+                  {/* ... inputs ... */}
                   <div className={styles.formGroup}>
                     <label>Title</label>
                     <input type="text" className={styles.input} placeholder="Project Title" value={projectForm.title} onChange={e => setProjectForm({ ...projectForm, title: e.target.value })} required />
@@ -286,14 +352,24 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Add Project</button>
+                  <div className={styles.buttonGroup}>
+                    <button type="submit" className="btn btn-primary">{editingId ? 'Update Project' : 'Add Project'}</button>
+                    {editingId && (
+                      <button type="button" className="btn btn-secondary" onClick={() => {
+                        setEditingId(null);
+                        setProjectForm({
+                          title: '', description: '', images: [], video: '', tags: '', liveLink: '', githubLink: '', status: 'completed'
+                        });
+                      }}>Cancel Edit</button>
+                    )}
+                  </div>
                 </form>
               </div>
             )}
 
             {activeTab === 'skills' && (
               <div className={styles.section}>
-                <h2>Add New Skill</h2>
+                <h2>{editingId ? 'Edit Skill' : 'Add New Skill'}</h2>
                 <form className={styles.form} onSubmit={handleSkillSubmit}>
                   <div className={styles.formGroup}>
                     <label>Skill Name</label>
@@ -326,14 +402,22 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Add Skill</button>
+                  <div className={styles.buttonGroup}>
+                    <button type="submit" className="btn btn-primary">{editingId ? 'Update Skill' : 'Add Skill'}</button>
+                    {editingId && (
+                      <button type="button" className="btn btn-secondary" onClick={() => {
+                        setEditingId(null);
+                        setSkillForm({ name: '', icon: '', iconSource: 'none', category: 'Frontend', proficiency: '' });
+                      }}>Cancel Edit</button>
+                    )}
+                  </div>
                 </form>
               </div>
             )}
 
             {activeTab === 'achievements' && (
               <div className={styles.section}>
-                <h2>Add New Achievement</h2>
+                <h2>{editingId ? 'Edit Achievement' : 'Add New Achievement'}</h2>
                 <form className={styles.form} onSubmit={handleAchievementSubmit}>
                   <div className={styles.formGroup}>
                     <label>Title</label>
@@ -382,7 +466,15 @@ const AdminDashboard = () => {
                     <textarea className={styles.textarea} placeholder="Details about the achievement" value={achievementForm.description} onChange={e => setAchievementForm({ ...achievementForm, description: e.target.value })} required />
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Add Achievement</button>
+                  <div className={styles.buttonGroup}>
+                    <button type="submit" className="btn btn-primary">{editingId ? 'Update Achievement' : 'Add Achievement'}</button>
+                    {editingId && (
+                      <button type="button" className="btn btn-secondary" onClick={() => {
+                        setEditingId(null);
+                        setAchievementForm({ title: '', date: '', description: '', category: 'Certification', images: [], collageLayout: 'grid' });
+                      }}>Cancel Edit</button>
+                    )}
+                  </div>
                 </form>
               </div>
             )}
@@ -396,7 +488,7 @@ const AdminDashboard = () => {
             {activeTab === 'recent' && (
               <div className={styles.section}>
                 <h2>Recently Uploaded</h2>
-                <RecentlyUploaded />
+                <RecentlyUploaded onEdit={handleEdit} />
               </div>
             )}
           </div>

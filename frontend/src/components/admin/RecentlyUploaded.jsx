@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FaProjectDiagram, FaCode, FaTrophy, FaTrash, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaProjectDiagram, FaCode, FaTrophy, FaTrash, FaExternalLinkAlt, FaEdit, FaStar } from 'react-icons/fa';
 import api from '../../services/api';
 import styles from '../../styles/components/admin/RecentlyUploaded.module.css';
 
-const RecentlyUploaded = () => {
+const RecentlyUploaded = ({ onEdit }) => {
     const [activeTab, setActiveTab] = useState('projects');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -67,6 +67,20 @@ const RecentlyUploaded = () => {
                     )}
                 </div>
                 <div className={styles.actions}>
+                    <button
+                        className={styles.actionBtn}
+                        title="Favourite"
+                        onClick={() => alert('Favourite feature coming soon!')}
+                    >
+                        <FaStar />
+                    </button>
+                    <button
+                        className={styles.actionBtn}
+                        title="Edit"
+                        onClick={() => onEdit && onEdit(item, activeTab)}
+                    >
+                        <FaEdit />
+                    </button>
                     <button
                         onClick={() => handleDelete(item._id)}
                         className={styles.deleteBtn}

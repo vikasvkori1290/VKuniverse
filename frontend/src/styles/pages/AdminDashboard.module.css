@@ -124,3 +124,10 @@
     color: var(--accent-primary);
     font-size: 0.9rem;
 }
+
+.buttonGroup {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    margin-top: var(--spacing-md);
+}
