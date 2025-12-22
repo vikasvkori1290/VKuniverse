@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaNodeJs, FaReact, FaPython } from 'react-icons/fa';
+import { SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC } from 'react-icons/si';
 import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
 
@@ -13,6 +14,19 @@ const Hero = () => {
     ];
 
     const { text: typingText, cursor } = useTypingEffect(titles, 80, 40, 2000);
+
+    const techIcons = [
+        { Icon: SiHtml5, name: "HTML" },
+        { Icon: SiCss3, name: "CSS" },
+        { Icon: SiJavascript, name: "JavaScript" },
+        { Icon: FaPython, name: "Python" },
+        { Icon: SiC, name: "C" },
+        { Icon: FaNodeJs, name: "Node.js" },
+        { Icon: SiExpress, name: "Express.js" },
+        { Icon: FaReact, name: "React" },
+        { Icon: SiTailwindcss, name: "Tailwind CSS" },
+        { Icon: SiMongodb, name: "MongoDB" },
+    ];
 
     return (
         <section className={styles.heroSection} id="about">
@@ -66,6 +80,20 @@ const Hero = () => {
                                 <img src="/my-photo.png" alt="Vikas V" className={styles.userPhoto} />
                             </div>
                         </div>
+
+                        <p className={styles.techLabel}>Tech I Use</p>
+
+                        {/* Tech Marquee */}
+                        <div className={styles.techMarquee}>
+                            <div className={styles.marqueeTrack}>
+                                {techIcons.concat(techIcons).map((tech, index) => (
+                                    <div key={index} className={styles.techIconItem}>
+                                        <tech.Icon />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className={`${styles.blob} ${styles.blob1}`}></div>
                     </div>
                 </div>

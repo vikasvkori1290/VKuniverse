@@ -13,11 +13,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-4xl);
-    align-items: center;
+    align-items: flex-start;
+    /* Aligns items to the top */
     position: relative;
     z-index: 1;
     width: 100%;
     padding: 0 var(--spacing-3xl);
+    padding-top: var(--spacing-4xl);
+    /* Ensure some top padding */
 }
 
 .heroContent {
@@ -127,10 +130,16 @@
 .heroVisual {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 500px;
+    /* Center horizontally in its column */
+    justify-content: flex-start;
+    /* Align to top */
+    /* Remove fixed height so it hugs content, or reduce it */
+    height: auto;
     perspective: 1000px;
+    margin-top: var(--spacing-xl);
+    /* Add a bit of space to align exactly with text baseline if needed, or 0 */
 }
 
 .visualPlaceholder {
@@ -210,11 +219,85 @@
     transform: translate(-50%, -50%);
 }
 
+/* Old Split Media Queries Removed - Consolidated Below */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .visualPlaceholder {
+        transition: none;
+    }
+
+    .heroVisual:hover .visualPlaceholder {
+        transform: none;
+    }
+}
+
+
+
+
+.techLabel {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+/* Tech Marquee */
+.techMarquee {
+    position: absolute;
+    bottom: -40px;
+    /* Increased gap as requested (~2cm) */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    /* Adjust width as needed (~40% desktop) */
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    z-index: 2;
+    padding: 10px 0;
+    /* margin-top: -100px; */
+}
+
+.marqueeTrack {
+    display: flex;
+    gap: 30px;
+    animation: scroll 15s linear infinite;
+    width: max-content;
+}
+
+.techIconItem {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.techIconItem:hover {
+    color: var(--accent-primary);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 968px) {
     .heroContainer {
         grid-template-columns: 1fr;
-        gap: var(--spacing-3xl);
+        gap: var(--spacing-xl);
         text-align: center;
         padding: 0 var(--spacing-lg);
     }
@@ -235,13 +318,26 @@
     }
 
     .heroVisual {
-        height: 400px;
+        height: auto;
         order: -1;
+        margin-bottom: 100px;
     }
 
     .visualPlaceholder {
         width: 280px;
         height: 280px;
+    }
+
+    /* Adjust label spacing on mobile */
+    .techLabel {
+        margin-top: 25px;
+        margin-bottom: 0px;
+    }
+
+    .techMarquee {
+        width: 90%;
+        bottom: -70px;
+        margin-bottom: 30px;
     }
 }
 
@@ -263,11 +359,13 @@
         width: 240px;
         height: 240px;
     }
-}
 
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .visualPlaceholder {
+    .techMarquee {
+        width: 100%;
+        bottom: -90px;
+    }
+
+    .heroVisual {
         transition: none;
     }
 
