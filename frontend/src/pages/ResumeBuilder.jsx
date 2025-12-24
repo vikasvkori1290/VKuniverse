@@ -9,6 +9,7 @@ import {
     TemplateClassicPhoto, TemplateModernPhoto, TemplateMinimalistPhoto, TemplateCreativePhoto, TemplateProfessionalPhoto
 } from '../components/ResumeTemplates';
 import { useReactToPrint } from 'react-to-print';
+import { removeBackground } from "@imgly/background-removal";
 import axios from 'axios';
 
 const ResumeBuilder = () => {
@@ -144,7 +145,6 @@ const ResumeBuilder = () => {
         setIsRemovingBg(true);
         try {
             // Convert data URL to blob if needed, but imgly accepts data URLs
-            const { removeBackground } = await import("@imgly/background-removal");
             const imageBlob = await removeBackground(resumeData.personalInfo.photo);
             const url = URL.createObjectURL(imageBlob);
             setResumeData({
