@@ -6,6 +6,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import About from '../components/About';
+import LeetCodeActivity from '../components/LeetCodeActivity';
 // import FeaturedProjects from '../components/FeaturedProjects';
 // import RecentAchievements from '../components/RecentAchievements';
 // import GitHubStats from '../components/GitHubStats';
@@ -21,6 +22,9 @@ const Home = () => {
             <Navbar />
             <main>
                 <Hero />
+                <div className="container">
+                    <LeetCodeActivity username="vikasvkori129" />
+                </div>
                 <About />
                 {/* <FeaturedProjects /> */}
                 {/* <RecentAchievements /> */}

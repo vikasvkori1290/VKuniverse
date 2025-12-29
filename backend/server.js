@@ -29,6 +29,7 @@ app.use('/api/blog', require('./routes/blog'));
 app.use('/api/resumes', require('./routes/resumes'));
 app.use('/api/ai', require('./routes/ai'));
 app.use('/api/analytics', require('./routes/analytics'));
+app.use('/api/leetcode', require('./routes/leetcode'));
 
 // Upload Routes
 const { upload, videoUpload, compressImage } = require('./middleware/upload');

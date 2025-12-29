@@ -1,0 +1,274 @@
+/* Container Styles */
+.leetcode-container {
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px;
+    margin: 40px auto;
+    /* Center heavily */
+    width: 100%;
+    /* removed max-width to allow full screen width, SVG height constraint handles cell size now */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leetcode-container:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.leetcode-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    color: var(--text-primary, #fff);
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+    gap: 15px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Stats Badges */
+.leetcode-header span {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #aaa);
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* View Profile Button */
+.view-profile-btn {
+    font-size: 0.9rem;
+    color: #fff;
+    background: linear-gradient(135deg, #ffa116, #f29304);
+    /* LeetCode Orange */
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+}
+
+.view-profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 161, 22, 0.3);
+}
+
+/* React Calendar Heatmap Overrides */
+.react-calendar-heatmap {
+    width: 100%;
+    height: 128px;
+    /* Reduced to ~80% of 160px */
+    font-family: inherit;
+    max-width: 100%;
+}
+
+/* Explicit Grid Container */
+.months-grid {
+    display: flex;
+    justify-content: flex-start;
+    /* Align left to verify scrolling works correctly from start */
+    align-items: flex-end;
+    /* Align bottom to keep grids even if labels vary */
+    gap: 8px;
+    /* Consistent gap between months */
+    width: 100%;
+    flex-wrap: nowrap;
+    /* Prevent wrapping (December dropping down) */
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    /* Firefox */
+}
+
+/* Custom scrollbar styling */
+.months-grid::-webkit-scrollbar {
+    height: 6px;
+}
+
+.months-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.months-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* Weekday Labels Sidebar */
+.weekday-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90px;
+    /* Approximate height of the grid part (excluding empty top/bottom) */
+    margin-bottom: 25px;
+    /* Push up from bottom to align with rows */
+    margin-right: 10px;
+    padding-top: 10px;
+}
+
+.weekday-labels span {
+    font-size: 0.75rem;
+    color: #888;
+    line-height: 1;
+}
+
+/* Individual Month Block */
+.month-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+}
+
+.month-name {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-weight: 500;
+}
+
+.react-calendar-heatmap text {
+    font-size: 11px;
+    fill: var(--text-secondary, #9ca3af);
+    font-weight: 600;
+}
+
+.react-calendar-heatmap rect {
+    rx: 2.5px;
+    /* Rounded corners for squares */
+    ry: 2.5px;
+    transition: all 0.2s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+    stroke: transparent;
+    stroke-width: 1px;
+}
+
+.react-calendar-heatmap rect:hover {
+    transform: scale(1.3);
+    z-index: 10;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+/* Color Scales with Glow */
+.react-calendar-heatmap .color-empty {
+    fill: #1f2937;
+    /* Darker, clearly empty */
+}
+
+/* Level 1 */
+.react-calendar-heatmap .color-github-1 {
+    fill: #0e4429;
+}
+
+/* Level 2 */
+.react-calendar-heatmap .color-github-2 {
+    fill: #26a641;
+}
+
+/* Level 3 */
+.react-calendar-heatmap .color-github-3 {
+    fill: #39d353;
+    filter: drop-shadow(0 0 3px rgba(57, 211, 83, 0.4));
+}
+
+/* Level 4 (Max) - Strong Glow */
+.react-calendar-heatmap .color-github-4 {
+    fill: #4ade80;
+    /* Brighter neon green */
+    filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.6));
+}
+
+/* Responsive specific adjustments */
+@media (max-width: 600px) {
+    .leetcode-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        /* Allow wrapping of button if needed */
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* Make stats badge and button fit better */
+    .leetcode-header span {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        white-space: normal;
+        /* Allow text wrap properly if needed */
+        text-align: center;
+    }
+
+    .view-profile-btn {
+        font-size: 0.8rem;
+        padding: 5px 14px;
+        margin-left: 0;
+        /* Align left */
+    }
+
+    .leetcode-container {
+        padding: 15px;
+    }
+
+    /* Hide individual weekday labels on mobile as requested */
+    .weekday-labels {
+        display: none;
+    }
+
+    /* Adjust month name size and spacing */
+    .month-name {
+        font-size: 0.75rem;
+        /* Smaller font size */
+        margin-bottom: 2px;
+        /* Closer to the box */
+    }
+
+    /* Ensure blocks wrap or scroll properly */
+    .months-grid {
+        justify-content: flex-start;
+        gap: 12px;
+        /* Increase gap slightly for bigger blocks */
+        overflow-x: auto;
+        padding-bottom: 20px;
+        /* Space for scrollbar */
+    }
+
+    /* SCALE UP BOXES: Increase height and allow width to expand */
+    .react-calendar-heatmap {
+        height: 180px !important;
+        /* ~1.4x of 128px */
+        width: auto !important;
+        /* Allow width to scale proportionally */
+        max-width: none !important;
+        /* Remove constraints */
+    }
+
+    .month-block {
+        min-width: 115px;
+        /* Force minimum width to prevent squashing */
+        flex-shrink: 0;
+        /* Prevent shrinking */
+    }
+}

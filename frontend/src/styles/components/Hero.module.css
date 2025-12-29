@@ -142,6 +142,11 @@
     /* Add a bit of space to align exactly with text baseline if needed, or 0 */
 }
 
+.floatWrapper {
+    animation: float 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
 .visualPlaceholder {
     position: relative;
     width: 350px;
@@ -290,6 +295,32 @@
 
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
     }
 }
 

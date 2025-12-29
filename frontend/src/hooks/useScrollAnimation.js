@@ -1,56 +1,36 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-/**
- * Custom hook for scroll-triggered animations using Intersection Observer
- * @param {Object} options - Configuration options
- * @param {string} options.threshold - Intersection threshold (0 to 1)
- * @param {string} options.rootMargin - Root margin for intersection
- * @param {boolean} options.triggerOnce - Whether to trigger animation only once
- */
-const useScrollAnimation = (options = {}) => {
-    const {
-        threshold = 0.1,
-        rootMargin = '0px',
-        triggerOnce = true
-    } = options;
+const useScrollAnimation = () => {
+    const location = useLocation();
 
     useEffect(() => {
-        const elements = document.querySelectorAll('.animate-on-scroll');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
 
-        if (!elements.length) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once visible to persist state
+                }
+            });
+        }, observerOptions);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-
-                        if (triggerOnce) {
-                            observer.unobserve(entry.target);
-                        }
-                    } else if (!triggerOnce) {
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateY(30px)';
-                    }
-                });
-            },
-            {
-                threshold,
-                rootMargin
-            }
-        );
-
-        elements.forEach((el) => {
-            observer.observe(el);
-        });
+        // Add a small delay to ensure DOM elements are rendered
+        const timeoutId = setTimeout(() => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach((el) => observer.observe(el));
+        }, 300);
 
         return () => {
-            elements.forEach((el) => {
-                observer.unobserve(el);
-            });
+            clearTimeout(timeoutId);
+            observer.disconnect();
         };
-    }, [threshold, rootMargin, triggerOnce]);
+    }, [location]); // Re-run effect when location changes
 };
 
 export default useScrollAnimation;

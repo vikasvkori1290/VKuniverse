@@ -1,0 +1,102 @@
+.leetcodeContainer {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    width: 100%;
+    margin: var(--spacing-3xl) 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.header h3 {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    color: var(--text-primary);
+}
+
+.total {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.graphContainer {
+    overflow-x: auto;
+    padding-bottom: var(--spacing-md);
+}
+
+.graphGrid {
+    display: grid;
+    grid-template-rows: repeat(7, 12px);
+    grid-auto-flow: column;
+    gap: 3px;
+    width: max-content;
+}
+
+.dayBox {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background-color: var(--bg-tertiary);
+    /* Level 0 */
+}
+
+.dayBox[data-level="1"] {
+    background-color: #0e4429;
+    /* GitHub/LeetCode dark green style */
+}
+
+.dayBox[data-level="2"] {
+    background-color: #006d32;
+}
+
+.dayBox[data-level="3"] {
+    background-color: #26a641;
+}
+
+.dayBox[data-level="4"] {
+    background-color: #39d353;
+}
+
+/* Customize colors if you prefer your theme accent */
+.dayBox[data-level="1"] {
+    background-color: rgba(var(--accent-primary-rgb), 0.2);
+}
+
+.dayBox[data-level="2"] {
+    background-color: rgba(var(--accent-primary-rgb), 0.5);
+}
+
+.dayBox[data-level="3"] {
+    background-color: rgba(var(--accent-primary-rgb), 0.7);
+}
+
+.dayBox[data-level="4"] {
+    background-color: var(--accent-primary);
+}
+
+
+.legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}

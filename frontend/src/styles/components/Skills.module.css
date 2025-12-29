@@ -80,11 +80,39 @@
     overflow: hidden;
 }
 
+@keyframes fillProgress {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
 .progressFill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
     border-radius: var(--border-radius-full);
-    transition: width 1s ease-in-out;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+    /*Start at 0*/
+}
+
+.skillItem:hover .progressFill {
+    /* Optional: Add hover effect if needed, but the main animation is on load/scroll */
+}
+
+/* We need a mechanism to trigger this width change. 
+   Since we don't have per-item scroll tracking specifically for the width property in JS yet (only general fade), 
+   we can rely on the parent .animate-on-scroll.visible to trigger it if we structure it right.
+*/
+:global(.animate-on-scroll.visible) .progressFill {
+    /* The width will be set inline by React, but we rely on transition. 
+       However, if inline style sets width, we need to ensure it animates from 0.
+       Actually, standard simple way without JS change: use animation. 
+    */
+    animation: fillProgress 1.5s ease-out forwards;
 }
 
 @media (max-width: 768px) {
