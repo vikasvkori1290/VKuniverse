@@ -34,7 +34,9 @@ const LeetCodeActivity = ({ username }) => {
 
                     months.push({
                         monthLabel: d.toLocaleString('default', { month: 'short' }),
-                        startDate: startDate,
+                        year: year,
+                        monthIndex: month,
+                        startDate: startDate, // Keep for heatmap props if needed
                         endDate: endDate,
                         values: []
                     });
@@ -42,15 +44,20 @@ const LeetCodeActivity = ({ username }) => {
 
                 // Populate values into respective months
                 Object.keys(calendarData).forEach(timestamp => {
+                    // LeetCode timestamps are in seconds (UTC)
                     const date = new Date(parseInt(timestamp) * 1000);
+                    // Use UTC date for consistency with LeetCode's daily bins
                     const dateStr = date.toISOString().split('T')[0];
                     const count = calendarData[timestamp];
 
-                    months.forEach(m => {
-                        if (date >= m.startDate && date <= m.endDate) {
-                            m.values.push({ date: dateStr, count: count });
-                        }
-                    });
+                    const year = date.getUTCFullYear();
+                    const month = date.getUTCMonth();
+
+                    // Find matching month container
+                    const targetMonth = months.find(m => m.year === year && m.monthIndex === month);
+                    if (targetMonth) {
+                        targetMonth.values.push({ date: dateStr, count: count });
+                    }
                 });
 
                 setMonthlyData(months);
