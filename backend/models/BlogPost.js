@@ -44,15 +44,14 @@ const blogPostSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Generate slug from title before saving
-blogPostSchema.pre('save', function (next) {
+// Generate slug from title before validation
+blogPostSchema.pre('validate', function () {
     if (this.isModified('title') && !this.slug) {
         this.slug = this.title
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
     }
-    next();
 });
 
 module.exports = mongoose.model('BlogPost', blogPostSchema);

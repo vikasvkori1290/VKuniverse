@@ -16,8 +16,8 @@ import PrivateRoute from './utils/PrivateRoute';
 
 import StarBackground from './components/StarBackground';
 import ScrollToTopOnMount from './components/ScrollToTopOnMount';
-// import BlogPage from './pages/BlogPage';
-// import BlogPostPage from './pages/BlogPostPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
 import './styles/index.css';
 
 function App() {
@@ -36,8 +36,8 @@ function App() {
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/achievements" element={<AchievementsPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            {/* <Route path="/blog" element={<BlogPage />} /> */}
-            {/* <Route path="/blog/:slug" element={<BlogPostPage />} /> */}
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route
               path="/admin/dashboard"

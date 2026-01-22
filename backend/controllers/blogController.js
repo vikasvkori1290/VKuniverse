@@ -71,7 +71,7 @@ exports.createPost = async (req, res) => {
         res.status(201).json(newPost);
     } catch (error) {
         console.error('Error creating blog post:', error);
-        res.status(500).json({ error: 'Failed to create blog post' });
+        res.status(500).json({ error: error.message || 'Failed to create blog post' });
     }
 };
 
@@ -100,7 +100,7 @@ exports.updatePost = async (req, res) => {
         res.json(updatedPost);
     } catch (error) {
         console.error('Error updating blog post:', error);
-        res.status(500).json({ error: 'Failed to update blog post' });
+        res.status(500).json({ error: error.message || 'Failed to update blog post' });
     }
 };
 

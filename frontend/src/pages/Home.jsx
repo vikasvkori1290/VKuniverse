@@ -7,9 +7,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import About from '../components/About';
 import LeetCodeActivity from '../components/LeetCodeActivity';
-// import FeaturedProjects from '../components/FeaturedProjects';
-// import RecentAchievements from '../components/RecentAchievements';
-// import GitHubStats from '../components/GitHubStats';
+import RecentBlogs from '../components/RecentBlogs';
 import ContactForm from '../components/ContactForm';
 import styles from '../styles/pages/Home.module.css';
 
@@ -25,10 +23,8 @@ const Home = () => {
                 <div className="container">
                     <LeetCodeActivity username="vikasvkori129" />
                 </div>
+                <RecentBlogs />
                 <About />
-                {/* <FeaturedProjects /> */}
-                {/* <RecentAchievements /> */}
-                {/* <GitHubStats /> */}
                 <ContactForm />
             </main>
             <Footer />

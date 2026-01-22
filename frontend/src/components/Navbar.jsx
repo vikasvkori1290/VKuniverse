@@ -64,13 +64,13 @@ const Navbar = () => {
                         >
                             Achievements
                         </Link>
-                        {/* <Link
+                        <Link
                             to="/blog"
                             className={isActive('/blog') ? styles.activeLink : ''}
                             onClick={() => setMenuOpen(false)}
                         >
                             Blog
-                        </Link> */}
+                        </Link>
                         <Link
                             to="/contact"
                             className={isActive('/contact') ? styles.activeLink : ''}

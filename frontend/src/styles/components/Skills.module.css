@@ -99,9 +99,7 @@
     /*Start at 0*/
 }
 
-.skillItem:hover .progressFill {
-    /* Optional: Add hover effect if needed, but the main animation is on load/scroll */
-}
+
 
 /* We need a mechanism to trigger this width change. 
    Since we don't have per-item scroll tracking specifically for the width property in JS yet (only general fade), 

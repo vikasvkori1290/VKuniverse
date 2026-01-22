@@ -8,6 +8,7 @@ import VideoUploader from '../components/admin/VideoUploader';
 import SkillIconPicker from '../components/admin/SkillIconPicker';
 import RecentlyUploaded from '../components/admin/RecentlyUploaded';
 import Messages from '../components/admin/Messages';
+import BlogManager from '../components/admin/BlogManager';
 
 const AdminDashboard = () => {
   const { admin, logout } = useContext(AuthContext);
@@ -233,6 +234,7 @@ const AdminDashboard = () => {
             <button className={`${styles.tab} ${activeTab === 'projects' ? styles.active : ''}`} onClick={() => setActiveTab('projects')}>Projects</button>
             <button className={`${styles.tab} ${activeTab === 'skills' ? styles.active : ''}`} onClick={() => setActiveTab('skills')}>Skills</button>
             <button className={`${styles.tab} ${activeTab === 'achievements' ? styles.active : ''}`} onClick={() => setActiveTab('achievements')}>Achievements</button>
+            <button className={`${styles.tab} ${activeTab === 'blog' ? styles.active : ''}`} onClick={() => setActiveTab('blog')}>Blog</button>
             <button className={`${styles.tab} ${activeTab === 'messages' ? styles.active : ''}`} onClick={() => setActiveTab('messages')}>Messages</button>
             <button className={`${styles.tab} ${activeTab === 'recent' ? styles.active : ''}`} onClick={() => setActiveTab('recent')}>History</button>
           </div>
@@ -477,6 +479,10 @@ const AdminDashboard = () => {
                   </div>
                 </form>
               </div>
+            )}
+
+            {activeTab === 'blog' && (
+              <BlogManager />
             )}
 
             {activeTab === 'messages' && (
