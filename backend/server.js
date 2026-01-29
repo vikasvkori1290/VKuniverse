@@ -104,4 +104,11 @@ const keepAlive = () => {
 };
 
 // Start the interval
-setInterval(keepAlive, 10 * 60 * 1000); // 10 minutes
+// Start the interval
+// setInterval(keepAlive, 10 * 60 * 1000); // 10 minutes - Disabled for Vercel Serverless
+
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+}
+
+module.exports = app;
