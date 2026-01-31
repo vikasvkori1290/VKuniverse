@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaNodeJs, FaReact, FaPython } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaNodeJs, FaReact, FaPython, FaFileDownload, FaInstagram } from 'react-icons/fa';
 import { SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC } from 'react-icons/si';
 import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
@@ -50,7 +50,13 @@ const Hero = () => {
                         </p>
                         <div className={styles.ctaButtons}>
                             <Link to="/projects" className="btn btn-primary btn-lg">View Projects</Link>
-                            <a href="#contact" className="btn btn-secondary btn-lg">Contact Me</a>
+                            <a
+                                href="/DSA%20patterns%20by%20VIKAS.pdf"
+                                download="DSA_Patterns_by_VIKAS.pdf"
+                                className={`${styles.dsaButton} btn btn-lg`}
+                            >
+                                <FaFileDownload style={{ marginRight: '8px' }} /> DSA Patterns
+                            </a>
                         </div>
 
                         <div className={styles.socialLinks}>
@@ -60,8 +66,8 @@ const Hero = () => {
                             <a href="https://www.linkedin.com/in/vikas-v-4a4749330/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="LinkedIn">
                                 <FaLinkedin />
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Twitter">
-                                <FaTwitter />
+                            <a href="https://www.instagram.com/_vikas_129_?igsh=MTAwb2w1cjRrdWZ1MQ==" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
+                                <FaInstagram />
                             </a>
                             <a href="mailto:vikasvkori129@gmail.com" className={styles.socialIcon} aria-label="Email">
                                 <FaEnvelope />

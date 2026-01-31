@@ -404,3 +404,47 @@
         transform: none;
     }
 }
+
+.dsaButton {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-shadow: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.dsaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    background: linear-gradient(135deg, #ffed4a, #ffb900);
+    color: #000;
+}
+
+.dsaButton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shine 4s infinite ease-in-out;
+    transform: skewX(-20deg);
+}
+
+@keyframes shine {
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
