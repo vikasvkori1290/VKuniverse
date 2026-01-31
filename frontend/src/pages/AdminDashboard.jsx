@@ -258,6 +258,12 @@ const AdminDashboard = () => {
                       {dashboardStats.stats.unreadMessages}
                     </p>
                   </div>
+                  <div style={{ background: '#1a1a1a', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#ffd700' }}>DSA PDF Downloads</h3>
+                    <p style={{ margin: 0, fontSize: '2rem', fontWeight: 'bold', color: '#ffd700' }}>
+                      {dashboardStats.stats.dsaDownloads || 0}
+                    </p>
+                  </div>
                 </div>
 
                 <div className={styles.recentActivity} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>

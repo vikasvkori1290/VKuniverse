@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaNodeJs, FaReact, FaPython, FaFileDownload, FaInstagram } from 'react-icons/fa';
 import { SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC } from 'react-icons/si';
 import useTypingEffect from '../hooks/useTypingEffect';
+import api from '../services/api';
 import styles from '../styles/components/Hero.module.css';
 
 const Hero = () => {
@@ -54,6 +55,9 @@ const Hero = () => {
                                 href="/DSA%20patterns%20by%20VIKAS.pdf"
                                 download="DSA_Patterns_by_VIKAS.pdf"
                                 className={`${styles.dsaButton} btn btn-lg`}
+                                onClick={() => {
+                                    api.post('/analytics/track-dsa').catch(err => console.error("Tracking error", err));
+                                }}
                             >
                                 <FaFileDownload style={{ marginRight: '8px' }} /> DSA Patterns
                             </a>
