@@ -59,7 +59,7 @@ const Hero = () => {
                                     api.post('/analytics/track-dsa').catch(err => console.error("Tracking error", err));
                                 }}
                             >
-                                <FaFileDownload style={{ marginRight: '8px' }} /> DSA pappa
+                                <FaFileDownload style={{ marginRight: '8px' }} /> DSA patterns
                             </a>
                         </div>
 
