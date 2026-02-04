@@ -89,7 +89,7 @@ app.get('/ping', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// app.listen call removed to correct duplicate server start
 
 // Keep-Alive Mechanism for Render Free Tier
 // Pings the server every 10 minutes (600,000 ms) to prevent it from spinning down (15 min inactivity limit)

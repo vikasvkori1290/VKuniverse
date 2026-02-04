@@ -9,6 +9,8 @@ const LeetCodeActivity = ({ username }) => {
     const [totalSubmissions, setTotalSubmissions] = useState(0);
     const scrollRef = useRef(null);
 
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -46,14 +48,21 @@ const LeetCodeActivity = ({ username }) => {
                 Object.keys(calendarData).forEach(timestamp => {
                     // LeetCode timestamps are in seconds (UTC)
                     const date = new Date(parseInt(timestamp) * 1000);
-                    // Use UTC date for consistency with LeetCode's daily bins
-                    const dateStr = date.toISOString().split('T')[0];
+
+                    // Use local time for date string to match the user's browser timezone
+                    // This ensures "yesterday" means yesterday in the user's local time, not UTC
+                    const offsetDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+                    // We can't just use toISOString() on the original date because it converts to UTC
+                    // We also want to manually construct YYYY-MM-DD to be safe
+
+                    const year = date.getFullYear();
+                    const month = date.getMonth();
+                    const day = date.getDate();
+
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     const count = calendarData[timestamp];
 
-                    const year = date.getUTCFullYear();
-                    const month = date.getUTCMonth();
-
-                    // Find matching month container
+                    // Find matching month container (using local year/month)
                     const targetMonth = months.find(m => m.year === year && m.monthIndex === month);
                     if (targetMonth) {
                         targetMonth.values.push({ date: dateStr, count: count });
@@ -61,9 +70,11 @@ const LeetCodeActivity = ({ username }) => {
                 });
 
                 setMonthlyData(months);
+                setError(null);
 
             } catch (error) {
                 console.error("Error fetching LeetCode data:", error);
+                setError("Could not load LeetCode data. Please check the username.");
             }
         };
 
@@ -106,56 +117,65 @@ const LeetCodeActivity = ({ username }) => {
 
     return (
         <div className="leetcode-container">
-            <div className="leetcode-header">
-                <h3>LeetCode Activity</h3>
-                <div className="header-actions">
-                    <span>{totalSubmissions} submissions in the past year</span>
-                    <a
-                        href={`https://leetcode.com/u/${username}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="view-profile-btn"
-                    >
-                        View Profile ↗
-                    </a>
+            {error ? (
+                <div className="error-message" style={{ color: 'red', textAlign: 'center', padding: '20px' }}>
+                    {error}
                 </div>
-            </div>
-
-            <div className="months-grid" ref={scrollRef}>
-                {/* Weekday Labels Column */}
-                <div className="weekday-labels">
-                    <span>Mon</span>
-                    <span>Wed</span>
-                    <span>Fri</span>
-                </div>
-
-                {monthlyData.map((month, index) => (
-                    <div key={index} className="month-block">
-                        <span className="month-name">
-                            {month.monthLabel}
-                        </span>
-                        <CalendarHeatmap
-                            startDate={month.startDate}
-                            endDate={month.endDate}
-                            values={month.values}
-                            classForValue={(value) => {
-                                if (!value || value.count === 0) return 'color-empty';
-                                return `color-github-${Math.min(value.count, 4)}`;
-                            }}
-                            titleForValue={(value) => {
-                                if (!value) return 'No submissions';
-                                return `${value.count} submissions on ${value.date}`;
-                            }}
-                            horizontal={true}
-                            showWeekdayLabels={false}
-                            showMonthLabels={false}
-                            gutterSize={3}
-                        />
+            ) : (
+                <>
+                    <div className="leetcode-header">
+                        <h3>LeetCode Activity</h3>
+                        <div className="header-actions">
+                            <span>{totalSubmissions} submissions in the past year</span>
+                            <a
+                                href={`https://leetcode.com/u/${username}/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="view-profile-btn"
+                            >
+                                View Profile ↗
+                            </a>
+                        </div>
                     </div>
-                ))}
-            </div>
+
+                    <div className="months-grid" ref={scrollRef}>
+                        {/* Weekday Labels Column */}
+                        <div className="weekday-labels">
+                            <span>Mon</span>
+                            <span>Wed</span>
+                            <span>Fri</span>
+                        </div>
+
+                        {monthlyData.map((month, index) => (
+                            <div key={index} className="month-block">
+                                <span className="month-name">
+                                    {month.monthLabel}
+                                </span>
+                                <CalendarHeatmap
+                                    startDate={month.startDate}
+                                    endDate={month.endDate}
+                                    values={month.values}
+                                    classForValue={(value) => {
+                                        if (!value || value.count === 0) return 'color-empty';
+                                        return `color-github-${Math.min(value.count, 4)}`;
+                                    }}
+                                    titleForValue={(value) => {
+                                        if (!value) return 'No submissions';
+                                        return `${value.count} submissions on ${value.date}`;
+                                    }}
+                                    horizontal={true}
+                                    showWeekdayLabels={false}
+                                    showMonthLabels={false}
+                                    gutterSize={3}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     );
 };
 
 export default LeetCodeActivity;
+

@@ -1,8 +1,4 @@
-/* ======================
-   KEYFRAME ANIMATIONS
-   ====================== */
 
-/* Fade Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
