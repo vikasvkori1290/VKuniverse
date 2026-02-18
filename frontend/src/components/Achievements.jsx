@@ -1,31 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/components/Achievements.module.css';
-import api from '../services/api';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const Achievements = () => {
-    const [achievements, setAchievements] = React.useState([]);
-    const [activeFilter, setActiveFilter] = React.useState('All');
-    const [lightboxOpen, setLightboxOpen] = React.useState(false);
-    const [currentImage, setCurrentImage] = React.useState(null);
-    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-    const [currentImages, setCurrentImages] = React.useState([]);
+    const { achievements } = useData();
+    const [activeFilter, setActiveFilter] = useState('All');
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [currentImage, setCurrentImage] = useState(null);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImages, setCurrentImages] = useState([]);
 
     const filteredAchievements = achievements.filter(item =>
         activeFilter === 'All' ? true : item.category === activeFilter
     );
-
-    React.useEffect(() => {
-        const fetchAchievements = async () => {
-            try {
-                const { data } = await api.get('/achievements');
-                setAchievements(data);
-            } catch (error) {
-                console.error('Error fetching achievements:', error);
-            }
-        };
-        fetchAchievements();
-    }, []);
 
     // Handle keyboard navigation
     React.useEffect(() => {

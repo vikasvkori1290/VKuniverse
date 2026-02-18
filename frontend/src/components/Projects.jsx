@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import styles from '../styles/components/Projects.module.css';
-import api from '../services/api';
+import { useData } from '../context/DataContext';
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
+    const { projects, loadingProjects: loading } = useData();
     const [filter, setFilter] = useState('All');
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const { data } = await api.get('/projects');
-                setProjects(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchProjects();
-    }, []);
 
     const filteredProjects = filter === 'All'
         ? projects
