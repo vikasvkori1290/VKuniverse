@@ -71,9 +71,7 @@ const ProjectDetail = () => {
         ? project.screenshots.map(formatImageUrl)
         : project.images?.map(img => formatImageUrl(typeof img === 'object' ? img.url : img)) || [];
 
-    // Debug logging
-    console.log('Project:', project);
-    console.log('Screenshots:', displayScreenshots);
+    // Debug logging removed for production
 
     return (
         <div className={styles.projectDetail}>
