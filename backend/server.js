@@ -63,10 +63,11 @@ app.use('/api/leetcode', require('./routes/leetcode'));
 
 // Upload Routes
 const { upload, videoUpload, compressImage } = require('./middleware/upload');
+const { protect } = require('./middleware/auth');
 
 // Single image upload
 // Single image upload
-app.post('/api/upload', upload.single('image'), async (req, res) => {
+app.post('/api/upload', protect, upload.single('image'), async (req, res) => {
     try {
         const filePath = req.file.path;
         await compressImage(filePath);
@@ -78,7 +79,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 
 // Multiple images upload
 // Multiple images upload
-app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) => {
+app.post('/api/upload-multiple', protect, upload.array('images', 10), async (req, res) => {
     try {
         const uploadedFiles = [];
 
@@ -97,7 +98,7 @@ app.post('/api/upload-multiple', upload.array('images', 10), async (req, res) =>
 });
 
 // Video upload
-app.post('/api/upload-video', videoUpload.single('video'), async (req, res) => {
+app.post('/api/upload-video', protect, videoUpload.single('video'), async (req, res) => {
     try {
         const filePath = req.file.path;
         // No compression for now, just return path
