@@ -81,6 +81,7 @@ const Achievements = () => {
                         <img 
                             src={img.url} 
                             alt={`Achievement ${idx}`} 
+                            loading="lazy"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = FALLBACK_IMAGE;

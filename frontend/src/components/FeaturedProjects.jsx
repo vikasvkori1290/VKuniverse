@@ -48,6 +48,7 @@ const FeaturedProjects = () => {
                                                 src={getFileURL(thumbnail)}
                                                 alt={project.title}
                                                 className={styles.projectImage}
+                                                loading="lazy"
                                                 onError={(e) => {
                                                     e.target.onerror = null;
                                                     e.target.src = FALLBACK_IMAGE;

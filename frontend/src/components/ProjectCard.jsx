@@ -40,6 +40,7 @@ const ProjectCard = ({ project }) => {
                         loop
                         muted
                         playsInline
+                        preload="none"
                         style={{ objectFit: 'cover' }}
                         onError={(e) => {
                             e.target.style.display = 'none';
@@ -50,6 +51,7 @@ const ProjectCard = ({ project }) => {
                         src={thumbnailUrl}
                         alt={project.title}
                         className={styles.projectImage}
+                        loading="lazy"
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = FALLBACK_IMAGE;

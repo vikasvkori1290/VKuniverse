@@ -42,6 +42,7 @@ const RecentBlogs = () => {
                                         src={getFileURL(post.coverImage)}
                                         alt={post.title}
                                         className={styles.coverImage}
+                                        loading="lazy"
                                         onError={(e) => {
                                             e.target.onerror = null;
                                             e.target.src = FALLBACK_IMAGE;
