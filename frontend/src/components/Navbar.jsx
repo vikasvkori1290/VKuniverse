@@ -84,10 +84,10 @@ const Navbar = () => {
 
 
                         <Link
-                            to="/admin/login"
+                            to="/contact"
                             className={`btn btn-sm btn-primary ${styles.adminBtn}`}
                         >
-                            Admin
+                            Contact
                         </Link>
 
                         <div

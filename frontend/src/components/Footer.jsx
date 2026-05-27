@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import styles from '../styles/components/Footer.module.css';
 
@@ -28,7 +29,10 @@ const Footer = () => {
                 </div>
 
                 <div className={styles.footerBottom}>
-                    <p>&copy; {new Date().getFullYear()} Vikas v. All rights reserved.</p>
+                    <div className={styles.footerBottomLinks}>
+                        <p>&copy; {new Date().getFullYear()} Vikas v. All rights reserved.</p>
+                        <Link to="/admin/login" className={styles.adminLink}>Admin Area</Link>
+                    </div>
                 </div>
             </div>
         </footer>
