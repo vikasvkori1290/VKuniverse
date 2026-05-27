@@ -13,7 +13,34 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl, or postman)
+        if (!origin) return callback(null, true);
+        
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://localhost:3000'
+        ];
+        
+        if (process.env.FRONTEND_URL) {
+            process.env.FRONTEND_URL.split(',').forEach(url => allowedOrigins.push(url.trim()));
+        }
+
+        // Check if origin is allowed
+        const isAllowed = allowedOrigins.includes(origin) ||
+                          origin.endsWith('.vercel.app') ||
+                          origin.endsWith('.netlify.app') ||
+                          /localhost(:\d+)?$/.test(origin) ||
+                          origin.includes('vercel.app') ||
+                          origin.includes('netlify.app');
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            console.log(`CORS blocked origin: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 app.use(express.json());
