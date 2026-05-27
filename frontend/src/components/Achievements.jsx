@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/components/Achievements.module.css';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
+import { getFileURL } from '../utils/urlHelper';
 
 const Achievements = () => {
     const { achievements } = useData();
@@ -36,7 +37,7 @@ const Achievements = () => {
     const openLightbox = (images, index) => {
         const processedImages = images.map(img => ({
             ...img,
-            url: img.url.startsWith('http') ? img.url : `http://localhost:5000${img.url}`
+            url: getFileURL(img.url)
         }));
         setCurrentImages(processedImages);
         setCurrentImageIndex(index);
@@ -65,7 +66,7 @@ const Achievements = () => {
         // Ensure URLs are correct
         const processedImages = images.map(img => ({
             ...img,
-            url: img.url.startsWith('http') ? img.url : `http://localhost:5000${img.url}`
+            url: getFileURL(img.url)
         }));
 
         return (

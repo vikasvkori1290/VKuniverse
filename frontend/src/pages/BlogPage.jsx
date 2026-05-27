@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import styles from '../styles/pages/BlogPage.module.css';
+import { getFileURL } from '../utils/urlHelper';
 
 const BlogPage = () => {
     const [posts, setPosts] = useState([]);
@@ -54,7 +55,7 @@ const BlogPage = () => {
                                     {post.coverImage && (
                                         <div className={styles.imageWrapper}>
                                             <img
-                                                src={post.coverImage.startsWith('http') ? post.coverImage : `http://localhost:5000${post.coverImage}`}
+                                                src={getFileURL(post.coverImage)}
                                                 alt={post.title}
                                                 className={styles.coverImage}
                                             />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight, FaCalendar } from 'react-icons/fa';
 import api from '../services/api';
 import styles from '../styles/components/RecentBlogs.module.css';
+import { getFileURL } from '../utils/urlHelper';
 
 const RecentBlogs = () => {
     const [posts, setPosts] = useState([]);
@@ -38,7 +39,7 @@ const RecentBlogs = () => {
                             {post.coverImage && (
                                 <div className={styles.imageWrapper}>
                                     <img
-                                        src={post.coverImage.startsWith('http') ? post.coverImage : `http://localhost:5000${post.coverImage}`}
+                                        src={getFileURL(post.coverImage)}
                                         alt={post.title}
                                         className={styles.coverImage}
                                     />

@@ -11,6 +11,8 @@ import {
 import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const ResumeBuilder = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -272,10 +274,10 @@ const ResumeBuilder = () => {
             let response;
             if (savedResumeId) {
                 // Update existing resume
-                response = await axios.put(`http://localhost:5000/api/resumes/${savedResumeId}`, payload);
+                response = await axios.put(`${API_BASE_URL}/resumes/${savedResumeId}`, payload);
             } else {
                 // Create new resume
-                response = await axios.post('http://localhost:5000/api/resumes', payload);
+                response = await axios.post(`${API_BASE_URL}/resumes`, payload);
                 setSavedResumeId(response.data.id);
                 // Update URL without navigation
                 window.history.replaceState(null, '', `/resume-builder/${response.data.id}`);
@@ -294,7 +296,7 @@ const ResumeBuilder = () => {
     // Load resume from MongoDB
     const loadResume = async (resumeId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/resumes/${resumeId}`);
+            const response = await axios.get(`${API_BASE_URL}/resumes/${resumeId}`);
             const data = response.data.data;
 
             setResumeData({

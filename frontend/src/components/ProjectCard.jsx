@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaExternalLinkAlt, FaImages, FaVideo } from 'react-icons/fa';
 import styles from '../styles/components/ProjectCard.module.css';
+import { getFileURL } from '../utils/urlHelper';
 
 const ProjectCard = ({ project }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -13,13 +14,11 @@ const ProjectCard = ({ project }) => {
         // Check for new format (array of objects)
         if (typeof project.images[0] === 'object') {
             const thumbnail = project.images.find(img => img.isThumbnail) || project.images[0];
-            const url = thumbnail.url;
-            return url.startsWith('http') ? url : `http://localhost:5000${url}`;
+            return getFileURL(thumbnail.url);
         }
 
         // Fallback for old format (array of strings)
-        const url = project.images[0];
-        return url.startsWith('http') ? url : `http://localhost:5000${url}`;
+        return getFileURL(project.images[0]);
     };
 
     const thumbnailUrl = getThumbnailUrl();
@@ -35,7 +34,7 @@ const ProjectCard = ({ project }) => {
             <div className={styles.imageContainer}>
                 {project.video ? (
                     <video
-                        src={project.video.startsWith('http') ? project.video : `http://localhost:5000${project.video}`}
+                        src={getFileURL(project.video)}
                         className={styles.projectImage}
                         autoPlay
                         loop

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import '../styles/components/LeetCodeActivity.css';
-import api from '../services/api';
 
 const LeetCodeActivity = ({ username }) => {
     const [monthlyData, setMonthlyData] = useState([]);
@@ -14,8 +13,19 @@ const LeetCodeActivity = ({ username }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await api.get(`/leetcode/${username}`);
-                const calendarData = response.data;
+                // Call public alfa-leetcode-api directly from frontend (CORS-enabled, not blocked)
+                const res = await fetch(`https://alfa-leetcode-api.onrender.com/userCalendar?username=${username}`);
+                if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+                const json = await res.json();
+
+                // The API returns submissionCalendar as a JSON string
+                const calendarData = typeof json.submissionCalendar === 'string'
+                    ? JSON.parse(json.submissionCalendar)
+                    : json.submissionCalendar;
+
+                if (!calendarData || Object.keys(calendarData).length === 0) {
+                    throw new Error('Empty calendar data returned');
+                }
 
                 // Calculate total
                 const total = Object.values(calendarData).reduce((a, b) => a + b, 0);
@@ -38,7 +48,7 @@ const LeetCodeActivity = ({ username }) => {
                         monthLabel: d.toLocaleString('default', { month: 'short' }),
                         year: year,
                         monthIndex: month,
-                        startDate: startDate, // Keep for heatmap props if needed
+                        startDate: startDate,
                         endDate: endDate,
                         values: []
                     });
@@ -49,12 +59,6 @@ const LeetCodeActivity = ({ username }) => {
                     // LeetCode timestamps are in seconds (UTC)
                     const date = new Date(parseInt(timestamp) * 1000);
 
-                    // Use local time for date string to match the user's browser timezone
-                    // This ensures "yesterday" means yesterday in the user's local time, not UTC
-                    const offsetDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-                    // We can't just use toISOString() on the original date because it converts to UTC
-                    // We also want to manually construct YYYY-MM-DD to be safe
-
                     const year = date.getFullYear();
                     const month = date.getMonth();
                     const day = date.getDate();
@@ -62,7 +66,7 @@ const LeetCodeActivity = ({ username }) => {
                     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     const count = calendarData[timestamp];
 
-                    // Find matching month container (using local year/month)
+                    // Find matching month container
                     const targetMonth = months.find(m => m.year === year && m.monthIndex === month);
                     if (targetMonth) {
                         targetMonth.values.push({ date: dateStr, count: count });
