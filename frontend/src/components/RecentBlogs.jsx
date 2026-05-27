@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight, FaCalendar } from 'react-icons/fa';
 import api from '../services/api';
 import styles from '../styles/components/RecentBlogs.module.css';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const RecentBlogs = () => {
     const [posts, setPosts] = useState([]);
@@ -42,6 +42,10 @@ const RecentBlogs = () => {
                                         src={getFileURL(post.coverImage)}
                                         alt={post.title}
                                         className={styles.coverImage}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = FALLBACK_IMAGE;
+                                        }}
                                     />
                                 </div>
                             )}

@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import styles from '../styles/pages/ProjectDetail.module.css';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const ProjectDetail = () => {
     const { id } = useParams();
@@ -104,6 +104,10 @@ const ProjectDetail = () => {
                                     src={displayScreenshots[currentImageIndex]}
                                     alt={`${project.title} screenshot ${currentImageIndex + 1}`}
                                     className={styles.carouselImage}
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = FALLBACK_IMAGE;
+                                    }}
                                 />
                                 {displayScreenshots.length > 1 && (
                                     <>

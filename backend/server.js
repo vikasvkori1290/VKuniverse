@@ -2,6 +2,8 @@ const express = require('express');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/errorMiddleware'); // Need to create this
@@ -11,6 +13,18 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// Set security HTTP headers via Helmet
+app.use(helmet({
+    contentSecurityPolicy: false
+}));
+
+// Rate limit submissions to the contact form messages route
+const messageLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limit each IP to 10 submissions per 15 mins
+    message: { message: 'Too many messages sent from this IP, please try again after 15 minutes.' }
+});
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -54,7 +68,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/achievements', require('./routes/achievements'));
 app.use('/api/skills', require('./routes/skills'));
-app.use('/api/messages', require('./routes/messages'));
+app.use('/api/messages', messageLimiter, require('./routes/messages'));
 app.use('/api/blog', require('./routes/blog'));
 app.use('/api/resumes', require('./routes/resumes'));
 app.use('/api/ai', require('./routes/ai'));

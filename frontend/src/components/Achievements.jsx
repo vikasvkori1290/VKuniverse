@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/components/Achievements.module.css';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const Achievements = () => {
     const { achievements } = useData();
@@ -78,7 +78,14 @@ const Achievements = () => {
                         onClick={() => openLightbox(images, idx)}
                         style={{ cursor: 'pointer' }}
                     >
-                        <img src={img.url} alt={`Achievement ${idx}`} />
+                        <img 
+                            src={img.url} 
+                            alt={`Achievement ${idx}`} 
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = FALLBACK_IMAGE;
+                            }}
+                        />
                     </div>
                 ))}
             </div>
@@ -154,7 +161,14 @@ const Achievements = () => {
                     )}
 
                     <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
-                        <img src={currentImage?.url} alt="Achievement" />
+                        <img 
+                            src={currentImage?.url} 
+                            alt="Achievement" 
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = FALLBACK_IMAGE;
+                            }}
+                        />
                         {currentImages.length > 1 && (
                             <div className={styles.imageCounter}>
                                 {currentImageIndex + 1} / {currentImages.length}

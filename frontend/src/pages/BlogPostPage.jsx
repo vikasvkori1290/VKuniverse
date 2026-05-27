@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import styles from '../styles/pages/BlogPostPage.module.css';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const BlogPostPage = () => {
     const { slug } = useParams();
@@ -68,6 +68,10 @@ const BlogPostPage = () => {
                                     src={getFileURL(post.coverImage)}
                                     alt={post.title}
                                     className={styles.coverImage}
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = FALLBACK_IMAGE;
+                                    }}
                                 />
                             </div>
                         )}

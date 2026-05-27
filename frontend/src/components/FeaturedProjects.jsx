@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import api from '../services/api';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 import styles from '../styles/components/FeaturedProjects.module.css';
 
 const FeaturedProjects = () => {
@@ -43,13 +43,17 @@ const FeaturedProjects = () => {
                         return (
                             <div key={project._id || index} className={styles.projectCard}>
                                 <div className={styles.imageWrapper}>
-                                    {thumbnail && (
-                                        <img
-                                            src={getFileURL(thumbnail)}
-                                            alt={project.title}
-                                            className={styles.projectImage}
-                                        />
-                                    )}
+                                        {thumbnail && (
+                                            <img
+                                                src={getFileURL(thumbnail)}
+                                                alt={project.title}
+                                                className={styles.projectImage}
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = FALLBACK_IMAGE;
+                                                }}
+                                            />
+                                        )}
                                     <div className={styles.overlay}>
                                         <div className={styles.links}>
                                             {project.githubLink && (

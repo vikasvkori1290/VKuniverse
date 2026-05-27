@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaExternalLinkAlt, FaImages, FaVideo } from 'react-icons/fa';
 import styles from '../styles/components/ProjectCard.module.css';
-import { getFileURL } from '../utils/urlHelper';
+import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const ProjectCard = ({ project }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -41,12 +41,19 @@ const ProjectCard = ({ project }) => {
                         muted
                         playsInline
                         style={{ objectFit: 'cover' }}
+                        onError={(e) => {
+                            e.target.style.display = 'none';
+                        }}
                     />
                 ) : thumbnailUrl ? (
                     <img
                         src={thumbnailUrl}
                         alt={project.title}
                         className={styles.projectImage}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = FALLBACK_IMAGE;
+                        }}
                     />
                 ) : (
                     <div className={styles.placeholderImage}>
