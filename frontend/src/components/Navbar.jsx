@@ -71,13 +71,6 @@ const Navbar = () => {
                         >
                             Blog
                         </Link>
-                        <Link
-                            to="/contact"
-                            className={isActive('/contact') ? styles.activeLink : ''}
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            Contact
-                        </Link>
                     </div>
 
                     <div className={styles.navActions}>
