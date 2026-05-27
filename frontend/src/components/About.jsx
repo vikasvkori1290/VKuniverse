@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import styles from '../styles/components/About.module.css';
 
@@ -68,12 +67,6 @@ const About = () => {
                 >
                     📄 Download Resume
                 </a>
-                <Link
-                    to="/resume-builder"
-                    className={`btn btn-lg ${styles.aiResumeBtn}`}
-                >
-                    ✨ Build Resume with AI
-                </Link>
             </div>
         </section>
     );
