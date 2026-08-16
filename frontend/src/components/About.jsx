@@ -58,16 +58,6 @@ const About = () => {
                     ))}
                 </div>
             </div>
-
-            <div className={`${styles.buttonContainer} animate-on-scroll`}>
-                <a
-                    href="/vikas v's resume.pdf"
-                    download="Vikas_V_Resume.pdf"
-                    className={`btn btn-lg ${styles.resumeBtn}`}
-                >
-                    📄 Download Resume
-                </a>
-            </div>
         </section>
     );
 };

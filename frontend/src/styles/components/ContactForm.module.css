@@ -1,123 +1,300 @@
 .contactSection {
     padding: var(--spacing-4xl) 0;
-    background: var(--bg-primary);
+    background: transparent;
     width: 100%;
+    position: relative;
 }
 
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
 .sectionHeader {
     text-align: center;
-    margin: 0 auto var(--spacing-3xl);
-    max-width: 800px;
+    margin-bottom: var(--spacing-2xl);
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.liveDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #38bdf8;
 }
 
 .title {
-    font-size: var(--font-size-4xl);
-    margin-bottom: var(--spacing-md);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
 }
 
-.formContainer {
-    max-width: 700px;
-    margin: 0 auto;
+/* Master Glass Contact Hub */
+.contactHub {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 28px 32px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transition: border-color 0.3s ease;
 }
 
-.form {
-    background: var(--bg-secondary);
-    padding: var(--spacing-2xl);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
+.contactHub:hover {
+    border-color: rgba(56, 189, 248, 0.4);
 }
 
-.formRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
-}
-
-.formGroup {
-    margin-bottom: var(--spacing-lg);
-}
-
-.formGroup label {
+/* Hub Top Status Bar */
+.hubTopBar {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    font-weight: var(--font-weight-medium);
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-primary);
-    font-size: var(--font-size-sm);
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.formGroup input,
-.formGroup textarea {
-    width: 100%;
-    padding: var(--spacing-md);
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    color: var(--text-primary);
-    font-size: var(--font-size-base);
-    font-family: inherit;
-    transition: all var(--transition-normal);
+.locationTag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-.formGroup input:focus,
-.formGroup textarea:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px var(--accent-primary-light);
+.mapIcon {
+    color: #38bdf8;
+    font-size: 0.95rem;
 }
 
-.formGroup textarea {
-    resize: vertical;
-    min-height: 150px;
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    color: #4ade80;
+    font-size: 0.78rem;
+    font-weight: 600;
 }
 
-.statusMessage {
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-lg);
-    font-weight: var(--font-weight-medium);
+.pulseDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
 }
 
-.statusMessage.success {
-    background: var(--color-success-light);
-    color: var(--color-success);
-    border: 1px solid var(--color-success);
+/* Channels Grid */
+.channelsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.statusMessage.error {
-    background: var(--color-error-light);
-    color: var(--color-error);
-    border: 1px solid var(--color-error);
+.channelCard {
+    background: rgba(10, 15, 25, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+    transition: all 0.25s ease;
 }
 
-.submitBtn {
-    width: 100%;
+.channelCard:hover {
+    background: rgba(15, 23, 42, 0.65);
+    border-color: rgba(56, 189, 248, 0.35);
+    transform: translateY(-2px);
+}
+
+.channelHeader {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.channelIconBox {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    font-size: var(--font-size-lg);
-    padding: var(--spacing-lg);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    background: rgba(14, 165, 233, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
-.submitBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.phoneIconBox,
+.emailIconBox {
+    background: rgba(14, 165, 233, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.channelMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.channelLabel {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+.channelValue {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.channelValue:hover {
+    color: #38bdf8;
+}
+
+/* Action Buttons - Plain Solid Sky Blue & Clean Controls */
+.channelActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.actionBtnPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: #0284c7;
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.actionBtnPrimary:hover {
+    background: #0ea5e9;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.actionBtnWhatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: #16a34a;
+    color: #ffffff;
+    border: 1px solid #4ade80;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.actionBtnWhatsapp:hover {
+    background: #22c55e;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.actionBtnCopy {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.actionBtnCopy:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.actionBtnCopy.copied {
+    background: #16a34a;
+    border-color: #4ade80;
+    color: #ffffff;
 }
 
 @media (max-width: 768px) {
-    .formRow {
+    .channelsGrid {
         grid-template-columns: 1fr;
     }
 
-    .form {
-        padding: var(--spacing-lg);
+    .contactHub {
+        padding: 20px;
+    }
+
+    .channelValue {
+        font-size: 1rem;
     }
 }

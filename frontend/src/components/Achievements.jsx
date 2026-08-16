@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/components/Achievements.module.css';
-import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight, FaTrophy, FaCode, FaCertificate, FaMedal, FaStar, FaRocket } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
 import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
@@ -11,13 +11,15 @@ const Achievements = () => {
     const [currentImage, setCurrentImage] = useState(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImages, setCurrentImages] = useState([]);
+    const [activeNodeId, setActiveNodeId] = useState(null);
 
-    const filteredAchievements = achievements.filter(item =>
-        activeFilter === 'All' ? true : item.category === activeFilter
-    );
+    // Sort strictly in ASCENDING order of date (earliest -> latest)
+    const sortedAchievements = [...achievements]
+        .filter(item => activeFilter === 'All' ? true : item.category === activeFilter)
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    // Handle keyboard navigation
-    React.useEffect(() => {
+    // Handle keyboard navigation for lightbox
+    useEffect(() => {
         const handleKeyDown = (e) => {
             if (!lightboxOpen) return;
 
@@ -43,7 +45,7 @@ const Achievements = () => {
         setCurrentImageIndex(index);
         setCurrentImage(processedImages[index]);
         setLightboxOpen(true);
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
@@ -60,47 +62,39 @@ const Achievements = () => {
         setCurrentImage(currentImages[newIndex]);
     };
 
-    const renderCollage = (images, layout) => {
-        if (!images || images.length === 0) return null;
+    const getCategoryIcon = (category) => {
+        switch (category?.toLowerCase()) {
+            case 'hackathon':
+                return <FaTrophy />;
+            case 'leetcode':
+                return <FaCode />;
+            case 'certification':
+                return <FaCertificate />;
+            case 'award':
+                return <FaMedal />;
+            default:
+                return <FaStar />;
+        }
+    };
 
-        // Ensure URLs are correct
-        const processedImages = images.map(img => ({
-            ...img,
-            url: getFileURL(img.url)
-        }));
-
-        return (
-            <div className={`${styles.collage} ${styles[layout || 'grid']}`}>
-                {processedImages.map((img, idx) => (
-                    <div
-                        key={idx}
-                        className={styles.collageItem}
-                        onClick={() => openLightbox(images, idx)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <img 
-                            src={img.url} 
-                            alt={`Achievement ${idx}`} 
-                            loading="lazy"
-                            onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = FALLBACK_IMAGE;
-                            }}
-                        />
-                    </div>
-                ))}
-            </div>
-        );
+    // Calculate winding S-curve position: Left, Center-Left, Center-Right, Right
+    const getNodePositionClass = (index) => {
+        const pattern = ['posLeft', 'posCenterLeft', 'posRight', 'posCenterRight'];
+        return styles[pattern[index % pattern.length]];
     };
 
     return (
         <section className={styles.achievementsSection} id="achievements">
             <div className={styles.container}>
+                {/* Clean Aesthetic Header */}
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
-                    <h2 className={styles.title}>Achievements</h2>
-                    <p className={styles.subtitle}>Milestones and recognitions along my journey.</p>
+                    <h2 className={styles.title}>Achievements & Milestones</h2>
+                    <p className={styles.subtitle}>
+                        Chronological journey through competitions, coding milestones, and recognitions.
+                    </p>
                 </div>
 
+                {/* Filter Controls */}
                 <div className={styles.filterContainer}>
                     {['All', 'Hackathon', 'LeetCode', 'Certification', 'Award'].map(filter => (
                         <button
@@ -113,28 +107,109 @@ const Achievements = () => {
                     ))}
                 </div>
 
-                <div className={styles.timeline}>
-                    {filteredAchievements.map((item, index) => (
-                        <div key={item._id || index} className={`${styles.timelineItem} animate-on-scroll animate-delay-${index + 1}`}>
-                            <div className={styles.timelineDot}></div>
-                            <div className={styles.timelineContent}>
-                                <span className={styles.date}>{new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
-                                <h3 className={styles.itemTitle}>{item.title}</h3>
-                                <span className={styles.category}>{item.category}</span>
-                                <p className={styles.description}>{item.description}</p>
+                {/* Aesthetic Level Map Road */}
+                <div className={styles.levelMapContainer}>
+                    {/* Glowing Track Line in Background */}
+                    <div className={styles.roadTrackLine} />
 
-                                {/* Image Collage */}
-                                {item.images && item.images.length > 0 && renderCollage(item.images, item.collageLayout)}
-                            </div>
-                        </div>
-                    ))}
+                    <div className={styles.roadMapNodes}>
+                        {sortedAchievements.map((item, index) => {
+                            const levelNumber = String(index + 1).padStart(2, '0');
+                            const isLatest = index === sortedAchievements.length - 1;
+                            const isSelected = activeNodeId === (item._id || index);
+
+                            return (
+                                <div
+                                    key={item._id || index}
+                                    className={`${styles.mapNodeRow} ${getNodePositionClass(index)} animate-on-scroll`}
+                                    onClick={() => setActiveNodeId(isSelected ? null : (item._id || index))}
+                                >
+                                    {/* Level Node Token */}
+                                    <div className={styles.nodeAnchor}>
+                                        {/* Player Pin on Latest Level */}
+                                        {isLatest && (
+                                            <div className={styles.playerPin}>
+                                                <div className={styles.playerAvatar}>
+                                                    <FaRocket />
+                                                </div>
+                                                <div className={styles.playerTag}>Current</div>
+                                            </div>
+                                        )}
+
+                                        {/* Aesthetic Frosted Glass Level Node Token */}
+                                        <div className={styles.levelCircle}>
+                                            <div className={styles.nodeNumber}>'{levelNumber}</div>
+                                            <div className={styles.nodeIcon}>
+                                                {getCategoryIcon(item.category)}
+                                            </div>
+                                        </div>
+
+                                        {/* Subtle Stars */}
+                                        <div className={styles.starRow}>
+                                            <FaStar className={styles.starIcon} />
+                                            <FaStar className={`${styles.starIcon} ${styles.starCenter}`} />
+                                            <FaStar className={styles.starIcon} />
+                                        </div>
+                                    </div>
+
+                                    {/* Aesthetic Level Quest Card */}
+                                    <div className={`${styles.questCard} ${isSelected ? styles.cardActive : ''}`}>
+                                        <div className={styles.cardHeader}>
+                                            <div className={styles.cardMeta}>
+                                                <span className={styles.levelBadge}>Level {levelNumber}</span>
+                                                <span className={styles.categoryBadge}>{item.category || 'Achievement'}</span>
+                                            </div>
+                                            <div className={styles.cardDate}>
+                                                {new Date(item.date).toLocaleDateString('en-US', {
+                                                    month: 'short',
+                                                    year: 'numeric'
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <h3 className={styles.questTitle}>{item.title}</h3>
+                                        <p className={styles.questDesc}>{item.description}</p>
+
+                                        {/* Certificate / Image preview collage */}
+                                        {item.images && item.images.length > 0 && (
+                                            <div className={styles.collageGrid}>
+                                                {item.images.map((img, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className={styles.collageThumb}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            openLightbox(item.images, idx);
+                                                        }}
+                                                    >
+                                                        <img
+                                                            src={getFileURL(img.url)}
+                                                            alt={`Certificate ${idx + 1}`}
+                                                            loading="lazy"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = FALLBACK_IMAGE;
+                                                            }}
+                                                        />
+                                                        <div className={styles.thumbOverlay}>
+                                                            <span>Preview 🔍</span>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
 
             {/* Lightbox Modal */}
             {lightboxOpen && (
                 <div className={styles.lightbox} onClick={closeLightbox}>
-                    <button className={styles.closeBtn} onClick={closeLightbox}>
+                    <button className={styles.closeBtn} onClick={closeLightbox} aria-label="Close Lightbox">
                         <FaTimes />
                     </button>
 
@@ -146,6 +221,7 @@ const Achievements = () => {
                                     e.stopPropagation();
                                     navigateImage(-1);
                                 }}
+                                aria-label="Previous image"
                             >
                                 <FaChevronLeft />
                             </button>
@@ -155,6 +231,7 @@ const Achievements = () => {
                                     e.stopPropagation();
                                     navigateImage(1);
                                 }}
+                                aria-label="Next image"
                             >
                                 <FaChevronRight />
                             </button>
@@ -164,7 +241,7 @@ const Achievements = () => {
                     <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
                         <img 
                             src={currentImage?.url} 
-                            alt="Achievement" 
+                            alt="Achievement Lightbox" 
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = FALLBACK_IMAGE;

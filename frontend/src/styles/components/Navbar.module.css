@@ -1,69 +1,79 @@
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    /* Add explicit right for smooth transition */
-    margin: 0 auto;
-    /* Add explicit margin for smooth transition */
-    width: 100%;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: var(--z-fixed);
-    padding: var(--spacing-md) 0;
-    transition: all 0.5s ease-in-out;
+    width: fit-content;
+    max-width: 90vw;
+    padding: 8px 24px;
+    border-radius: 50px;
     background: transparent;
-    border-radius: 0;
-    /* Add explicit border-radius start point */
+    border: 1px solid transparent;
+    box-shadow: none;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, padding 0.35s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar :global(.container) {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+    width: 100%;
 }
 
 .navbar.scrolled {
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    padding: var(--spacing-sm) 0;
-
-    /* Floating Pill Effect */
-    width: 85%;
-    top: 20px;
-    border-radius: 50px;
-
-    /* Center using margin auto instead of transform */
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    background: rgba(10, 10, 15, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    padding: 6px 20px;
 }
 
 .navContent {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-xl);
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.navbar.scrolled .navContent {
+    gap: 20px;
 }
 
 /* Logo */
 .logo {
-    font-size: 1.5rem;
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-extrabold);
-    font-family: var(--font-display);
-    color: var(--text-primary);
     text-decoration: none;
-    transition: transform var(--transition-normal);
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-right: 0;
+    transform: scale(0.85);
+    transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-right 0.35s ease, transform 0.3s ease;
+}
+
+.scrolled .logo {
+    max-width: 50px;
+    opacity: 1;
+    margin-right: 4px;
+    transform: scale(1);
 }
 
 .logo img,
 .logo svg {
-    margin-top: 0;
-    height: 50px;
-    /* or whatever height suits you */
+    height: 34px;
     width: auto;
     max-width: 100%;
+    display: block;
 }
-
 
 .logo:hover {
     transform: scale(1.05);
@@ -81,12 +91,13 @@
 
 .navLinks a {
     position: relative;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-base);
     padding: var(--spacing-sm) 0;
     transition: color var(--transition-fast);
     font-family: var(--font-display);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .navLinks a::after {
@@ -177,6 +188,33 @@
 
 /* Responsive */
 @media (max-width: 968px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    .navbar.scrolled {
+        width: 92%;
+        border-radius: 20px;
+        padding: 10px 16px;
+    }
+
+    .navbar.scrolled :global(.container) {
+        width: 100%;
+    }
+
+    .navContent,
+    .navbar.scrolled .navContent {
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    .logo,
+    .scrolled .logo {
+        display: flex;
+        opacity: 1;
+        transform: scale(1);
+    }
+
     .navLinks {
         position: fixed;
         top: 0;

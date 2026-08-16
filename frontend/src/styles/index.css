@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import './variables.css';
 @import './reset.css';
 @import './animations.css';
 @import './utilities.css';
+
+*,
+*::before,
+*::after {
+    font-family: var(--font-primary);
+}
 
 body {
     font-family: var(--font-primary);
@@ -12,6 +19,67 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color var(--transition-normal), color var(--transition-normal);
+    position: relative;
+}
+
+/* Big Crisp Grid */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background-image: 
+        linear-gradient(to right, var(--bg-grid-color, rgba(255, 255, 255, 0.025)) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-grid-color, rgba(255, 255, 255, 0.025)) 1px, transparent 1px);
+    background-size: 110px 110px;
+    background-position: center;
+}
+
+/* Moving Light Beam - softened subtle glow through the grid lines */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(
+        125deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.09) 48%,
+        rgba(96, 165, 250, 0.14) 50%,
+        rgba(255, 255, 255, 0.09) 52%,
+        transparent 60%,
+        transparent 100%
+    );
+    background-size: 300% 300%;
+    
+    /* Strict grid mask: only the 1px lines can show the shine */
+    mask-image: 
+        linear-gradient(to right, black 1px, transparent 1px),
+        linear-gradient(to bottom, black 1px, transparent 1.5px);
+    -webkit-mask-image: 
+        linear-gradient(to right, black 1px, transparent 1px),
+        linear-gradient(to bottom, black 1px, transparent 1px);
+    mask-size: 110px 110px;
+    -webkit-mask-size: 110px 110px;
+    mask-position: center;
+    -webkit-mask-position: center;
+    
+    animation: lineShineSweep 8s ease-in-out infinite;
+}
+
+@keyframes lineShineSweep {
+    0% {
+        background-position: 150% 150%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: -50% -50%;
+    }
 }
 
 /* Container */

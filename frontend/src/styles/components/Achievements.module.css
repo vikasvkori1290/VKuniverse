@@ -2,10 +2,13 @@
     padding: var(--spacing-4xl) 0;
     background: transparent;
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .container {
     width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
     display: flex;
@@ -13,311 +16,418 @@
     align-items: center;
 }
 
+/* Aesthetic Header */
 .sectionHeader {
     text-align: center;
-    margin-bottom: var(--spacing-3xl);
+    margin-bottom: var(--spacing-2xl);
     max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
-    font-size: var(--font-size-4xl);
-    margin-bottom: var(--spacing-md);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin-bottom: var(--spacing-lg);
 }
 
+/* Filter Controls */
 .filterContainer {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-md);
+    gap: 10px;
     margin-bottom: var(--spacing-3xl);
     flex-wrap: wrap;
 }
 
 .filterBtn {
-    padding: 0.5rem 1.5rem;
-    border-radius: var(--border-radius-full);
-    border: 1px solid var(--border-color);
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    font-weight: var(--font-weight-medium);
+    padding: 7px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 15, 25, 0.45);
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    font-size: 0.88rem;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
 }
 
 .filterBtn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    transform: translateY(-2px);
 }
 
 .filterBtn.active {
-    background: var(--accent-primary);
-    color: white;
-    border-color: var(--accent-primary);
-    box-shadow: var(--shadow-md);
+    background: rgba(59, 130, 246, 0.25);
+    color: #93c5fd;
+    border-color: rgba(96, 165, 250, 0.6);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
 }
 
-.timeline {
+/* Level Map Container & Serpentine Road */
+.levelMapContainer {
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    padding: 30px 0;
 }
 
-.timeline::before {
-    content: '';
+/* Sleek Glowing Center Line */
+.roadTrackLine {
     position: absolute;
-    top: 0;
+    top: 30px;
+    bottom: 30px;
     left: 50%;
-    transform: translateX(-50%);
     width: 2px;
-    height: 100%;
-    background: var(--border-color);
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(96, 165, 250, 0.5) 8%,
+        rgba(96, 165, 250, 0.5) 92%,
+        transparent
+    );
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    z-index: 0;
 }
 
-.timelineItem {
+.roadMapNodes {
     display: flex;
-    justify-content: flex-end;
-    padding-right: 30px;
+    flex-direction: column;
+    gap: 48px;
     position: relative;
-    margin-bottom: var(--spacing-2xl);
-    width: 50%;
+    z-index: 1;
 }
 
-.timelineItem:nth-child(even) {
-    align-self: flex-end;
-    justify-content: flex-start;
-    padding-right: 0;
-    padding-left: 30px;
-    margin-left: 50%;
-}
-
-.timelineDot {
-    position: absolute;
-    top: 0;
-    right: -6px;
-    width: 14px;
-    height: 14px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    border: 2px solid var(--bg-primary);
-    box-shadow: 0 0 0 2px var(--accent-primary-light);
-}
-
-.timelineItem:nth-child(even) .timelineDot {
-    right: auto;
-    left: -6px;
-}
-
-.timelineContent {
-    background: var(--bg-primary);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-normal);
+/* Winding S-Curve Rows */
+.mapNodeRow {
+    display: flex;
+    align-items: center;
+    gap: 28px;
     width: 100%;
-}
-
-.timelineContent:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
-.date {
-    font-size: var(--font-size-sm);
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: var(--spacing-xs);
-}
-
-.itemTitle {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-primary);
-}
-
-.category {
-    display: inline-block;
-    padding: 2px 8px;
-    background: var(--accent-primary-light);
-    color: var(--accent-primary);
-    border-radius: var(--border-radius-sm);
-    font-size: var(--font-size-xs);
-    margin-bottom: var(--spacing-md);
-}
-
-.description {
-    color: var(--text-secondary);
-    line-height: var(--line-height-relaxed);
-    margin-bottom: var(--spacing-md);
-}
-
-/* Collage Styles */
-.collage {
-    display: grid;
-    gap: 8px;
-    margin-top: 15px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.collageItem {
-    position: relative;
-    overflow: hidden;
-    border-radius: 4px;
-    background: var(--bg-tertiary);
-}
-
-.collageItem img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.collageItem:hover img {
-    transform: scale(1.05);
+/* Alternating Winding Curves */
+.posLeft {
+    flex-direction: row;
+    padding-right: 14%;
 }
 
-/* Grid Layout (Default) */
-.grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-auto-rows: 100px;
+.posCenterLeft {
+    flex-direction: row;
+    padding-left: 6%;
+    padding-right: 6%;
 }
 
-/* Masonry Layout (Simulated with Grid) */
-.masonry {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
+.posRight {
+    flex-direction: row-reverse;
+    padding-left: 14%;
 }
 
-.masonry .collageItem:first-child {
-    grid-row: span 2;
+.posCenterRight {
+    flex-direction: row-reverse;
+    padding-left: 6%;
+    padding-right: 6%;
 }
 
-/* Single Layout */
-.single {
-    grid-template-columns: 1fr;
+/* Level Node Anchor */
+.nodeAnchor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex-shrink: 0;
 }
 
-.single .collageItem {
-    height: 200px;
+/* Current Stage Player Rocket Pin */
+.playerPin {
+    position: absolute;
+    top: -42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: float 2.5s infinite ease-in-out;
+    z-index: 3;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .timeline::before {
-        left: 20px;
+.playerAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.85);
+    color: #60a5fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+    border: 1.5px solid rgba(96, 165, 250, 0.8);
+}
+
+.playerTag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #93c5fd;
+    background: rgba(10, 15, 25, 0.85);
+    padding: 1px 7px;
+    border-radius: 8px;
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    margin-top: 3px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
     }
-
-    .timelineItem {
-        width: 100%;
-        padding-left: 50px;
-        padding-right: 0;
-        margin-left: 0;
-        justify-content: flex-start;
-    }
-
-    .timelineItem:nth-child(even) {
-        margin-left: 0;
-        padding-left: 50px;
-    }
-
-    .timelineDot {
-        left: 14px;
-        right: auto;
-    }
-
-    .timelineItem:nth-child(even) .timelineDot {
-        left: 14px;
+    50% {
+        transform: translateY(-6px);
     }
 }
 
-/* Lightbox Modal Styles */
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Aesthetic Frosted Level Node Token */
+.levelCircle {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mapNodeRow:hover .levelCircle {
+    transform: scale(1.1);
+    border-color: #60a5fa;
+    box-shadow: 0 10px 28px rgba(59, 130, 246, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.5);
+}
+
+.nodeNumber {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    font-family: 'Quantico', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.nodeIcon {
+    font-size: 0.72rem;
+    color: #93c5fd;
+    margin-top: 3px;
+    opacity: 0.9;
+}
+
+/* Subtle Golden Stars */
+.starRow {
+    display: flex;
+    gap: 3px;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.starIcon {
+    font-size: 0.68rem;
+    color: #eab308;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    opacity: 0.85;
+}
+
+.starCenter {
+    font-size: 0.82rem;
+    transform: translateY(-1px);
+    color: #facc15;
+    opacity: 1;
+}
+
+/* Aesthetic Level Quest Card */
+.questCard {
+    flex: 1;
+    background: rgba(10, 15, 25, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 20px 24px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.mapNodeRow:hover .questCard,
+.cardActive {
+    border-color: rgba(96, 165, 250, 0.45);
+    background: rgba(15, 23, 42, 0.65);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 0 0 16px rgba(59, 130, 246, 0.15);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 12px;
+}
+
+.cardMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.levelBadge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    padding: 3px 9px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.categoryBadge {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.cardDate {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.questTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+
+.questDesc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+    margin-bottom: 12px;
+}
+
+/* Certificate Preview Collage */
+.collageGrid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.collageThumb {
+    position: relative;
+    width: 76px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.collageThumb:hover {
+    transform: scale(1.08);
+    border-color: #60a5fa;
+}
+
+.collageThumb img {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    object-fit: cover;
+}
+
+.thumbOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 0.65rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.collageThumb:hover .thumbOverlay {
+    opacity: 1;
+}
+
+/* Lightbox Modal */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.lightboxContent {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.lightboxContent img {
-    max-width: 100%;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    padding: 24px;
 }
 
 .closeBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 24px;
+    right: 24px;
     background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    width: 50px;
-    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 24px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    z-index: 10001;
+    transition: all 0.2s ease;
 }
 
 .closeBtn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: rotate(90deg);
+    background: #ef4444;
+    border-color: #ef4444;
+    transform: scale(1.1);
 }
 
 .navBtn {
@@ -325,8 +435,9 @@
     top: 50%;
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 1.4rem;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -334,72 +445,78 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    z-index: 10001;
+    transition: all 0.2s ease;
 }
 
 .navBtn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #3b82f6;
+    border-color: #3b82f6;
     transform: translateY(-50%) scale(1.1);
 }
 
 .prevBtn {
-    left: 20px;
+    left: 24px;
 }
 
 .nextBtn {
-    right: 20px;
+    right: 24px;
+}
+
+.lightboxContent {
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightboxContent img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    object-fit: contain;
 }
 
 .imageCounter {
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
-/* Mobile Responsiveness for Lightbox */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .closeBtn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        top: 10px;
-        right: 10px;
+    .roadTrackLine {
+        left: 32px;
+        transform: none;
     }
 
-    .navBtn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+    .posLeft,
+    .posCenterLeft,
+    .posRight,
+    .posCenterRight {
+        flex-direction: row;
+        padding-left: 0;
+        padding-right: 0;
+        gap: 18px;
     }
 
-    .prevBtn {
-        left: 10px;
+    .levelCircle {
+        width: 52px;
+        height: 52px;
     }
 
-    .nextBtn {
-        right: 10px;
+    .nodeNumber {
+        font-size: 0.92rem;
     }
 
-    .lightboxContent img {
-        max-height: 80vh;
+    .questCard {
+        padding: 16px;
     }
 
-    .imageCounter {
-        bottom: -35px;
-        font-size: 12px;
-        padding: 6px 12px;
+    .questTitle {
+        font-size: 1.05rem;
     }
 }

@@ -51,13 +51,6 @@ const Navbar = () => {
                             Projects
                         </Link>
                         <Link
-                            to="/skills"
-                            className={isActive('/skills') ? styles.activeLink : ''}
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            Skills
-                        </Link>
-                        <Link
                             to="/achievements"
                             className={isActive('/achievements') ? styles.activeLink : ''}
                             onClick={() => setMenuOpen(false)}
@@ -74,15 +67,6 @@ const Navbar = () => {
                     </div>
 
                     <div className={styles.navActions}>
-
-
-                        <Link
-                            to="/contact"
-                            className={`btn btn-sm btn-primary ${styles.adminBtn}`}
-                        >
-                            Contact
-                        </Link>
-
                         <div
                             className={`${styles.hamburger} ${menuOpen ? styles.active : ''}`}
                             onClick={() => setMenuOpen(!menuOpen)}
