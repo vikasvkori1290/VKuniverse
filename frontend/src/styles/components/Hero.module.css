@@ -77,23 +77,45 @@
         height: auto;
         min-height: 100vh;
         justify-content: center;
-        padding: var(--spacing-3xl) 0;
+        padding: 90px 0 40px 0;
     }
 
     .heroCardBox,
     .heroCardBox.expanded {
         margin: 0 auto;
-        width: 90%;
-        max-width: 580px;
-        padding: var(--spacing-lg) var(--spacing-lg);
+        width: 92%;
+        max-width: 440px;
+        padding: 24px 20px 20px 20px;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+        transition: none;
+        overflow: hidden;
     }
-}
 
-@media (max-width: 640px) {
-    .heroCardBox {
-        width: 95%;
-        min-height: auto;
-        padding: var(--spacing-md) var(--spacing-md);
+    .heroContent {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .techSection {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 12px;
+        margin-bottom: 0;
+    }
+
+    .techMarquee {
+        width: 100%;
+        max-width: 100%;
+        padding: 4px 0;
+    }
+
+    .techIconItem {
+        font-size: 1.6rem;
+    }
+
+    .terminalWrapper,
+    .heroCardBox.expanded .terminalWrapper {
+        display: none !important;
     }
 }
 
