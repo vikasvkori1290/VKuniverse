@@ -8,42 +8,76 @@ export const useData = () => useContext(DataContext);
 export const DataProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
     const [achievements, setAchievements] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const [recentBlogs, setRecentBlogs] = useState([]);
+    
     const [loadingProjects, setLoadingProjects] = useState(true);
     const [loadingAchievements, setLoadingAchievements] = useState(true);
+    const [loadingBlogs, setLoadingBlogs] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch Projects first
-                const projectsResponse = await api.get('/projects');
-                setProjects(projectsResponse.data);
-                setLoadingProjects(false);
+        let isMounted = true;
 
-                // Then fetch Achievements
+        // Sequential background preloader pipeline:
+        // 1. Projects -> 2. Achievements -> 3. Blogs
+        const fetchSequentialData = async () => {
+            try {
+                // Step 1: Fetch Projects
+                const projectsResponse = await api.get('/projects');
+                if (isMounted) {
+                    setProjects(projectsResponse.data || []);
+                    setLoadingProjects(false);
+                }
+
+                // Step 2: Fetch Achievements immediately after Projects
                 const achievementsResponse = await api.get('/achievements');
-                setAchievements(achievementsResponse.data);
-                setLoadingAchievements(false);
+                if (isMounted) {
+                    setAchievements(achievementsResponse.data || []);
+                    setLoadingAchievements(false);
+                }
+
+                // Step 3: Fetch Blogs & Recent Blogs immediately after Achievements
+                try {
+                    const [blogsResponse, recentBlogsResponse] = await Promise.all([
+                        api.get('/blog'),
+                        api.get('/blog/recent')
+                    ]);
+                    if (isMounted) {
+                        setBlogs(blogsResponse.data || []);
+                        setRecentBlogs(recentBlogsResponse.data || []);
+                        setLoadingBlogs(false);
+                    }
+                } catch (blogErr) {
+                    console.error('Error prefetching blogs:', blogErr);
+                    if (isMounted) setLoadingBlogs(false);
+                }
             } catch (error) {
-                console.error('Error mechanism fetching data:', error);
-                // Even if error, stop loading to prevent infinite spinners
-                setLoadingProjects(false);
-                setLoadingAchievements(false);
+                console.error('Error in sequential data preloader:', error);
+                if (isMounted) {
+                    setLoadingProjects(false);
+                    setLoadingAchievements(false);
+                    setLoadingBlogs(false);
+                }
             }
         };
 
-        // Add a small delay to prioritize initial page load (e.g., Home animations)
-        const timer = setTimeout(() => {
-            fetchData();
-        }, 2000);
+        fetchSequentialData();
 
-        return () => clearTimeout(timer);
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const value = {
         projects,
         achievements,
+        blogs,
+        recentBlogs,
         loadingProjects,
-        loadingAchievements
+        loadingAchievements,
+        loadingBlogs,
+        setBlogs,
+        setRecentBlogs
     };
 
     return (

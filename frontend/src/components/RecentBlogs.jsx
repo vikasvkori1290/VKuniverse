@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaCalendar } from 'react-icons/fa';
-import api from '../services/api';
+import { useData } from '../context/DataContext';
 import styles from '../styles/components/RecentBlogs.module.css';
 import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const RecentBlogs = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { recentBlogs: posts, loadingBlogs: loading } = useData();
 
-    useEffect(() => {
-        const fetchRecentPosts = async () => {
-            try {
-                const { data } = await api.get('/blog/recent');
-                setPosts(data);
-            } catch (error) {
-                console.error('Error fetching recent blogs:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRecentPosts();
-    }, []);
-
-    if (loading || posts.length === 0) {
+    if (loading || !posts || posts.length === 0) {
         return null;
     }
 

@@ -129,7 +129,7 @@ const Hero = () => {
         if (terminalTab === 'bash') {
             code = `cd frontend\nnpm run dev\ncd server\nnpm run dev`;
         } else if (terminalTab === 'vikas.json') {
-            code = `{\n  "name": "Vikas V",\n  "role": "Software Developer",\n  "location": "Bangalore, India",\n  "status": "Building & Deploying 🚀",\n  "leetcode": "Vikasvkori129",\n  "codeforces": "vikasvkori12",\n  "openToWork": true\n}`;
+            code = `{\n  "name": "Vikas V",\n  "role": "Software Developer",\n  "location": "Bangalore, India",\n  "status": "Building & Deploying 🚀",\n  "leetcode": "Vikasvkori129",\n  "codeforces": "vikasvkori129",\n  "openToWork": true\n}`;
         } else {
             code = `const techStack = {\n  frontend: ["React", "JavaScript", "HTML5", "CSS3", "Tailwind"],\n  backend: ["Node.js", "Express.js", "REST APIs"],\n  languages: ["Python", "C", "JavaScript"],\n  databases: ["MongoDB", "SQL"],\n  core: ["DSA", "Full-Stack", "System Design"]\n};`;
         }
@@ -164,7 +164,7 @@ const Hero = () => {
                                 <a href="https://leetcode.com/u/Vikasvkori129/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="LeetCode" title="LeetCode">
                                     <SiLeetcode />
                                 </a>
-                                <a href="https://codeforces.com/profile/vikasvkori12" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Codeforces" title="Codeforces">
+                                <a href="https://codeforces.com/profile/vikasvkori129" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Codeforces" title="Codeforces">
                                     <SiCodeforces />
                                 </a>
                                 <a href="https://github.com/vikasvkori1290" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="GitHub" title="GitHub">
@@ -194,13 +194,13 @@ const Hero = () => {
                                 </a>
                             </div>
 
-                            {/* Tech I Use placed directly below action buttons */}
-                            <div className={styles.techSection}>
-                                <p className={styles.techLabel}>Tech I Use</p>
-                                <div className={styles.techMarquee}>
-                                    <div className={styles.marqueeTrack}>
+                            {/* Mobile-Only Tech Stack */}
+                            <div className={styles.mobileTechSection}>
+                                <span className={styles.mobileTechLabel}>Tech Stack</span>
+                                <div className={styles.mobileTechMarquee}>
+                                    <div className={styles.mobileMarqueeTrack}>
                                         {techIcons.concat(techIcons).map((tech, index) => (
-                                            <div key={index} className={styles.techIconItem}>
+                                            <div key={index} className={styles.mobileTechIcon} title={tech.name}>
                                                 <tech.Icon />
                                             </div>
                                         ))}
@@ -291,7 +291,7 @@ const Hero = () => {
 {'  '}<span className={styles.tokenKey}>"location"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenString}>"Bangalore, India"</span><span className={styles.tokenPunctuation}>,</span>{'\n'}
 {'  '}<span className={styles.tokenKey}>"status"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenString}>"Building & Deploying 🚀"</span><span className={styles.tokenPunctuation}>,</span>{'\n'}
 {'  '}<span className={styles.tokenKey}>"leetcode"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenString}>"Vikasvkori129"</span><span className={styles.tokenPunctuation}>,</span>{'\n'}
-{'  '}<span className={styles.tokenKey}>"codeforces"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenString}>"vikasvkori12"</span><span className={styles.tokenPunctuation}>,</span>{'\n'}
+{'  '}<span className={styles.tokenKey}>"codeforces"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenString}>"vikasvkori129"</span><span className={styles.tokenPunctuation}>,</span>{'\n'}
 {'  '}<span className={styles.tokenKey}>"openToWork"</span><span className={styles.tokenPunctuation}>:</span> <span className={styles.tokenBoolean}>true</span>{'\n'}
 <span className={styles.tokenPunctuation}>&#125;</span>
                                             </code>

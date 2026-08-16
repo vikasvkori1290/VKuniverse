@@ -47,7 +47,7 @@
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    padding: var(--spacing-xl) var(--spacing-2xl);
+    padding: 38px 44px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -65,6 +65,10 @@
     width: calc(100vw - (2 * var(--hero-margin-left)));
     max-width: calc(100vw - (2 * var(--hero-margin-left)));
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.mobileTechSection {
+    display: none;
 }
 
 @media (max-width: 968px) {
@@ -96,26 +100,61 @@
         max-width: 100%;
     }
 
-    .techSection {
+    .mobileTechSection {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start;
         width: 100%;
-        max-width: 100%;
-        margin-top: 12px;
-        margin-bottom: 0;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .techMarquee {
+    .mobileTechLabel {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .mobileTechMarquee {
         width: 100%;
-        max-width: 100%;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         padding: 4px 0;
     }
 
-    .techIconItem {
-        font-size: 1.6rem;
+    .mobileMarqueeTrack {
+        display: flex;
+        gap: 20px;
+        animation: mobileMarqueeScroll 14s linear infinite;
+        width: max-content;
+    }
+
+    .mobileTechIcon {
+        font-size: 1.55rem;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
     }
 
     .terminalWrapper,
     .heroCardBox.expanded .terminalWrapper {
         display: none !important;
+    }
+}
+
+@keyframes mobileMarqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 
@@ -385,7 +424,7 @@
 .greeting {
     font-size: var(--font-size-base);
     color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2px;
+    margin-bottom: 6px;
     font-weight: var(--font-weight-medium);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
@@ -394,8 +433,8 @@
     font-size: clamp(2.8rem, 6.5vw, 4.6rem);
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 0px;
-    line-height: 1.05;
+    margin-bottom: 12px;
+    line-height: 1.08;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
@@ -413,10 +452,10 @@
 }
 
 .subtitle {
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-size: clamp(1.25rem, 2.5vw, 1.85rem);
     font-weight: var(--font-weight-semibold);
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 14px;
     min-height: auto;
     display: flex;
     align-items: center;
@@ -445,20 +484,20 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .socialLinks {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
 }
 
 .socialIcon {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--border-radius-full);
     display: flex;
     align-items: center;
@@ -483,8 +522,8 @@
 .ctaButtons {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 14px;
+    margin-bottom: 0;
     flex-wrap: wrap;
 }
 
@@ -657,74 +696,6 @@
 
     .heroVisual:hover .visualPlaceholder {
         transform: none;
-    }
-}
-
-
-
-
-.techSection {
-    margin-top: 8px;
-    width: 100%;
-    max-width: 520px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.techLabel {
-    color: #ffffff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-    z-index: 2;
-    opacity: 1;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-}
-
-/* Tech Marquee */
-.techMarquee {
-    position: relative;
-    width: 100%;
-    max-width: 520px;
-    overflow: hidden;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    z-index: 2;
-    padding: 6px 0;
-}
-
-.marqueeTrack {
-    display: flex;
-    gap: 30px;
-    animation: scroll 15s linear infinite;
-    width: max-content;
-}
-
-.techIconItem {
-    font-size: 2rem;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.85));
-}
-
-.techIconItem:hover {
-    color: #60a5fa;
-    transform: translateY(-2px);
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
     }
 }
 

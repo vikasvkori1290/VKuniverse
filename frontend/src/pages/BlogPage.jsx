@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaClock, FaEye, FaTag } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,22 +11,22 @@ import styles from '../styles/pages/BlogPage.module.css';
 import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const BlogPage = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { blogs: posts, loadingBlogs: loading, setBlogs } = useData();
 
+    // Fallback direct fetch if user navigates directly before background preloader finishes
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const { data } = await api.get('/blog');
-                setPosts(data);
-            } catch (error) {
-                console.error('Error fetching blog posts:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPosts();
-    }, []);
+        if (posts.length === 0 && loading) {
+            const fetchDirect = async () => {
+                try {
+                    const { data } = await api.get('/blog');
+                    if (setBlogs) setBlogs(data);
+                } catch (error) {
+                    console.error('Error fetching blog posts directly:', error);
+                }
+            };
+            fetchDirect();
+        }
+    }, [posts.length, loading, setBlogs]);
 
     return (
         <div className={styles.blogPage}>
@@ -38,7 +39,7 @@ const BlogPage = () => {
                         <p className={styles.subtitle}>Thoughts, tutorials, and insights on web development</p>
                     </div>
 
-                    {loading ? (
+                    {loading && posts.length === 0 ? (
                         <div className={styles.loading}>Loading posts...</div>
                     ) : posts.length === 0 ? (
                         <div className={styles.empty}>
@@ -69,10 +70,10 @@ const BlogPage = () => {
                                     <div className={styles.content}>
                                         <div className={styles.meta}>
                                             <span className={styles.metaItem}>
-                                                <FaClock /> {post.readTime} min read
+                                                <FaClock /> {post.readTime || '3'} min read
                                             </span>
                                             <span className={styles.metaItem}>
-                                                <FaEye /> {post.views} views
+                                                <FaEye /> {post.views || 0} views
                                             </span>
                                         </div>
                                         <h2 className={styles.postTitle}>{post.title}</h2>
