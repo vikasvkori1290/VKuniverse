@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaCopy, FaCheck, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaCopy, FaCheck } from 'react-icons/fa';
 import styles from '../styles/components/ContactForm.module.css';
 
 const ContactForm = () => {
@@ -18,7 +18,7 @@ const ContactForm = () => {
     return (
         <section className={styles.contactSection} id="contact">
             <div className={styles.container}>
-                {/* Header */}
+                {/* Section Header */}
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <div className={styles.badge}>
                         <span className={styles.liveDot}></span> DIRECT REACH
@@ -29,13 +29,17 @@ const ContactForm = () => {
                     </p>
                 </div>
 
-                {/* Aesthetic Master Contact Hub */}
-                <div className={`${styles.contactHub} animate-on-scroll`}>
-                    {/* Top Status Bar */}
-                    <div className={styles.hubTopBar}>
-                        <div className={styles.locationTag}>
-                            <FaMapMarkerAlt className={styles.mapIcon} />
-                            <span>Bangalore, Karnataka, India</span>
+                {/* macOS Style Contact Window */}
+                <div className={`${styles.macWindow} animate-on-scroll`}>
+                    {/* macOS Titlebar */}
+                    <div className={styles.macTitlebar}>
+                        <div className={styles.trafficLights}>
+                            <span className={`${styles.dot} ${styles.dotRed}`}></span>
+                            <span className={`${styles.dot} ${styles.dotYellow}`}></span>
+                            <span className={`${styles.dot} ${styles.dotGreen}`}></span>
+                        </div>
+                        <div className={styles.windowTitle}>
+                            <span>contact.json</span>
                         </div>
                         <div className={styles.statusBadge}>
                             <span className={styles.pulseDot}></span>
@@ -43,85 +47,98 @@ const ContactForm = () => {
                         </div>
                     </div>
 
-                    {/* Contact Channels Grid */}
-                    <div className={styles.channelsGrid}>
-                        {/* Phone & WhatsApp Channel */}
-                        <div className={styles.channelCard}>
-                            <div className={styles.channelHeader}>
-                                <div className={`${styles.channelIconBox} ${styles.phoneIconBox}`}>
-                                    <FaPhoneAlt />
-                                </div>
-                                <div className={styles.channelMeta}>
-                                    <span className={styles.channelLabel}>Phone & WhatsApp</span>
-                                    <a href={`tel:${phone}`} className={styles.channelValue}>
-                                        {formattedPhone}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className={styles.channelActions}>
-                                <a href={`tel:${phone}`} className={styles.actionBtnPrimary}>
-                                    <FaPhoneAlt /> Call
-                                </a>
-                                <a
-                                    href={`https://wa.me/91${phone}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.actionBtnWhatsapp}
-                                >
-                                    <FaWhatsapp /> WhatsApp
-                                </a>
-                                <button
-                                    className={`${styles.actionBtnCopy} ${copiedField === 'phone' ? styles.copied : ''}`}
-                                    onClick={() => handleCopy(phone, 'phone')}
-                                    title="Copy Number"
-                                >
-                                    {copiedField === 'phone' ? (
-                                        <>
-                                            <FaCheck style={{ color: '#4ade80' }} /> <span>Copied</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <FaCopy /> <span>Copy</span>
-                                        </>
-                                    )}
-                                </button>
-                            </div>
+                    {/* Window Sub-Bar (Location) */}
+                    <div className={styles.macSubBar}>
+                        <div className={styles.locationTag}>
+                            <FaMapMarkerAlt className={styles.mapIcon} />
+                            <span>Bangalore, Karnataka, India</span>
                         </div>
+                        <div className={styles.timezoneTag}>
+                            <span>IST (UTC+5:30)</span>
+                        </div>
+                    </div>
 
-                        {/* Email Channel */}
-                        <div className={styles.channelCard}>
-                            <div className={styles.channelHeader}>
-                                <div className={`${styles.channelIconBox} ${styles.emailIconBox}`}>
-                                    <FaEnvelope />
+                    {/* Window Body Channels */}
+                    <div className={styles.windowBody}>
+                        <div className={styles.channelsGrid}>
+                            {/* Phone & WhatsApp Card */}
+                            <div className={styles.channelCard}>
+                                <div className={styles.channelHeader}>
+                                    <div className={`${styles.channelIconBox} ${styles.phoneIconBox}`}>
+                                        <FaPhoneAlt />
+                                    </div>
+                                    <div className={styles.channelMeta}>
+                                        <span className={styles.channelLabel}>PHONE & WHATSAPP</span>
+                                        <a href={`tel:${phone}`} className={styles.channelValue}>
+                                            {formattedPhone}
+                                        </a>
+                                    </div>
                                 </div>
-                                <div className={styles.channelMeta}>
-                                    <span className={styles.channelLabel}>Email Address</span>
-                                    <a href={`mailto:${email}`} className={styles.channelValue}>
-                                        {email}
+
+                                <div className={styles.channelActions}>
+                                    <a href={`tel:${phone}`} className={styles.actionBtnPrimary}>
+                                        <FaPhoneAlt /> Call
                                     </a>
+                                    <a
+                                        href={`https://wa.me/91${phone}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.actionBtnWhatsapp}
+                                    >
+                                        <FaWhatsapp /> WhatsApp
+                                    </a>
+                                    <button
+                                        className={`${styles.actionBtnCopy} ${copiedField === 'phone' ? styles.copied : ''}`}
+                                        onClick={() => handleCopy(phone, 'phone')}
+                                        title="Copy Number"
+                                    >
+                                        {copiedField === 'phone' ? (
+                                            <>
+                                                <FaCheck className={styles.checkIcon} /> <span>Copied</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FaCopy /> <span>Copy</span>
+                                            </>
+                                        )}
+                                    </button>
                                 </div>
                             </div>
 
-                            <div className={styles.channelActions}>
-                                <a href={`mailto:${email}`} className={styles.actionBtnPrimary}>
-                                    <FaEnvelope /> Send Email
-                                </a>
-                                <button
-                                    className={`${styles.actionBtnCopy} ${copiedField === 'email' ? styles.copied : ''}`}
-                                    onClick={() => handleCopy(email, 'email')}
-                                    title="Copy Email"
-                                >
-                                    {copiedField === 'email' ? (
-                                        <>
-                                            <FaCheck style={{ color: '#4ade80' }} /> <span>Copied</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <FaCopy /> <span>Copy</span>
-                                        </>
-                                    )}
-                                </button>
+                            {/* Email Channel Card */}
+                            <div className={styles.channelCard}>
+                                <div className={styles.channelHeader}>
+                                    <div className={`${styles.channelIconBox} ${styles.emailIconBox}`}>
+                                        <FaEnvelope />
+                                    </div>
+                                    <div className={styles.channelMeta}>
+                                        <span className={styles.channelLabel}>EMAIL ADDRESS</span>
+                                        <a href={`mailto:${email}`} className={styles.channelValue}>
+                                            {email}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div className={styles.channelActions}>
+                                    <a href={`mailto:${email}`} className={styles.actionBtnPrimary}>
+                                        <FaEnvelope /> Send Email
+                                    </a>
+                                    <button
+                                        className={`${styles.actionBtnCopy} ${copiedField === 'email' ? styles.copied : ''}`}
+                                        onClick={() => handleCopy(email, 'email')}
+                                        title="Copy Email"
+                                    >
+                                        {copiedField === 'email' ? (
+                                            <>
+                                                <FaCheck className={styles.checkIcon} /> <span>Copied</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FaCopy /> <span>Copy</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

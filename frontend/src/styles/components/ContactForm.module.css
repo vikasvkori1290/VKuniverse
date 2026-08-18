@@ -61,43 +61,114 @@
     line-height: 1.5;
 }
 
-/* Master Glass Contact Hub */
-.contactHub {
+/* ==========================================================================
+   macOS Window Frame
+   ========================================================================== */
+.macWindow {
     width: 100%;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    padding: 28px 32px;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    transition: border-color 0.3s ease;
+    background: rgba(13, 17, 23, 0.78);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.contactHub:hover {
-    border-color: rgba(56, 189, 248, 0.4);
+.macWindow:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.65),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 
-/* Hub Top Status Bar */
-.hubTopBar {
+/* Titlebar */
+.macTitlebar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
-    gap: 12px;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trafficLights {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 80px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: filter 0.2s ease;
+}
+
+.dotRed {
+    background: #ff5f56;
+    border: 1px solid #e0443e;
+}
+
+.dotYellow {
+    background: #ffbd2e;
+    border: 1px solid #dea123;
+}
+
+.dotGreen {
+    background: #27c93f;
+    border: 1px solid #1aab29;
+}
+
+.windowTitle {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.04em;
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    color: #4ade80;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.15);
+}
+
+.pulseDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+}
+
+/* Sub-Bar (Location & Metadata) */
+.macSubBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 22px;
+    background: rgba(0, 0, 0, 0.18);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .locationTag {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.9rem;
     font-weight: 500;
 }
 
@@ -106,49 +177,41 @@
     font-size: 0.95rem;
 }
 
-.statusBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 12px;
-    border-radius: 50px;
-    background: rgba(34, 197, 94, 0.12);
-    border: 1px solid rgba(74, 222, 128, 0.3);
-    color: #4ade80;
+.timezoneTag {
     font-size: 0.78rem;
-    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'JetBrains Mono', monospace;
 }
 
-.pulseDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #4ade80;
+/* Window Body */
+.windowBody {
+    padding: 24px;
 }
 
-/* Channels Grid */
 .channelsGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 18px;
 }
 
+/* Channel Card Pane */
 .channelCard {
-    background: rgba(10, 15, 25, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    padding: 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 18px;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .channelCard:hover {
-    background: rgba(15, 23, 42, 0.65);
-    border-color: rgba(56, 189, 248, 0.35);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.18);
     transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .channelHeader {
@@ -157,58 +220,67 @@
     gap: 14px;
 }
 
+/* Apple Squircle Icon Box */
 .channelIconBox {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     flex-shrink: 0;
-    background: rgba(14, 165, 233, 0.12);
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    transition: transform 0.2s ease;
 }
 
-.phoneIconBox,
-.emailIconBox {
-    background: rgba(14, 165, 233, 0.12);
+.channelCard:hover .channelIconBox {
+    transform: scale(1.04);
+}
+
+.phoneIconBox {
+    background: rgba(2, 132, 199, 0.15);
     color: #38bdf8;
     border: 1px solid rgba(56, 189, 248, 0.3);
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+}
+
+.emailIconBox {
+    background: rgba(14, 165, 233, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.2);
 }
 
 .channelMeta {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    min-width: 0;
+    gap: 4px;
+    overflow: hidden;
 }
 
 .channelLabel {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.55);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 600;
 }
 
 .channelValue {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
     text-decoration: none;
-    transition: color 0.2s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
 }
 
 .channelValue:hover {
-    color: #38bdf8;
+    opacity: 0.85;
 }
 
-/* Action Buttons - Plain Solid Sky Blue & Clean Controls */
+/* Actions Row - macOS System Buttons */
 .channelActions {
     display: flex;
     align-items: center;
@@ -220,81 +292,114 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 16px;
+    padding: 8px 14px;
+    border-radius: 8px;
     background: #0284c7;
-    color: #ffffff;
     border: 1px solid #38bdf8;
-    border-radius: 50px;
+    color: #ffffff;
     font-size: 0.82rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
 }
 
 .actionBtnPrimary:hover {
     background: #0ea5e9;
     color: #ffffff;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45);
 }
 
 .actionBtnWhatsapp {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 16px;
+    padding: 8px 14px;
+    border-radius: 8px;
     background: #16a34a;
-    color: #ffffff;
     border: 1px solid #4ade80;
-    border-radius: 50px;
+    color: #ffffff;
     font-size: 0.82rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
 }
 
 .actionBtnWhatsapp:hover {
     background: #22c55e;
     color: #ffffff;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.45);
 }
 
 .actionBtnCopy {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 14px;
-    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 50px;
     font-size: 0.82rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .actionBtnCopy:hover {
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .actionBtnCopy.copied {
-    background: #16a34a;
-    border-color: #4ade80;
-    color: #ffffff;
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #4ade80;
 }
 
+.checkIcon {
+    color: #4ade80;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
 @media (max-width: 768px) {
-    .channelsGrid {
-        grid-template-columns: 1fr;
+    .macTitlebar {
+        padding: 12px 16px;
     }
 
-    .contactHub {
-        padding: 20px;
+    .windowTitle {
+        display: none;
+    }
+
+    .channelsGrid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .windowBody {
+        padding: 16px;
+    }
+
+    .channelCard {
+        padding: 16px;
     }
 
     .channelValue {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .actionBtnPrimary,
+    .actionBtnWhatsapp,
+    .actionBtnCopy {
+        flex: 1;
+        justify-content: center;
+        padding: 9px 10px;
     }
 }

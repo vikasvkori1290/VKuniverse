@@ -2,53 +2,37 @@
     position: relative;
     background-image: url('/bottom.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
     background-repeat: no-repeat;
-    padding: var(--spacing-4xl) 0 var(--spacing-xl);
+    padding: 160px 0 var(--spacing-xl);
     color: #fff;
     overflow: hidden;
+    margin-top: -60px; /* Seamless overlap with preceding section */
 }
 
-/* Gradient overlay to merge with background above - adapts to light/dark mode */
+/* Deep seamless gradient overlay to merge perfectly with dark background */
 .gradientOverlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 150px;
-    background: linear-gradient(to bottom,
-            var(--bg-primary) 0%,
-            transparent 100%);
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,
+        rgba(5, 8, 17, 0.98) 12%,
+        rgba(5, 8, 17, 0.85) 28%,
+        rgba(5, 8, 17, 0.45) 50%,
+        rgba(5, 8, 17, 0.15) 75%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
     pointer-events: none;
     z-index: 1;
 }
 
-.footer>.container {
+.footer > :global(.container) {
     position: relative;
     z-index: 2;
-}
-
-/* Contact Section */
-.contactSection {
-    text-align: center;
-    padding: var(--spacing-4xl) 0 var(--spacing-3xl);
-}
-
-.contactTitle {
-    font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-lg);
-    color: #fff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.contactSubtitle {
-    font-size: var(--font-size-lg);
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 600px;
-    margin: 0 auto var(--spacing-2xl);
-    line-height: 1.6;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer Content */
@@ -67,11 +51,14 @@
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-sm);
     color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .footerText {
     color: rgba(255, 255, 255, 0.8);
-    max-width: 300px;
+    max-width: 320px;
+    line-height: 1.5;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .socialLinks {
@@ -83,18 +70,20 @@
     font-size: var(--font-size-xl);
     color: rgba(255, 255, 255, 0.8);
     transition: color var(--transition-fast), transform var(--transition-fast);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
 }
 
 .socialIcon:hover {
-    color: #fff;
+    color: #38bdf8;
     transform: translateY(-3px);
 }
 
 .footerBottom {
     padding-top: var(--spacing-xl);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
     color: rgba(255, 255, 255, 0.7);
     font-size: var(--font-size-sm);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .footerBottomLinks {
@@ -113,23 +102,21 @@
 }
 
 .adminLink:hover {
-    color: var(--color-primary, #00D8FF);
+    color: #38bdf8;
     text-decoration: underline;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .contactTitle {
-        font-size: var(--font-size-3xl);
-    }
-
-    .contactSubtitle {
-        font-size: var(--font-size-base);
+    .footer {
+        padding: 100px 0 var(--spacing-lg);
+        margin-top: -30px;
     }
 
     .footerContent {
         flex-direction: column;
         text-align: center;
+        gap: var(--spacing-lg);
     }
 
     .footerBottomLinks {
@@ -137,9 +124,5 @@
         justify-content: center;
         text-align: center;
         gap: var(--spacing-sm);
-    }
-
-    .gradientOverlay {
-        height: 100px;
     }
 }
