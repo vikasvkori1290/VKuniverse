@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id }, process.env.JWT_SECRET || 'defaultsecretkey', {
         expiresIn: '30d',
     });
 };
@@ -12,57 +12,84 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 // @access  Public (should be restricted in production)
 const registerAdmin = async (req, res) => {
-    const { username, email, password } = req.body;
+    try {
+        const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: 'Please add all fields' });
-    }
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: 'Please provide username, email, and password' });
+        }
 
-    // Check if admin exists
-    const adminExists = await Admin.findOne({ email });
+        const normalizedEmail = email.toLowerCase().trim();
 
-    if (adminExists) {
-        return res.status(400).json({ message: 'Admin already exists' });
-    }
-
-    // Create admin
-    // Note: Password hashing is handled in the Admin model pre-save hook
-    const admin = await Admin.create({
-        username,
-        email,
-        password,
-    });
-
-    if (admin) {
-        res.status(201).json({
-            _id: admin.id,
-            username: admin.username,
-            email: admin.email,
-            token: generateToken(admin._id),
+        // Check if admin exists
+        const adminExists = await Admin.findOne({ 
+            $or: [
+                { email: normalizedEmail }, 
+                { username: username.trim() }
+            ] 
         });
-    } else {
-        res.status(400).json({ message: 'Invalid admin data' });
+
+        if (adminExists) {
+            return res.status(400).json({ message: 'Admin with this email or username already exists' });
+        }
+
+        // Create admin
+        const admin = await Admin.create({
+            username: username.trim(),
+            email: normalizedEmail,
+            password,
+        });
+
+        if (admin) {
+            res.status(201).json({
+                _id: admin.id,
+                username: admin.username,
+                email: admin.email,
+                token: generateToken(admin._id),
+            });
+        } else {
+            res.status(400).json({ message: 'Invalid admin data' });
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ message: error.message || 'Server error during registration' });
     }
 };
 
-// @desc    Authenticate a admin
+// @desc    Authenticate an admin
 // @route   POST /api/auth/login
 // @access  Public
 const loginAdmin = async (req, res) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    // Standard login
-    const admin = await Admin.findOne({ email });
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please provide email and password' });
+        }
 
-    if (admin && (await admin.matchPassword(password))) {
-        res.json({
-            _id: admin.id,
-            username: admin.username,
-            email: admin.email,
-            token: generateToken(admin._id),
+        const normalizedEmail = email.toLowerCase().trim();
+
+        // Find admin by email or username
+        const admin = await Admin.findOne({
+            $or: [
+                { email: normalizedEmail },
+                { username: email.trim() }
+            ]
         });
-    } else {
-        res.status(400).json({ message: 'Invalid credentials' });
+
+        if (admin && (await admin.matchPassword(password))) {
+            return res.json({
+                _id: admin.id,
+                username: admin.username,
+                email: admin.email,
+                token: generateToken(admin._id),
+            });
+        } else {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        return res.status(500).json({ message: error.message || 'Server error during login' });
     }
 };
 
@@ -70,7 +97,15 @@ const loginAdmin = async (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 const getMe = async (req, res) => {
-    res.status(200).json(req.admin);
+    try {
+        if (!req.admin) {
+            return res.status(404).json({ message: 'Admin not found' });
+        }
+        res.status(200).json(req.admin);
+    } catch (error) {
+        console.error('GetMe error:', error);
+        res.status(500).json({ message: 'Server error retrieving admin profile' });
+    }
 };
 
 module.exports = {
