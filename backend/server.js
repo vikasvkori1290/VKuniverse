@@ -85,7 +85,31 @@ app.post('/api/upload-multiple', protect, upload.array('images', 10), async (req
     }
 });
 
-// Video upload
+// Cloudinary Upload Signature (Direct Client-to-Cloudinary Upload to bypass Vercel 4.5MB limit)
+const cloudinary = require('cloudinary').v2;
+app.get('/api/upload/signature', protect, (req, res) => {
+    try {
+        const timestamp = Math.round(new Date().getTime() / 1000);
+        const folder = req.query.folder || 'vk_portfolio/videos';
+        const signature = cloudinary.utils.api_sign_request(
+            { timestamp, folder },
+            process.env.CLOUDINARY_API_SECRET
+        );
+
+        res.json({
+            signature,
+            timestamp,
+            folder,
+            apiKey: process.env.CLOUDINARY_API_KEY,
+            cloudName: process.env.CLOUDINARY_CLOUD_NAME
+        });
+    } catch (error) {
+        console.error('Signature error:', error);
+        res.status(500).json({ message: 'Error generating upload signature' });
+    }
+});
+
+// Video upload fallback for local environment
 app.post('/api/upload-video', protect, (req, res, next) => {
     videoUpload.single('video')(req, res, (err) => {
         if (err) {
