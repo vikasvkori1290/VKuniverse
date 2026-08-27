@@ -86,15 +86,17 @@ app.post('/api/upload-multiple', protect, upload.array('images', 10), async (req
 });
 
 // Video upload
-app.post('/api/upload-video', protect, videoUpload.single('video'), async (req, res) => {
-    try {
-        const filePath = req.file.path;
-        // No compression for now, just return path
-        res.send(filePath);
-    } catch (error) {
-        console.error('Video upload error:', error);
-        res.status(500).json({ message: 'Error uploading video' });
-    }
+app.post('/api/upload-video', protect, (req, res, next) => {
+    videoUpload.single('video')(req, res, (err) => {
+        if (err) {
+            console.error('Video upload error:', err);
+            return res.status(400).json({ message: err.message || 'Failed to upload video' });
+        }
+        if (!req.file || !req.file.path) {
+            return res.status(400).json({ message: 'No video file provided' });
+        }
+        res.send(req.file.path);
+    });
 });
 
 // Error Handler

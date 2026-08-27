@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'vk_portfolio/images',
-        allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
         transformation: [{ width: 1920, height: 1080, crop: 'limit' }] // Resize large images
     },
 });
@@ -23,36 +23,39 @@ const storage = new CloudinaryStorage({
 // Video Storage Engine
 const videoStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: {
-        folder: 'vk_portfolio/videos',
-        allowed_formats: ['mp4', 'webm', 'ogg'],
-        resource_type: 'video'
+    params: async (req, file) => {
+        const cleanName = path.parse(file.originalname).name.replace(/[^a-zA-Z0-9]/g, '_');
+        return {
+            folder: 'vk_portfolio/videos',
+            resource_type: 'video',
+            public_id: `${Date.now()}_${cleanName}`
+        };
     },
 });
 
 // File Filter for Images
 function checkFileType(file, cb) {
-    const filetypes = /jpg|jpeg|png|webp/;
+    const filetypes = /jpg|jpeg|png|webp|gif/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
+    const mimetype = file.mimetype.startsWith('image/') || filetypes.test(file.mimetype);
 
-    if (extname && mimetype) {
+    if (extname || mimetype) {
         return cb(null, true);
     } else {
-        cb('Images only (jpg, jpeg, png, webp)!');
+        cb(new Error('Images only (jpg, jpeg, png, webp, gif)!'));
     }
 }
 
 // File Filter for Videos
 function checkVideoType(file, cb) {
-    const filetypes = /mp4|webm|ogg/;
+    const filetypes = /mp4|webm|ogg|mov|quicktime|mkv/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
+    const mimetype = file.mimetype.startsWith('video/') || filetypes.test(file.mimetype);
 
-    if (extname && mimetype) {
+    if (extname || mimetype) {
         return cb(null, true);
     } else {
-        cb('Videos only (mp4, webm, ogg)!');
+        cb(new Error('Videos only (mp4, webm, ogg, mov)!'));
     }
 }
 
@@ -60,7 +63,7 @@ function checkVideoType(file, cb) {
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB limit
+        fileSize: 10 * 1024 * 1024, // 10MB limit for images
     },
     fileFilter: function (req, file, cb) {
         checkFileType(file, cb);
@@ -70,22 +73,19 @@ const upload = multer({
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
-        fileSize: 50 * 1024 * 1024, // 50MB limit
+        fileSize: 100 * 1024 * 1024, // 100MB limit for videos
     },
     fileFilter: function (req, file, cb) {
         checkVideoType(file, cb);
     },
 });
 
-// Helper functions (No longer needed for Cloudinary but kept for compatibility if imported elsewhere)
-// These now just return the path/url as Cloudinary handles optimization
+// Helper functions (kept for compatibility)
 async function compressImage(filePath) {
     return filePath;
 }
 
 async function generateThumbnail(filePath) {
-    // Cloudinary can generate thumbnails on the fly using URL transformations
-    // We can just return the original URL or append transformation parameters
     return filePath;
 }
 
