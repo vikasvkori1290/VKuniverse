@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import styles from '../styles/components/Projects.module.css';
 import { useData } from '../context/DataContext';
 
 const Projects = () => {
-    const { projects } = useData();
+    const { projects, refreshProjects } = useData();
+
+    useEffect(() => {
+        if (refreshProjects) {
+            refreshProjects();
+        }
+    }, [refreshProjects]);
 
     return (
         <section className={styles.projectsSection} id="projects">

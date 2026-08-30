@@ -133,3 +133,51 @@ exports.getRecentPosts = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch recent posts' });
     }
 };
+
+// Like blog post (One like per unique name)
+exports.likePost = async (req, res) => {
+    try {
+        const { name } = req.body;
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: 'Please enter your name to like this article.' });
+        }
+
+        const cleanName = name.trim();
+        let post = await BlogPost.findById(req.params.id);
+        if (!post) {
+            post = await BlogPost.findOne({ slug: req.params.id });
+        }
+
+        if (!post) {
+            return res.status(404).json({ error: 'Blog post not found' });
+        }
+
+        // Check if name has already liked
+        const alreadyLiked = post.likedBy && post.likedBy.some(
+            (item) => item.name.toLowerCase() === cleanName.toLowerCase()
+        );
+
+        if (alreadyLiked) {
+            return res.status(400).json({
+                error: `"${cleanName}" has already liked this article!`,
+                alreadyLiked: true,
+                likes: post.likes || 0
+            });
+        }
+
+        post.likedBy = post.likedBy || [];
+        post.likedBy.push({ name: cleanName, date: new Date() });
+        post.likes = (post.likes || 0) + 1;
+        await post.save();
+
+        res.json({
+            success: true,
+            message: `Thank you, ${cleanName}! Liked successfully.`,
+            likes: post.likes,
+            likedBy: post.likedBy
+        });
+    } catch (error) {
+        console.error('Error liking blog post:', error);
+        res.status(500).json({ error: 'Failed to record like' });
+    }
+};

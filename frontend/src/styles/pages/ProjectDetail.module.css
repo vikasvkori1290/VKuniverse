@@ -40,6 +40,94 @@
     border: 1px solid #fbbf24;
 }
 
+.heroHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: var(--spacing-xl);
+}
+
+.projectLikeBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    color: #fda4af;
+    border-radius: 50px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.projectLikeBtn:hover {
+    background: #f43f5e;
+    color: #ffffff;
+    border-color: #f43f5e;
+    transform: scale(1.06);
+    box-shadow: 0 4px 16px rgba(244, 63, 94, 0.4);
+}
+
+.projectLikeBtn .heartIcon {
+    color: #f43f5e;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.projectLikeBtn:hover .heartIcon {
+    color: #ffffff;
+}
+
+.likedActive {
+    background: rgba(244, 63, 94, 0.25) !important;
+    border-color: #f43f5e !important;
+    color: #ffffff !important;
+}
+
+.likedActive .heartIcon {
+    color: #ffffff !important;
+}
+
+.toast {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.94);
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(244, 63, 94, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 24px;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-weight: 600;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: toastFloat 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+@keyframes toastFloat {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
 /* Carousel */
 .carousel {
     margin-bottom: var(--spacing-3xl);

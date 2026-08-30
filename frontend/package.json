@@ -14,6 +14,7 @@
     "@imgly/background-removal": "^1.7.0",
     "axios": "^1.13.2",
     "html2canvas": "^1.4.1",
+    "marked": "^18.0.11",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
     "react-calendar-heatmap": "^1.10.0",

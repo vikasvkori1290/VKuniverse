@@ -10,6 +10,7 @@ const {
     getRecentProjects,
     setThumbnail,
     reorderImages,
+    likeProject,
 } = require('../controllers/projectController');
 const { protect } = require('../middleware/auth');
 
@@ -19,5 +20,6 @@ router.route('/recent').get(protect, getRecentProjects);
 router.route('/:id').get(getProject).put(protect, updateProject).delete(protect, deleteProject);
 router.route('/:id/thumbnail').put(protect, setThumbnail);
 router.route('/:id/reorder-images').put(protect, reorderImages);
+router.route('/:id/like').post(likeProject);
 
 module.exports = router;

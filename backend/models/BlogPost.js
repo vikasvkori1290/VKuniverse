@@ -36,6 +36,21 @@ const blogPostSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    likedBy: [{
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     readTime: {
         type: Number, // in minutes
         default: 5

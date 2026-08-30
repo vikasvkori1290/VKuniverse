@@ -1,8 +1,9 @@
 .contactSection {
-    padding: var(--spacing-4xl) 0;
+    padding: var(--spacing-4xl) 0 40px 0;
     background: transparent;
     width: 100%;
     position: relative;
+    z-index: 2;
 }
 
 .container {

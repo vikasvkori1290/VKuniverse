@@ -163,6 +163,51 @@ const reorderImages = async (req, res) => {
     }
 };
 
+// @desc    Like project (One like per unique name)
+// @route   POST /api/projects/:id/like
+// @access  Public
+const likeProject = async (req, res) => {
+    try {
+        const { name } = req.body;
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: 'Please enter your name to like this project.' });
+        }
+
+        const cleanName = name.trim();
+        const project = await Project.findById(req.params.id);
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+
+        const alreadyLiked = project.likedBy && project.likedBy.some(
+            (item) => item.name.toLowerCase() === cleanName.toLowerCase()
+        );
+
+        if (alreadyLiked) {
+            return res.status(400).json({
+                error: `"${cleanName}" has already liked this project!`,
+                alreadyLiked: true,
+                likes: project.likes || 0
+            });
+        }
+
+        project.likedBy = project.likedBy || [];
+        project.likedBy.push({ name: cleanName, date: new Date() });
+        project.likes = (project.likes || 0) + 1;
+        await project.save();
+
+        res.status(200).json({
+            success: true,
+            message: `Thank you, ${cleanName}! Liked successfully.`,
+            likes: project.likes,
+            likedBy: project.likedBy
+        });
+    } catch (error) {
+        console.error('Error liking project:', error);
+        res.status(500).json({ error: 'Failed to record like' });
+    }
+};
+
 module.exports = {
     getProjects,
     getAdminProjects,
@@ -173,4 +218,5 @@ module.exports = {
     getRecentProjects,
     setThumbnail,
     reorderImages,
+    likeProject,
 };

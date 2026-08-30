@@ -49,6 +49,21 @@ const projectSchema = mongoose.Schema({
         enum: ['completed', 'in-progress'],
         default: 'completed',
     },
+    likes: {
+        type: Number,
+        default: 0,
+    },
+    likedBy: [{
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+        }
+    }],
     isPublished: {
         type: Boolean,
         default: true,

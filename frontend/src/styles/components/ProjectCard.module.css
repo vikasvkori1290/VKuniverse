@@ -78,6 +78,56 @@
     -webkit-backdrop-filter: blur(8px);
 }
 
+/* Card Like Badge */
+.cardLikeBadge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    z-index: 3;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    color: #fda4af;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+
+.cardLikeBadge:hover {
+    background: #f43f5e;
+    color: #ffffff;
+    border-color: #f43f5e;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+}
+
+.cardLikeBadge .heartIcon {
+    color: #f43f5e;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+}
+
+.cardLikeBadge:hover .heartIcon {
+    color: #ffffff;
+}
+
+.cardLikeActive {
+    background: rgba(244, 63, 94, 0.25);
+    border-color: #f43f5e;
+    color: #ffffff;
+}
+
+.cardLikeActive .heartIcon {
+    color: #ffffff;
+}
+
 .statusCompleted {
     background: rgba(10, 20, 15, 0.8);
     color: #4ade80;

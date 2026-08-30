@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import api from '../services/api';
 
 const DataContext = createContext();
@@ -14,6 +14,27 @@ export const DataProvider = ({ children }) => {
     const [loadingProjects, setLoadingProjects] = useState(true);
     const [loadingAchievements, setLoadingAchievements] = useState(true);
     const [loadingBlogs, setLoadingBlogs] = useState(true);
+
+    const refreshProjects = useCallback(async () => {
+        try {
+            const projectsResponse = await api.get('/projects');
+            if (projectsResponse.data) {
+                setProjects(projectsResponse.data);
+            }
+        } catch (e) {
+            console.error('Error refreshing projects:', e);
+        }
+    }, []);
+
+    const updateProjectLikes = useCallback((projectId, newLikes, likedBy) => {
+        setProjects((prev) =>
+            prev.map((p) =>
+                p._id === projectId
+                    ? { ...p, likes: newLikes, likedBy: likedBy || p.likedBy }
+                    : p
+            )
+        );
+    }, []);
 
     useEffect(() => {
         let isMounted = true;
@@ -76,8 +97,11 @@ export const DataProvider = ({ children }) => {
         loadingProjects,
         loadingAchievements,
         loadingBlogs,
+        setProjects,
         setBlogs,
-        setRecentBlogs
+        setRecentBlogs,
+        refreshProjects,
+        updateProjectLikes
     };
 
     return (

@@ -7,6 +7,7 @@ const { protect } = require('../middleware/auth');
 router.get('/', blogController.getAllPosts);
 router.get('/recent', blogController.getRecentPosts);
 router.get('/:slug', blogController.getPostBySlug);
+router.post('/:id/like', blogController.likePost);
 
 // Protected routes - admin only
 router.get('/admin/all', protect, blogController.getAllPostsAdmin);
