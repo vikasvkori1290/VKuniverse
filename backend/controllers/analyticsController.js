@@ -8,7 +8,6 @@ const BlogPost = require('../models/BlogPost');
 // @access  Private (Admin)
 const getDashboardStats = async (req, res) => {
     try {
-        // Run queries in parallel for performance
         const [
             totalProjects,
             totalMessages,
@@ -124,7 +123,6 @@ const getLikesAnalytics = async (req, res) => {
             }
         });
 
-        // Convert usersMap to sorted array
         const supporters = Object.values(usersMap).sort((a, b) => b.totalLikes - a.totalLikes);
 
         res.json({
@@ -155,6 +153,85 @@ const getLikesAnalytics = async (req, res) => {
     }
 };
 
+// @desc    Delete all likes by a user name across projects and blogs
+// @route   DELETE /api/analytics/likes/user/:name
+// @access  Private (Admin)
+const deleteUserLikes = async (req, res) => {
+    try {
+        const { name } = req.params;
+        if (!name) return res.status(400).json({ error: 'Name is required' });
+
+        const targetName = name.trim().toLowerCase();
+
+        // 1. Update Projects
+        const projects = await Project.find({ 'likedBy.name': { $regex: new RegExp(`^${targetName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') } });
+        for (const proj of projects) {
+            proj.likedBy = (proj.likedBy || []).filter(item => item.name.trim().toLowerCase() !== targetName);
+            proj.likes = proj.likedBy.length;
+            await proj.save();
+        }
+
+        // 2. Update Blogs
+        const blogs = await BlogPost.find({ 'likedBy.name': { $regex: new RegExp(`^${targetName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') } });
+        for (const blog of blogs) {
+            blog.likedBy = (blog.likedBy || []).filter(item => item.name.trim().toLowerCase() !== targetName);
+            blog.likes = blog.likedBy.length;
+            await blog.save();
+        }
+
+        res.json({
+            success: true,
+            message: `Successfully removed all likes by "${name}"`
+        });
+    } catch (error) {
+        console.error('Delete User Likes Error:', error);
+        res.status(500).json({ error: 'Failed to delete user likes' });
+    }
+};
+
+// @desc    Delete a specific like on a project or blog post
+// @route   DELETE /api/analytics/likes/single
+// @access  Private (Admin)
+const deleteSingleLike = async (req, res) => {
+    try {
+        const { type, itemId, name } = req.body;
+        if (!type || !itemId || !name) {
+            return res.status(400).json({ error: 'Type, itemId, and name are required' });
+        }
+
+        const targetName = name.trim().toLowerCase();
+
+        if (type.toLowerCase() === 'project') {
+            const project = await Project.findById(itemId);
+            if (!project) return res.status(404).json({ error: 'Project not found' });
+
+            project.likedBy = (project.likedBy || []).filter(
+                item => item.name.trim().toLowerCase() !== targetName
+            );
+            project.likes = project.likedBy.length;
+            await project.save();
+
+            return res.json({ success: true, message: `Removed like from ${project.title}` });
+        } else if (type.toLowerCase() === 'blog' || type.toLowerCase() === 'blog article') {
+            const blog = await BlogPost.findById(itemId);
+            if (!blog) return res.status(404).json({ error: 'Blog not found' });
+
+            blog.likedBy = (blog.likedBy || []).filter(
+                item => item.name.trim().toLowerCase() !== targetName
+            );
+            blog.likes = blog.likedBy.length;
+            await blog.save();
+
+            return res.json({ success: true, message: `Removed like from ${blog.title}` });
+        }
+
+        res.status(400).json({ error: 'Invalid type specified' });
+    } catch (error) {
+        console.error('Delete Single Like Error:', error);
+        res.status(500).json({ error: 'Failed to remove like' });
+    }
+};
+
 // @desc    Track DSA PDF download
 // @route   POST /api/analytics/track-dsa
 // @access  Public
@@ -175,5 +252,7 @@ const trackDsaDownload = async (req, res) => {
 module.exports = {
     getDashboardStats,
     getLikesAnalytics,
+    deleteUserLikes,
+    deleteSingleLike,
     trackDsaDownload,
 };

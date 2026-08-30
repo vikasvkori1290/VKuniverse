@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaHeart, FaUser, FaProjectDiagram, FaBookOpen, FaSearch, FaCalendarAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaHeart, FaUser, FaProjectDiagram, FaBookOpen, FaSearch, FaCalendarAlt, FaChevronDown, FaChevronUp, FaTrash, FaTimes } from 'react-icons/fa';
 import api from '../../services/api';
 import styles from '../../styles/components/LikesAnalytics.module.css';
 
@@ -9,6 +9,7 @@ const LikesAnalytics = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [expandedUser, setExpandedUser] = useState(null);
     const [viewMode, setViewMode] = useState('supporters'); // 'supporters' | 'projects' | 'blogs'
+    const [actionMsg, setActionMsg] = useState('');
 
     const fetchLikesData = async () => {
         setLoading(true);
@@ -25,6 +26,45 @@ const LikesAnalytics = () => {
     useEffect(() => {
         fetchLikesData();
     }, []);
+
+    const showToast = (msg) => {
+        setActionMsg(msg);
+        setTimeout(() => setActionMsg(''), 3500);
+    };
+
+    // Delete all likes from a user name
+    const handleDeleteUserLikes = async (userName) => {
+        if (!window.confirm(`Are you sure you want to delete ALL likes given by "${userName}" across all projects and blog posts?`)) {
+            return;
+        }
+
+        try {
+            const res = await api.delete(`/analytics/likes/user/${encodeURIComponent(userName)}`);
+            showToast(res.data?.message || `Removed all likes by "${userName}"`);
+            fetchLikesData();
+        } catch (err) {
+            console.error('Error deleting user likes:', err);
+            showToast(err.response?.data?.error || 'Failed to delete likes');
+        }
+    };
+
+    // Delete a single like on an item
+    const handleDeleteSingleLike = async (type, itemId, userName, itemTitle) => {
+        if (!window.confirm(`Remove like by "${userName}" from "${itemTitle || 'this item'}"?`)) {
+            return;
+        }
+
+        try {
+            const res = await api.delete('/analytics/likes/single', {
+                data: { type, itemId, name: userName }
+            });
+            showToast(res.data?.message || 'Like removed successfully');
+            fetchLikesData();
+        } catch (err) {
+            console.error('Error removing like:', err);
+            showToast(err.response?.data?.error || 'Failed to remove like');
+        }
+    };
 
     if (loading) {
         return (
@@ -67,6 +107,12 @@ const LikesAnalytics = () => {
                     ↻ Refresh
                 </button>
             </div>
+
+            {actionMsg && (
+                <div className={styles.successToast}>
+                    {actionMsg}
+                </div>
+            )}
 
             {/* Stat KPI Cards */}
             <div className={styles.statsGrid}>
@@ -167,6 +213,7 @@ const LikesAnalytics = () => {
                                         <th>Blog Likes</th>
                                         <th>Last Activity</th>
                                         <th>Details</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -216,16 +263,28 @@ const LikesAnalytics = () => {
                                                         <span>{expandedUser === supporter.name ? 'Hide' : 'View'}</span>
                                                     </button>
                                                 </td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => handleDeleteUserLikes(supporter.name)}
+                                                        className={styles.deleteUserBtn}
+                                                        title={`Delete all likes by ${supporter.name}`}
+                                                    >
+                                                        <FaTrash />
+                                                        <span>Delete</span>
+                                                    </button>
+                                                </td>
                                             </tr>
 
                                             {/* Expandable Liked Items Sub-table */}
                                             {expandedUser === supporter.name && (
                                                 <tr className={styles.detailRow}>
-                                                    <td colSpan="7">
+                                                    <td colSpan="8">
                                                         <div className={styles.detailCard}>
-                                                            <h4 className={styles.detailTitle}>
-                                                                Items Liked by <span className={styles.highlightName}>{supporter.name}</span> ({supporter.likedItems.length}):
-                                                            </h4>
+                                                            <div className={styles.detailHeaderRow}>
+                                                                <h4 className={styles.detailTitle}>
+                                                                    Items Liked by <span className={styles.highlightName}>{supporter.name}</span> ({supporter.likedItems.length}):
+                                                                </h4>
+                                                            </div>
                                                             <div className={styles.itemsList}>
                                                                 {supporter.likedItems.map((item, itemIdx) => (
                                                                     <div key={itemIdx} className={styles.likedItemCard}>
@@ -240,6 +299,14 @@ const LikesAnalytics = () => {
                                                                                 year: 'numeric'
                                                                             })}
                                                                         </span>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => handleDeleteSingleLike(item.type, item.id, supporter.name, item.title)}
+                                                                            className={styles.itemDeleteBtn}
+                                                                            title={`Remove like on ${item.title}`}
+                                                                        >
+                                                                            <FaTrash /> Remove
+                                                                        </button>
                                                                     </div>
                                                                 ))}
                                                             </div>
@@ -281,6 +348,14 @@ const LikesAnalytics = () => {
                                             <span key={idx} className={styles.userTag}>
                                                 <FaUser className={styles.tagUserIcon} /> {u.name}
                                                 <small>{new Date(u.date).toLocaleDateString()}</small>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteSingleLike('Project', proj.id, u.name, proj.title)}
+                                                    className={styles.tagDeleteBtn}
+                                                    title={`Remove ${u.name}'s like from ${proj.title}`}
+                                                >
+                                                    <FaTimes />
+                                                </button>
                                             </span>
                                         ))}
                                     </div>
@@ -316,6 +391,14 @@ const LikesAnalytics = () => {
                                             <span key={idx} className={styles.userTag}>
                                                 <FaUser className={styles.tagUserIcon} /> {u.name}
                                                 <small>{new Date(u.date).toLocaleDateString()}</small>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDeleteSingleLike('Blog', blog.id, u.name, blog.title)}
+                                                    className={styles.tagDeleteBtn}
+                                                    title={`Remove ${u.name}'s like from ${blog.title}`}
+                                                >
+                                                    <FaTimes />
+                                                </button>
                                             </span>
                                         ))}
                                     </div>
