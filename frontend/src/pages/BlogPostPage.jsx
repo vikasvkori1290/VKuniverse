@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FaClock, FaTag, FaArrowLeft, FaCalendarAlt, FaUser, FaShareAlt, FaLinkedin, FaGithub, FaTwitter, FaHeart } from 'react-icons/fa';
+import { FaClock, FaTag, FaArrowLeft, FaCalendarAlt, FaUser, FaShareAlt, FaLinkedin, FaGithub, FaTwitter, FaHeart, FaTimes } from 'react-icons/fa';
 import { marked } from 'marked';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
@@ -24,6 +24,7 @@ const BlogPostPage = () => {
     const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
     const [hasLiked, setHasLiked] = useState(false);
     const [likeSuccessToast, setLikeSuccessToast] = useState('');
+    const [lightboxImage, setLightboxImage] = useState(null);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -31,7 +32,6 @@ const BlogPostPage = () => {
                 const { data } = await api.get(`/blog/${slug}`);
                 setPost(data);
 
-                // Check if current user name previously liked this post
                 const savedName = localStorage.getItem('viewer_name');
                 if (savedName && data.likedBy) {
                     const already = data.likedBy.some(
@@ -49,6 +49,25 @@ const BlogPostPage = () => {
         window.scrollTo(0, 0);
     }, [slug]);
 
+    // Handle Escape key to close lightbox and prevent background scroll
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setLightboxImage(null);
+            }
+        };
+        if (lightboxImage) {
+            window.addEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = 'unset';
+        };
+    }, [lightboxImage]);
+
     const handleShare = () => {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(window.location.href);
@@ -63,7 +82,7 @@ const BlogPostPage = () => {
             try {
                 await handleLikeSubmit(savedName.trim());
             } catch (err) {
-                // error is handled inside handleLikeSubmit toast
+                // handled in toast
             }
         } else {
             setIsLikeModalOpen(true);
@@ -92,12 +111,88 @@ const BlogPostPage = () => {
         }
     };
 
+    // Click handler on content to open any clicked image in Lightbox
+    const handleContentClick = (e) => {
+        const target = e.target;
+        if (target.tagName === 'IMG') {
+            e.preventDefault();
+            setLightboxImage({
+                src: target.src,
+                alt: target.alt || post.title
+            });
+        }
+    };
+
     const getHtmlContent = (content) => {
         if (!content) return '';
         try {
-            return marked.parse(content);
+            const rawHtml = marked.parse(content);
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(rawHtml, 'text/html');
+            const bodyChildren = Array.from(doc.body.children);
+
+            const isImageOnlyNode = (node) => {
+                if (!node) return false;
+                if (node.tagName === 'P') {
+                    const text = node.textContent.trim();
+                    const imgs = node.querySelectorAll('img');
+                    return imgs.length > 0 && text === '';
+                }
+                return node.tagName === 'IMG';
+            };
+
+            let i = 0;
+            while (i < bodyChildren.length) {
+                const el = bodyChildren[i];
+                if (isImageOnlyNode(el)) {
+                    const groupImgs = [];
+                    let j = i;
+                    while (j < bodyChildren.length && isImageOnlyNode(bodyChildren[j])) {
+                        const current = bodyChildren[j];
+                        if (current.tagName === 'IMG') {
+                            groupImgs.push(current.cloneNode(true));
+                        } else {
+                            current.querySelectorAll('img').forEach(img => {
+                                groupImgs.push(img.cloneNode(true));
+                            });
+                        }
+                        j++;
+                    }
+
+                    // If 2 or more consecutive images, bundle them into a side-by-side row
+                    if (groupImgs.length >= 2) {
+                        const gridDiv = doc.createElement('div');
+                        const rowClass = groupImgs.length === 2 ? styles.imageRow2 : groupImgs.length === 3 ? styles.imageRow3 : styles.imageGrid;
+                        gridDiv.className = `${styles.imageRow} ${rowClass}`;
+
+                        groupImgs.forEach(img => {
+                            const itemWrap = doc.createElement('div');
+                            itemWrap.className = styles.imageRowItem;
+                            itemWrap.appendChild(img);
+                            gridDiv.appendChild(itemWrap);
+                        });
+
+                        bodyChildren[i].parentNode.insertBefore(gridDiv, bodyChildren[i]);
+                        for (let k = i; k < j; k++) {
+                            if (bodyChildren[k].parentNode) {
+                                bodyChildren[k].parentNode.removeChild(bodyChildren[k]);
+                            }
+                        }
+                        i = j;
+                        continue;
+                    }
+                }
+                i++;
+            }
+
+            return doc.body.innerHTML;
         } catch (e) {
-            return content.replace(/\n/g, '<br/>');
+            console.error('Error processing blog content HTML:', e);
+            try {
+                return marked.parse(content);
+            } catch (err) {
+                return content.replace(/\n/g, '<br/>');
+            }
         }
     };
 
@@ -209,9 +304,13 @@ const BlogPostPage = () => {
                                 )}
                             </header>
 
-                            {/* Featured Cover Image */}
+                            {/* Featured Cover Image (Clickable for Lightbox) */}
                             {post.coverImage && (
-                                <div className={styles.coverFrame}>
+                                <div
+                                    className={styles.coverFrame}
+                                    onClick={() => setLightboxImage({ src: getFileURL(post.coverImage), alt: post.title })}
+                                    title="Click to enlarge cover image"
+                                >
                                     <img
                                         src={getFileURL(post.coverImage)}
                                         alt={post.title}
@@ -224,9 +323,10 @@ const BlogPostPage = () => {
                                 </div>
                             )}
 
-                            {/* Markdown Rendered Content */}
+                            {/* Markdown Rendered Content with Image Lightbox delegated click */}
                             <div
                                 className={styles.contentBody}
+                                onClick={handleContentClick}
                                 dangerouslySetInnerHTML={{ __html: getHtmlContent(post.content) }}
                             />
 
@@ -303,6 +403,35 @@ const BlogPostPage = () => {
                 title="Like This Article"
                 itemName={`"${post.title}"`}
             />
+
+            {/* Image Lightbox Viewer Modal */}
+            {lightboxImage && (
+                <div
+                    className={styles.lightboxOverlay}
+                    onClick={() => setLightboxImage(null)}
+                    title="Click anywhere to close"
+                >
+                    <button
+                        className={styles.lightboxCloseBtn}
+                        onClick={() => setLightboxImage(null)}
+                        aria-label="Close image preview"
+                    >
+                        <FaTimes />
+                    </button>
+                    <div className={styles.lightboxContainer} onClick={(e) => e.stopPropagation()}>
+                        <img
+                            src={lightboxImage.src}
+                            alt={lightboxImage.alt}
+                            className={styles.lightboxImage}
+                        />
+                        {lightboxImage.alt && lightboxImage.alt !== 'Image' && lightboxImage.alt !== post.title && (
+                            <div className={styles.lightboxCaption}>
+                                {lightboxImage.alt}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
