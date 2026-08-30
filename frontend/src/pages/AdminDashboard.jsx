@@ -9,6 +9,7 @@ import SkillIconPicker from '../components/admin/SkillIconPicker';
 import RecentlyUploaded from '../components/admin/RecentlyUploaded';
 import Messages from '../components/admin/Messages';
 import BlogManager from '../components/admin/BlogManager';
+import LikesAnalytics from '../components/admin/LikesAnalytics';
 
 const AdminDashboard = () => {
   const { admin, logout } = useContext(AuthContext);
@@ -231,6 +232,7 @@ const AdminDashboard = () => {
 
           <div className={styles.tabs}>
             <button className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`} onClick={() => setActiveTab('overview')}>Overview</button>
+            <button className={`${styles.tab} ${activeTab === 'likes' ? styles.active : ''}`} onClick={() => setActiveTab('likes')}>Likes & Supporters</button>
             <button className={`${styles.tab} ${activeTab === 'projects' ? styles.active : ''}`} onClick={() => setActiveTab('projects')}>Projects</button>
             <button className={`${styles.tab} ${activeTab === 'skills' ? styles.active : ''}`} onClick={() => setActiveTab('skills')}>Skills</button>
             <button className={`${styles.tab} ${activeTab === 'achievements' ? styles.active : ''}`} onClick={() => setActiveTab('achievements')}>Achievements</button>
@@ -494,6 +496,12 @@ const AdminDashboard = () => {
             {activeTab === 'messages' && (
               <div className={styles.section}>
                 <Messages />
+              </div>
+            )}
+
+            {activeTab === 'likes' && (
+              <div className={styles.section}>
+                <LikesAnalytics />
               </div>
             )}
 
