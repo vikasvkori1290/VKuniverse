@@ -7,28 +7,34 @@ const About = () => {
 
     const timelineData = [
         {
-            year: '2025 – Present',
-            title: 'Aspiring MERN Stack Engineer',
-            institution: 'Building Future-ready Web Solutions',
-            description: 'Fueled by a passion for solving real-world problems, currently mastering Data Structures & Algorithms in Python while specializing in developing robust APIs and scalable web applications. Eager to innovate and contribute to impactful projects as a full-stack developer, combining technical expertise with strong problem-solving abilities.'
+            year: '2026 – Present',
+            title: 'Aspiring Full-Stack Developer',
+            institution: 'Building with the MERN Stack',
+            description: 'Currently focused on becoming a strong full-stack developer by building real-world web applications using MongoDB, Express.js, React, and Node.js. Continuously improving problem-solving skills, backend development, APIs, and modern web development practices while working on practical projects.'
         },
         {
             year: 'October 2025 – Present',
-            title: 'DSA & MERN Stack Enthusiast',
-            institution: 'Deep Dive into Advanced Concepts',
-            description: 'Started an intensive journey into Data Structures and Algorithms along with the MERN stack, focusing on hands-on projects and practical applications. Striving to bridge the gap between core programming concepts and the complexities of modern web development.'
+            title: 'DSA & MERN Stack Journey',
+            institution: 'Strengthening Core & Development Skills',
+            description: 'Started an intensive journey into Data Structures and Algorithms alongside full-stack web development. Practicing DSA with Python while learning the MERN stack through hands-on projects, focusing on writing efficient solutions and building scalable web applications.'
         },
         {
             year: '2024 – 2025',
-            title: 'Explored Diverse Development Domains',
-            institution: 'First Year, Infinite Possibilities',
-            description: 'Embraced and explored every major area of software development—from frontend interfaces to backend logic, mobile apps to hardware projects. Enjoyed a dynamic first year of experimentation, laying the foundation for a well-rounded developer mindset.'
+            title: 'Explored Software Development',
+            institution: 'First Year, Exploring Possibilities',
+            description: 'Used my first year of college to explore different areas of technology and software development. Experimented with frontend development, backend programming, databases, APIs, and other development domains to understand my interests and build a strong foundation in programming.'
         },
         {
             year: '2024',
-            title: 'B.Tech Computer Science Engineer',
+            title: 'B.Tech Computer Science & Engineering',
             institution: 'CMR University, Bangalore',
-            description: 'Embarked on a transformative journey at CMR University, Bangalore, as a B.Tech student specializing in Computer Science. Developing skills through academic rigor, practical projects, and active participation in the tech community.'
+            description: 'Began my B.Tech journey in Computer Science and Engineering at CMR University, Bangalore. Started building a strong foundation in programming, computer science fundamentals, and problem-solving while exploring different areas of technology through academics and personal projects.'
+        },
+        {
+            year: '2024',
+            title: 'PUC – Science',
+            institution: 'Completed with 89.33%',
+            description: 'Completed my Pre-University Course in the Science stream with 89.33%. This phase strengthened my foundation in mathematics, science, and analytical thinking and motivated me to pursue Computer Science and explore the world of technology.'
         }
     ];
 
