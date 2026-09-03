@@ -81,8 +81,7 @@ const deleteAchievement = async (req, res) => {
 const getRecentAchievements = async (req, res) => {
     try {
         const achievements = await Achievement.find({})
-            .sort({ createdAt: -1 })
-            .limit(10);
+            .sort({ createdAt: -1 });
         res.status(200).json(achievements);
     } catch (error) {
         res.status(500).json({ message: error.message });

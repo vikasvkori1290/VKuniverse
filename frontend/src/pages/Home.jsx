@@ -6,6 +6,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import About from '../components/About';
+import FeaturedAchievement from '../components/FeaturedAchievement';
 import RecentBlogs from '../components/RecentBlogs';
 import ContactForm from '../components/ContactForm';
 import styles from '../styles/pages/Home.module.css';
@@ -19,6 +20,7 @@ const Home = () => {
             <Navbar />
             <main>
                 <Hero />
+                <FeaturedAchievement />
                 <RecentBlogs />
                 <About />
                 <ContactForm />

@@ -13,10 +13,10 @@ const Achievements = () => {
     const [currentImages, setCurrentImages] = useState([]);
     const [activeNodeId, setActiveNodeId] = useState(null);
 
-    // Sort strictly in ASCENDING order of date (earliest -> latest)
+    // Sort strictly in DESCENDING order of date (latest / most recent -> earliest)
     const sortedAchievements = [...achievements]
         .filter(item => activeFilter === 'All' ? true : item.category === activeFilter)
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
+        .sort((a, b) => new Date(b.date || b.createdAt || 0) - new Date(a.date || a.createdAt || 0));
 
     // Handle keyboard navigation for lightbox
     useEffect(() => {
@@ -115,7 +115,7 @@ const Achievements = () => {
                     <div className={styles.roadMapNodes}>
                         {sortedAchievements.map((item, index) => {
                             const levelNumber = String(index + 1).padStart(2, '0');
-                            const isLatest = index === sortedAchievements.length - 1;
+                            const isLatest = index === 0;
                             const isSelected = activeNodeId === (item._id || index);
 
                             return (

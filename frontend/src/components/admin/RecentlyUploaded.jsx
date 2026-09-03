@@ -100,19 +100,19 @@ const RecentlyUploaded = ({ onEdit }) => {
                     className={`${styles.tab} ${activeTab === 'projects' ? styles.active : ''}`}
                     onClick={() => setActiveTab('projects')}
                 >
-                    <FaProjectDiagram /> Projects
+                    <FaProjectDiagram /> Projects {activeTab === 'projects' && !loading && `(${items.length})`}
                 </button>
                 <button
                     className={`${styles.tab} ${activeTab === 'skills' ? styles.active : ''}`}
                     onClick={() => setActiveTab('skills')}
                 >
-                    <FaCode /> Skills
+                    <FaCode /> Skills {activeTab === 'skills' && !loading && `(${items.length})`}
                 </button>
                 <button
                     className={`${styles.tab} ${activeTab === 'achievements' ? styles.active : ''}`}
                     onClick={() => setActiveTab('achievements')}
                 >
-                    <FaTrophy /> Achievements
+                    <FaTrophy /> Achievements {activeTab === 'achievements' && !loading && `(${items.length})`}
                 </button>
             </div>
 

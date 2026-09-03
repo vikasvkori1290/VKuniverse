@@ -68,8 +68,7 @@ const deleteSkill = async (req, res) => {
 const getRecentSkills = async (req, res) => {
     try {
         const skills = await Skill.find({})
-            .sort({ createdAt: -1 })
-            .limit(10);
+            .sort({ createdAt: -1 });
         res.status(200).json(skills);
     } catch (error) {
         res.status(500).json({ message: error.message });

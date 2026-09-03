@@ -97,8 +97,7 @@ const deleteProject = async (req, res) => {
 const getRecentProjects = async (req, res) => {
     try {
         const projects = await Project.find({})
-            .sort({ createdAt: -1 })
-            .limit(10);
+            .sort({ createdAt: -1 });
         res.status(200).json(projects);
     } catch (error) {
         res.status(500).json({ message: error.message });
