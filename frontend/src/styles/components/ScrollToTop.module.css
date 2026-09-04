@@ -1,29 +1,33 @@
+/* Minimalist Sleek Scroll To Top Button */
 .scrollToTop {
     position: fixed;
-    bottom: 32px;
-    right: 32px;
-    width: 48px;
-    height: 48px;
+    bottom: 28px;
+    right: 28px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: #93c5fd;
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    background: rgba(13, 15, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.05rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 
-                inset 0 1px 2px rgba(255, 255, 255, 0.3),
-                0 0 12px rgba(59, 130, 246, 0.2);
+    font-size: 0.95rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px) scale(0.9);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(12px) scale(0.92);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+                opacity 0.25s ease,
+                visibility 0.25s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
     z-index: 999;
-    overflow: visible;
 }
 
 .scrollToTop.visible {
@@ -32,48 +36,33 @@
     transform: translateY(0) scale(1);
 }
 
-.glowRing {
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
 .arrowIcon {
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.2s ease;
 }
 
+/* Minimalist Hover - No Blue Glow or Gradient */
 .scrollToTop:hover {
-    transform: translateY(-5px) scale(1.08);
-    background: rgba(15, 23, 42, 0.85);
-    border-color: rgba(96, 165, 250, 0.8);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 
-                0 0 24px rgba(59, 130, 246, 0.5),
-                inset 0 1px 4px rgba(255, 255, 255, 0.4);
-}
-
-.scrollToTop:hover .glowRing {
-    opacity: 1;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .scrollToTop:hover .arrowIcon {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .scrollToTop:active {
-    transform: translateY(-1px) scale(0.96);
+    transform: translateY(0) scale(0.95);
 }
 
 @media (max-width: 768px) {
     .scrollToTop {
-        width: 44px;
-        height: 44px;
-        bottom: 24px;
+        width: 38px;
+        height: 38px;
+        bottom: 20px;
         right: 20px;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
     }
 }

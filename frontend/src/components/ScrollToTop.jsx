@@ -40,9 +40,8 @@ const ScrollToTop = () => {
             className={`${styles.scrollToTop} ${isVisible ? styles.visible : ''}`}
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            title={`Scroll to top (${scrollProgress}%)`}
+            title="Scroll to top"
         >
-            <div className={styles.glowRing} />
             <FaArrowUp className={styles.arrowIcon} />
         </button>
     );

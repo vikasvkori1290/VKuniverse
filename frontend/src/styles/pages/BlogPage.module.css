@@ -1,3 +1,4 @@
+/* Sleek Minimalist Blog Page */
 .blogPage {
     min-height: 100vh;
     display: flex;
@@ -9,12 +10,11 @@
 .main {
     flex: 1;
     padding: 120px 0 80px;
-    background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.04) 0%, transparent 60%);
 }
 
 .header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 44px;
     max-width: 680px;
     margin-left: auto;
     margin-right: auto;
@@ -23,24 +23,24 @@
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 5px 14px;
-    border-radius: 50px;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    color: #38bdf8;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #cbd5e1;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .title {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
     color: #ffffff;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .subtitle {
@@ -52,34 +52,41 @@
 .postsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 28px;
+    gap: 24px;
 }
 
+/* Minimalist Post Card */
 .postCard {
-    background: #0d121f;
-    border-radius: 18px;
+    background: #0d0f14;
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
 }
 
+/* Minimalist Hover - No Blue Glow */
 .postCard:hover {
     transform: translateY(-4px);
-    border-color: rgba(56, 189, 248, 0.4);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
 }
 
 .imageWrapper {
     width: 100%;
-    height: 200px;
+    height: 185px;
+    border-radius: 14px;
     overflow: hidden;
-    background: #080c14;
+    background: #141720;
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .coverImage {
@@ -90,11 +97,11 @@
 }
 
 .postCard:hover .coverImage {
-    transform: scale(1.06);
+    transform: scale(1.03);
 }
 
 .content {
-    padding: 22px;
+    padding: 14px 6px 4px 6px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -104,50 +111,50 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    font-size: 0.82rem;
-    color: #94a3b8;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
+    color: #71717a;
+    font-weight: 500;
 }
 
 .metaItem {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
 }
 
 .metaLike {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     color: #fda4af;
-    background: rgba(244, 63, 94, 0.1);
+    background: rgba(244, 63, 94, 0.08);
+    border: 1px solid rgba(244, 63, 94, 0.2);
     padding: 2px 8px;
-    border-radius: 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
     font-weight: 600;
 }
 
 .heartIcon {
     color: #f43f5e;
+    font-size: 0.7rem;
 }
 
 .postTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0 0 6px 0;
     line-height: 1.35;
-    transition: color 0.2s ease;
-}
-
-.postCard:hover .postTitle {
-    color: #38bdf8;
+    letter-spacing: -0.01em;
 }
 
 .excerpt {
     color: #94a3b8;
-    line-height: 1.6;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    line-height: 1.55;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -160,8 +167,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     margin-top: auto;
 }
 
@@ -175,71 +182,84 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2px 7px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: #cbd5e1;
     border-radius: 6px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    font-weight: 500;
 }
 
 .readMore {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #38bdf8;
-    transition: transform 0.2s ease;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #f1f5f9;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .postCard:hover .readMore {
+    color: #ffffff;
     transform: translateX(3px);
 }
 
 /* Loading & Empty */
-.loading,
-.empty {
-    text-align: center;
-    padding: 80px 20px;
+.loading, .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    gap: 16px;
     color: #94a3b8;
-    font-size: 1rem;
+    text-align: center;
 }
 
 .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(56, 189, 248, 0.15);
-    border-top-color: #38bdf8;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-top-color: #f8fafc;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
 .homeBtn {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 10px 22px;
-    background: #0284c7;
-    color: #ffffff;
-    border-radius: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #f8fafc;
+    border-radius: 8px;
+    font-size: 0.85rem;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .main {
-        padding: 90px 0 60px;
+.homeBtn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .postCard {
+        padding: 8px;
+        border-radius: 16px;
     }
 
-    .postsGrid {
-        grid-template-columns: 1fr;
+    .imageWrapper {
+        border-radius: 12px;
+        height: 160px;
+    }
+
+    .content {
+        padding: 10px 4px 2px 4px;
     }
 }

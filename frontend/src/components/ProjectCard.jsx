@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaExternalLinkAlt, FaImages, FaVideo, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaImages, FaVideo, FaHeart, FaCalendarAlt, FaTag } from 'react-icons/fa';
 import api from '../services/api';
 import { useData } from '../context/DataContext';
 import LikeModal from './common/LikeModal';
@@ -9,7 +9,6 @@ import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const ProjectCard = ({ project }) => {
     const { updateProjectLikes } = useData() || {};
-    const [isHovered, setIsHovered] = useState(false);
     const [likes, setLikes] = useState(project.likes || 0);
     const [hasLiked, setHasLiked] = useState(false);
     const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
@@ -70,14 +69,32 @@ const ProjectCard = ({ project }) => {
     const thumbnailUrl = getThumbnailUrl();
     const imageCount = project.images?.length || 0;
 
+    const techList = (
+        Array.isArray(project.techStack)
+            ? project.techStack
+            : typeof project.techStack === 'string'
+            ? project.techStack.split(',')
+            : Array.isArray(project.technologies)
+            ? project.technologies
+            : typeof project.technologies === 'string'
+            ? project.technologies.split(',')
+            : []
+    ).map(t => t.trim()).filter(Boolean);
+
+    const formattedDate = project.date || project.createdAt
+        ? new Date(project.date || project.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            year: 'numeric'
+        })
+        : null;
+
     return (
         <>
             <Link
                 to={`/projects/${project._id}`}
                 className={`${styles.projectCard} animate-on-scroll`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
             >
+                {/* Framed Inset Image/Media Container */}
                 <div className={styles.imageContainer}>
                     {project.video ? (
                         <video
@@ -88,7 +105,6 @@ const ProjectCard = ({ project }) => {
                             muted
                             playsInline
                             preload="none"
-                            style={{ objectFit: 'cover' }}
                             onError={(e) => {
                                 e.target.style.display = 'none';
                             }}
@@ -110,9 +126,10 @@ const ProjectCard = ({ project }) => {
                         </div>
                     )}
 
-                    {/* Subtle Status Pill */}
+                    {/* Status Pill (Sleek Glass chip) */}
                     <div className={`${styles.statusBadge} ${project.status === 'completed' ? styles.statusCompleted : styles.statusInProgress}`}>
-                        {project.status === 'completed' ? '✓ Completed' : '⏱ In Progress'}
+                        <span className={styles.statusDot} />
+                        {project.status === 'completed' ? 'Completed' : 'In Progress'}
                     </div>
 
                     {/* Like Pill on Image Corner */}
@@ -121,6 +138,7 @@ const ProjectCard = ({ project }) => {
                         onClick={handleLikeClick}
                         className={`${styles.cardLikeBadge} ${hasLiked ? styles.cardLikeActive : ''}`}
                         title="Like this project"
+                        aria-label="Like project"
                     >
                         <FaHeart className={styles.heartIcon} />
                         <span>{likes}</span>
@@ -140,11 +158,46 @@ const ProjectCard = ({ project }) => {
                     )}
                 </div>
 
+                {/* Minimalist Card Body */}
                 <div className={styles.cardContent}>
+                    {/* Header: Title */}
                     <h3 className={styles.title}>{project.title}</h3>
+
+                    {/* Meta Info Row */}
+                    <div className={styles.metaRow}>
+                        {formattedDate && (
+                            <span className={styles.metaItem}>
+                                <FaCalendarAlt className={styles.metaIcon} /> {formattedDate}
+                            </span>
+                        )}
+                        {project.category && (
+                            <span className={styles.metaItem}>
+                                <FaTag className={styles.metaIcon} /> {project.category}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Description */}
                     <p className={styles.description}>{project.description}</p>
 
-                    {/* Action Buttons */}
+                    {/* Tech Stack Pills (Reference Tag style) */}
+                    {techList.length > 0 && (
+                        <div className={styles.techTags}>
+                            {techList.slice(0, 5).map((tech, idx) => (
+                                <span
+                                    key={idx}
+                                    className={`${styles.techTag} ${styles[`tagColor${idx % 4}`] || ''}`}
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                            {techList.length > 5 && (
+                                <span className={styles.techMoreTag}>+{techList.length - 5}</span>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Sleek Action Buttons */}
                     <div className={styles.actions}>
                         {project.liveLink && (
                             <a
@@ -154,7 +207,7 @@ const ProjectCard = ({ project }) => {
                                 className={`${styles.actionButton} ${styles.liveButton}`}
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <FaExternalLinkAlt />
+                                <FaExternalLinkAlt className={styles.btnIcon} />
                                 <span>Live Demo</span>
                             </a>
                         )}
@@ -166,7 +219,7 @@ const ProjectCard = ({ project }) => {
                                 className={`${styles.actionButton} ${styles.githubButton}`}
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <FaGithub />
+                                <FaGithub className={styles.btnIcon} />
                                 <span>GitHub</span>
                             </a>
                         )}

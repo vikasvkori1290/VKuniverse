@@ -1,14 +1,16 @@
+/* Sleek Minimalist Project Card */
 .projectCard {
     display: flex;
     flex-direction: column;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #0d0f14;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
+    padding: 10px;
     overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
     height: 100%;
     position: relative;
     text-align: left;
@@ -16,18 +18,22 @@
     color: inherit;
 }
 
+/* Minimalist Sleek Hover - No blue gradient or glow */
 .projectCard:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(56, 189, 248, 0.15);
-    border-color: rgba(56, 189, 248, 0.45);
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
 }
 
+/* Inset Framed Media Container */
 .imageContainer {
     position: relative;
     width: 100%;
     padding-top: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 14px;
     overflow: hidden;
-    background: rgba(10, 15, 25, 0.8);
+    background: #141720;
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .projectImage {
@@ -37,7 +43,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+    transition: transform 0.4s ease;
 }
 
 .placeholderImage {
@@ -46,162 +52,243 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.9);
+    background: #181b24;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .placeholderImage span {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: #38bdf8;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .projectCard:hover .projectImage {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
-/* Subtle Status Badge */
+/* Sleek Status Badge */
 .statusBadge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 12px;
-    border-radius: 50px;
+    top: 10px;
+    right: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
     font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     z-index: 2;
+    background: rgba(10, 12, 16, 0.75);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* Card Like Badge */
+.statusDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.statusCompleted .statusDot {
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+}
+
+.statusInProgress .statusDot {
+    background: #fbbf24;
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+}
+
+/* Sleek Card Like Chip */
 .cardLikeBadge {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 4px 10px;
-    border-radius: 50px;
-    font-size: 0.76rem;
-    font-weight: 700;
+    top: 10px;
+    left: 10px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 600;
     z-index: 3;
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(244, 63, 94, 0.35);
-    color: #fda4af;
+    background: rgba(10, 12, 16, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
     display: inline-flex;
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     transition: all 0.2s ease;
 }
 
 .cardLikeBadge:hover {
-    background: #f43f5e;
-    color: #ffffff;
-    border-color: #f43f5e;
-    transform: scale(1.08);
-    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+    background: rgba(244, 63, 94, 0.18);
+    color: #fda4af;
+    border-color: rgba(244, 63, 94, 0.35);
 }
 
 .cardLikeBadge .heartIcon {
-    color: #f43f5e;
-    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
     transition: color 0.2s ease;
 }
 
 .cardLikeBadge:hover .heartIcon {
-    color: #ffffff;
+    color: #f43f5e;
 }
 
 .cardLikeActive {
-    background: rgba(244, 63, 94, 0.25);
-    border-color: #f43f5e;
-    color: #ffffff;
+    background: rgba(244, 63, 94, 0.15);
+    border-color: rgba(244, 63, 94, 0.35);
+    color: #fda4af;
 }
 
 .cardLikeActive .heartIcon {
-    color: #ffffff;
-}
-
-.statusCompleted {
-    background: rgba(10, 20, 15, 0.8);
-    color: #4ade80;
-    border: 1px solid rgba(74, 222, 128, 0.4);
-    box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
-}
-
-.statusInProgress {
-    background: rgba(25, 20, 10, 0.8);
-    color: #fbbf24;
-    border: 1px solid rgba(251, 191, 36, 0.4);
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+    color: #f43f5e;
 }
 
 /* Media Badge */
 .mediaBadge {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(10, 15, 25, 0.75);
-    color: #ffffff;
-    padding: 3px 8px;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(10, 12, 16, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #94a3b8;
+    padding: 2px 7px;
     border-radius: 6px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     z-index: 2;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Card Content */
+/* Minimalist Card Body */
 .cardContent {
-    padding: 22px 24px;
+    padding: 14px 6px 4px 6px;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
+    gap: 8px;
 }
 
 .title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #f8fafc;
     margin: 0;
-    line-height: 1.3;
-    transition: color 0.2s ease;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
 }
 
-.projectCard:hover .title {
-    color: #38bdf8;
+/* Meta Information Row */
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: -2px;
 }
 
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.76rem;
+    color: #71717a;
+    font-weight: 500;
+}
+
+.metaIcon {
+    font-size: 0.72rem;
+    color: #71717a;
+}
+
+/* Description */
 .description {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.55;
-    margin: 0;
+    font-size: 0.84rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 2px 0 4px 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Action Buttons - Solid Sky Blue & Glass */
+/* Tech Stack Tags / Badges (matching reference style) */
+.techTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 2px 0 6px 0;
+}
+
+.techTag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    letter-spacing: 0.01em;
+}
+
+.tagColor0 {
+    background: rgba(168, 85, 247, 0.08);
+    border-color: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+}
+
+.tagColor1 {
+    background: rgba(56, 189, 248, 0.08);
+    border-color: rgba(56, 189, 248, 0.2);
+    color: #7dd3fc;
+}
+
+.tagColor2 {
+    background: rgba(52, 211, 153, 0.08);
+    border-color: rgba(52, 211, 153, 0.2);
+    color: #6ee7b7;
+}
+
+.tagColor3 {
+    background: rgba(244, 114, 182, 0.08);
+    border-color: rgba(244, 114, 182, 0.2);
+    color: #f472b6;
+}
+
+.techMoreTag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #71717a;
+}
+
+/* Minimalist Action Buttons */
 .actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    margin-top: 6px;
+    margin-top: auto;
+    padding-top: 8px;
 }
 
 .actionButton {
@@ -209,48 +296,60 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 9px 16px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
+.btnIcon {
+    font-size: 0.75rem;
+}
+
 .liveButton {
-    background: #0284c7;
-    color: #ffffff;
-    border: 1px solid #38bdf8;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .liveButton:hover {
-    background: #0ea5e9;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
     color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.45);
+    transform: translateY(-1px);
 }
 
 .githubButton {
-    background: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.025);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .githubButton:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #ffffff;
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f8fafc;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {
-    .cardContent {
-        padding: 18px;
+    .projectCard {
+        padding: 8px;
+        border-radius: 16px;
     }
-    
+
+    .imageContainer {
+        border-radius: 12px;
+    }
+
+    .cardContent {
+        padding: 10px 4px 2px 4px;
+    }
+
     .title {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
     }
 }

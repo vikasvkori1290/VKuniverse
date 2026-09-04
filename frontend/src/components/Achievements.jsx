@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/components/Achievements.module.css';
-import { FaTimes, FaChevronLeft, FaChevronRight, FaTrophy, FaCode, FaCertificate, FaMedal, FaStar, FaRocket } from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight, FaTrophy, FaCode, FaCertificate, FaMedal, FaStar, FaCalendarAlt } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
 import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
 
@@ -11,7 +11,6 @@ const Achievements = () => {
     const [currentImage, setCurrentImage] = useState(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImages, setCurrentImages] = useState([]);
-    const [activeNodeId, setActiveNodeId] = useState(null);
 
     // Sort strictly in DESCENDING order of date (latest / most recent -> earliest)
     const sortedAchievements = [...achievements]
@@ -77,12 +76,6 @@ const Achievements = () => {
         }
     };
 
-    // Calculate winding S-curve position: Left, Center-Left, Center-Right, Right
-    const getNodePositionClass = (index) => {
-        const pattern = ['posLeft', 'posCenterLeft', 'posRight', 'posCenterRight'];
-        return styles[pattern[index % pattern.length]];
-    };
-
     return (
         <section className={styles.achievementsSection} id="achievements">
             <div className={styles.container}>
@@ -107,107 +100,70 @@ const Achievements = () => {
                     ))}
                 </div>
 
-                {/* Aesthetic Level Map Road */}
-                <div className={styles.levelMapContainer}>
-                    {/* Glowing Track Line in Background */}
-                    <div className={styles.roadTrackLine} />
+                {/* Minimalist Achievements List */}
+                <div className={styles.achievementsList}>
+                    {sortedAchievements.map((item, index) => {
+                        const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
+                            month: 'short',
+                            year: 'numeric'
+                        });
 
-                    <div className={styles.roadMapNodes}>
-                        {sortedAchievements.map((item, index) => {
-                            const levelNumber = String(index + 1).padStart(2, '0');
-                            const isLatest = index === 0;
-                            const isSelected = activeNodeId === (item._id || index);
+                        const cleanDescription = (item.description || '')
+                            .replace(/^Winning certificate will be uploaded soon!?\s*/i, '')
+                            .replace(/Winning certificate will be uploaded soon!?\s*/gi, '')
+                            .trim();
 
-                            return (
-                                <div
-                                    key={item._id || index}
-                                    className={`${styles.mapNodeRow} ${getNodePositionClass(index)} animate-on-scroll`}
-                                    onClick={() => setActiveNodeId(isSelected ? null : (item._id || index))}
-                                >
-                                    {/* Level Node Token */}
-                                    <div className={styles.nodeAnchor}>
-                                        {/* Player Pin on Latest Level */}
-                                        {isLatest && (
-                                            <div className={styles.playerPin}>
-                                                <div className={styles.playerAvatar}>
-                                                    <FaRocket />
-                                                </div>
-                                                <div className={styles.playerTag}>Current</div>
-                                            </div>
-                                        )}
-
-                                        {/* Aesthetic Frosted Glass Level Node Token */}
-                                        <div className={styles.levelCircle}>
-                                            <div className={styles.nodeNumber}>'{levelNumber}</div>
-                                            <div className={styles.nodeIcon}>
-                                                {getCategoryIcon(item.category)}
-                                            </div>
-                                        </div>
-
-                                        {/* Subtle Stars */}
-                                        <div className={styles.starRow}>
-                                            <FaStar className={styles.starIcon} />
-                                            <FaStar className={`${styles.starIcon} ${styles.starCenter}`} />
-                                            <FaStar className={styles.starIcon} />
-                                        </div>
+                        return (
+                            <div
+                                key={item._id || index}
+                                className={`${styles.achievementCard} animate-on-scroll`}
+                            >
+                                <div className={styles.cardHeader}>
+                                    <div className={styles.cardMeta}>
+                                        <span className={styles.categoryBadge}>
+                                            {getCategoryIcon(item.category)} {item.category || 'Achievement'}
+                                        </span>
                                     </div>
-
-                                    {/* Aesthetic Level Quest Card */}
-                                    <div className={`${styles.questCard} ${isSelected ? styles.cardActive : ''}`}>
-                                        <div className={styles.cardHeader}>
-                                            <div className={styles.cardMeta}>
-                                                <span className={styles.levelBadge}>Level {levelNumber}</span>
-                                                <span className={styles.categoryBadge}>{item.category || 'Achievement'}</span>
-                                            </div>
-                                            <div className={styles.cardDate}>
-                                                {new Date(item.date).toLocaleDateString('en-US', {
-                                                    month: 'short',
-                                                    year: 'numeric'
-                                                })}
-                                            </div>
-                                        </div>
-
-                                        <h3 className={styles.questTitle}>{item.title}</h3>
-                                        <p className={styles.questDesc}>
-                                            {(item.description || '')
-                                                .replace(/^Winning certificate will be uploaded soon!?\s*/i, '')
-                                                .replace(/Winning certificate will be uploaded soon!?\s*/gi, '')
-                                                .trim()}
-                                        </p>
-
-                                        {/* Certificate / Image preview collage */}
-                                        {item.images && item.images.length > 0 && (
-                                            <div className={styles.collageGrid}>
-                                                {item.images.map((img, idx) => (
-                                                    <div
-                                                        key={idx}
-                                                        className={styles.collageThumb}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            openLightbox(item.images, idx);
-                                                        }}
-                                                    >
-                                                        <img
-                                                            src={getFileURL(img.url)}
-                                                            alt={`Certificate ${idx + 1}`}
-                                                            loading="lazy"
-                                                            onError={(e) => {
-                                                                e.target.onerror = null;
-                                                                e.target.src = FALLBACK_IMAGE;
-                                                            }}
-                                                        />
-                                                        <div className={styles.thumbOverlay}>
-                                                            <span>Preview 🔍</span>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
+                                    <div className={styles.cardDate}>
+                                        <FaCalendarAlt className={styles.dateIcon} /> {formattedDate}
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+
+                                <h3 className={styles.cardTitle}>{item.title}</h3>
+                                <p className={styles.cardDesc}>{cleanDescription}</p>
+
+                                {/* Certificate / Image preview collage */}
+                                {item.images && item.images.length > 0 && (
+                                    <div className={styles.collageGrid}>
+                                        {item.images.map((img, idx) => (
+                                            <div
+                                                key={idx}
+                                                className={styles.collageThumb}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    openLightbox(item.images, idx);
+                                                }}
+                                                title="Click to view full certificate"
+                                            >
+                                                <img
+                                                    src={getFileURL(img.url)}
+                                                    alt={`Certificate ${idx + 1}`}
+                                                    loading="lazy"
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = FALLBACK_IMAGE;
+                                                    }}
+                                                />
+                                                <div className={styles.thumbOverlay}>
+                                                    <span>Preview 🔍</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
 
@@ -244,14 +200,16 @@ const Achievements = () => {
                     )}
 
                     <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
-                        <img 
-                            src={currentImage?.url} 
-                            alt="Achievement Lightbox" 
-                            onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = FALLBACK_IMAGE;
-                            }}
-                        />
+                        {currentImage && (
+                            <img
+                                src={currentImage.url}
+                                alt="Certificate"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = FALLBACK_IMAGE;
+                                }}
+                            />
+                        )}
                         {currentImages.length > 1 && (
                             <div className={styles.imageCounter}>
                                 {currentImageIndex + 1} / {currentImages.length}

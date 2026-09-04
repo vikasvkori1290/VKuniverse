@@ -1,5 +1,6 @@
+/* Sleek Minimalist Featured Milestone Section */
 .featuredSection {
-    padding: 36px 0 24px;
+    padding: 32px 0 24px;
     width: 100%;
 }
 
@@ -10,13 +11,13 @@
 }
 
 .sectionHeader {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .title {
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #f8fafc;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -24,30 +25,31 @@
 }
 
 .titleIcon {
-    color: #facc15;
-    font-size: 1.2rem;
+    color: #fbbf24;
+    font-size: 1.15rem;
 }
 
-/* Aesthetic Frosted Glass Card */
+/* Minimalist Dark Card - Matching Reference */
 .card {
-    background: rgba(11, 15, 25, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: #0d0f14;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 34px 36px;
+    border-radius: 20px;
+    padding: 28px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
 }
 
+/* Sleek Minimalist Hover - No Blue Glow or Gradient */
 .card:hover {
-    border-color: rgba(56, 189, 248, 0.35);
-    transform: translateY(-2px);
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
 }
 
 .cardContent {
@@ -55,27 +57,27 @@
     min-width: 0;
 }
 
-/* Minimalist Meta Tags */
+/* Minimalist Meta Tags (Reference Style) */
 .metaRow {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .categoryBadge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 10px;
-    background: rgba(56, 189, 248, 0.08);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    color: #38bdf8;
+    padding: 3px 9px;
+    background: rgba(56, 189, 248, 0.06);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    color: #7dd3fc;
     border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
 }
 
@@ -83,135 +85,132 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 10px;
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fbbf24;
+    padding: 3px 9px;
+    background: rgba(245, 158, 11, 0.06);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: #fde047;
     border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.74rem;
+    font-weight: 500;
 }
 
 .teamBadge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 10px;
-    background: rgba(168, 85, 247, 0.08);
-    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: 3px 9px;
+    background: rgba(168, 85, 247, 0.06);
+    border: 1px solid rgba(168, 85, 247, 0.2);
     color: #c084fc;
     border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.74rem;
+    font-weight: 500;
 }
 
 .dateBadge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    color: #94a3b8;
-    font-size: 0.8rem;
+    color: #71717a;
+    font-size: 0.78rem;
+    font-weight: 500;
     margin-left: 2px;
 }
 
 /* Title & Description */
 .cardTitle {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0 0 8px 0;
     line-height: 1.35;
     letter-spacing: -0.01em;
 }
 
 .description {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: #94a3b8;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
 }
 
-.description strong {
-    color: #f1f5f9;
-}
-
-/* Actions */
+/* Minimalist Action Buttons */
 .actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .primaryBtn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 18px;
-    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-    color: #ffffff;
+    gap: 7px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #f8fafc;
     border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
+    font-size: 0.84rem;
+    font-weight: 500;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
     transition: all 0.2s ease;
 }
 
 .primaryBtn:hover {
-    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
     color: #ffffff;
+    transform: translateY(-1px);
 }
 
 .secondaryBtn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 9px 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #cbd5e1;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
     border-radius: 8px;
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     font-weight: 500;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .secondaryBtn:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f8fafc;
     transform: translateY(-1px);
 }
 
 /* Images Showcase */
 .cardImages {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     flex-shrink: 0;
     align-items: center;
 }
 
 .thumbWrapper {
-    width: 220px;
-    height: 165px;
-    border-radius: 10px;
+    width: 210px;
+    height: 155px;
+    border-radius: 12px;
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: #080c16;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #141720;
     cursor: zoom-in;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     transition: all 0.25s ease;
 }
 
 .thumbWrapper:hover {
-    transform: translateY(-3px) scale(1.02);
-    border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
 }
 
 .thumbWrapper img {
@@ -224,11 +223,11 @@
 .thumbOverlay {
     position: absolute;
     inset: 0;
-    background: rgba(3, 7, 18, 0.65);
+    background: rgba(10, 12, 16, 0.7);
     backdrop-filter: blur(2px);
-    color: #ffffff;
-    font-size: 0.78rem;
-    font-weight: 600;
+    color: #f1f5f9;
+    font-size: 0.76rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,7 +243,7 @@
 .lightboxOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(3, 7, 18, 0.94);
+    background: rgba(8, 10, 14, 0.94);
     backdrop-filter: blur(14px);
     z-index: 100000;
     display: flex;
@@ -258,13 +257,13 @@
     position: fixed;
     top: 24px;
     right: 24px;
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     color: #ffffff;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -274,7 +273,7 @@
 }
 
 .lightboxClose:hover {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.08);
 }
 
@@ -292,8 +291,8 @@
     max-height: 85vh;
     object-fit: contain;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
 }
 
 /* Responsive */
@@ -301,8 +300,9 @@
     .card {
         flex-direction: column;
         align-items: stretch;
-        gap: 22px;
-        padding: 24px 20px;
+        gap: 20px;
+        padding: 22px 18px;
+        border-radius: 16px;
     }
 
     .cardImages {
@@ -311,7 +311,7 @@
 
     .thumbWrapper {
         flex: 1;
-        max-width: 220px;
-        height: 140px;
+        max-width: 210px;
+        height: 135px;
     }
 }
