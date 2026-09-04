@@ -8,7 +8,7 @@ import styles from '../styles/components/FeaturedAchievement.module.css';
 const DEFAULT_FEATURED = {
     _id: "6a9970ecb5ae6853738b7318",
     title: "Comeback 2026 ~Codefury-9.0",
-    description: "Winning certificate will be uploaded soon! Last year in CodeFury 8.0, our team reached the second round (participation certificate is in the Achievements section). In CodeFury 9.0, we as ZENFORGE made a strong comeback and secured 2nd Runner-Up with a ₹10,000 cash prize through hard work, consistency, and dedication. Special thanks to my teammates Yashwanth and Gagana. Our winning project FORGE is showcased in the Projects section.",
+    description: "Last year in CodeFury 8.0, our team reached the second round (participation certificate is in the Achievements section). In CodeFury 9.0, we as ZENFORGE made a strong comeback and secured 2nd Runner-Up with a ₹10,000 cash prize through hard work, consistency, and dedication. Special thanks to my teammates Yashwanth and Gagana. Our winning project FORGE is showcased in the Projects section.",
     category: "Hackathon",
     date: "2026-07-31T18:30:00.000Z",
     images: [
@@ -55,6 +55,11 @@ const FeaturedAchievement = () => {
         year: 'numeric'
     });
 
+    const cleanDescription = (item.description || '')
+        .replace(/^Winning certificate will be uploaded soon!?\s*/i, '')
+        .replace(/Winning certificate will be uploaded soon!?\s*/gi, '')
+        .trim();
+
     return (
         <section className={styles.featuredSection} id="featured-achievement">
             <div className={styles.container}>
@@ -87,7 +92,7 @@ const FeaturedAchievement = () => {
 
                         {/* Description */}
                         <p className={styles.description}>
-                            {item.description}
+                            {cleanDescription}
                         </p>
 
                         {/* Actions */}

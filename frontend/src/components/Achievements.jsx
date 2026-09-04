@@ -168,7 +168,12 @@ const Achievements = () => {
                                         </div>
 
                                         <h3 className={styles.questTitle}>{item.title}</h3>
-                                        <p className={styles.questDesc}>{item.description}</p>
+                                        <p className={styles.questDesc}>
+                                            {(item.description || '')
+                                                .replace(/^Winning certificate will be uploaded soon!?\s*/i, '')
+                                                .replace(/Winning certificate will be uploaded soon!?\s*/gi, '')
+                                                .trim()}
+                                        </p>
 
                                         {/* Certificate / Image preview collage */}
                                         {item.images && item.images.length > 0 && (
