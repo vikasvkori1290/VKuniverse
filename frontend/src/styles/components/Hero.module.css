@@ -1,17 +1,10 @@
-.heroScrollWrapper {
-    position: relative;
-    height: 125vh;
-    width: 100%;
-}
-
 .heroSection {
-    position: sticky;
-    top: 0;
+    position: relative;
     height: 100vh;
-    min-height: 100vh;
+    min-height: 680px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     overflow: hidden;
     background-color: var(--bg-primary);
     padding: 0;
@@ -35,36 +28,22 @@
 }
 
 .heroCardBox {
-    --hero-margin-left: clamp(145px, calc(8vw + 125px), 245px);
-    width: 560px;
-    max-width: min(560px, 92vw);
+    width: min(1050px, 92vw);
+    max-width: 1050px;
     min-height: auto;
-    margin-left: var(--hero-margin-left);
-    margin-right: auto;
+    margin: 0 auto;
     background: rgba(10, 10, 15, 0.05);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
     padding: 38px 44px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     position: relative;
     z-index: 1;
-    transition: width 0.8s cubic-bezier(0.25, 1, 0.35, 1), 
-                max-width 0.8s cubic-bezier(0.25, 1, 0.35, 1),
-                box-shadow 0.6s ease;
-    will-change: width, max-width;
-}
-
-/* On scroll, expands smoothly to match equal left and right spacing (+50px wider) */
-.heroCardBox.expanded {
-    width: calc(100vw - (2 * var(--hero-margin-left)));
-    max-width: calc(100vw - (2 * var(--hero-margin-left)));
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
 .mobileTechSection {
@@ -72,10 +51,6 @@
 }
 
 @media (max-width: 968px) {
-    .heroScrollWrapper {
-        height: auto;
-    }
-
     .heroSection {
         position: relative;
         height: auto;
@@ -84,14 +59,12 @@
         padding: 90px 0 40px 0;
     }
 
-    .heroCardBox,
-    .heroCardBox.expanded {
+    .heroCardBox {
         margin: 0 auto;
         width: 92%;
         max-width: 440px;
         padding: 24px 20px 20px 20px;
         box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
-        transition: none;
         overflow: hidden;
     }
 
@@ -143,8 +116,7 @@
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
     }
 
-    .terminalWrapper,
-    .heroCardBox.expanded .terminalWrapper {
+    .terminalWrapper {
         display: none !important;
     }
 }
@@ -161,31 +133,28 @@
 .heroCardInner {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 36px;
     width: 100%;
     position: relative;
 }
 
-/* Terminal Wrapper sits on the right without forcing any vertical height in collapsed state */
-.terminalWrapper {
-    position: absolute;
-    right: 0;
-    width: calc(100% - 500px);
-    max-width: 540px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(35px) scale(0.96);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0.5s ease;
-    pointer-events: none;
+.heroContent {
+    flex: 1;
+    min-width: 0;
+    max-width: 500px;
 }
 
-.heroCardBox.expanded .terminalWrapper {
+/* Static Terminal Wrapper on Desktop */
+.terminalWrapper {
+    position: relative;
+    flex: 1;
+    max-width: 520px;
+    min-width: 380px;
     opacity: 1;
     visibility: visible;
-    transform: translateX(0) scale(1);
+    transform: none;
     pointer-events: auto;
-    transition-delay: 0.15s;
 }
 
 .codeTerminal {

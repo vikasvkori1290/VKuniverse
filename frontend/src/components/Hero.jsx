@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFileDownload, FaCheck, FaCopy } from 'react-icons/fa';
 import { SiLeetcode, SiCodeforces, SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC, SiPython, SiNodedotjs, SiReact } from 'react-icons/si';
@@ -6,13 +6,11 @@ import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
 
 const Hero = () => {
-    const [expanded, setExpanded] = useState(false);
     const [terminalTab, setTerminalTab] = useState('bash');
     const [typedLines, setTypedLines] = useState([]);
     const [currentTypingText, setCurrentTypingText] = useState('');
     const [currentPrompt, setCurrentPrompt] = useState('vikas@dev:~$ ');
     const [copied, setCopied] = useState(false);
-    const scrollWrapperRef = useRef(null);
 
     const titles = [
         'Software Developer',
@@ -35,31 +33,6 @@ const Hero = () => {
         { Icon: SiTailwindcss, name: "Tailwind CSS" },
         { Icon: SiMongodb, name: "MongoDB" },
     ];
-
-    // Scroll expansion detection
-    useEffect(() => {
-        const handleScroll = () => {
-            if (scrollWrapperRef.current) {
-                const rect = scrollWrapperRef.current.getBoundingClientRect();
-                const scrolled = -rect.top;
-                if (scrolled > 15) {
-                    setExpanded(true);
-                } else {
-                    setExpanded(false);
-                }
-            } else {
-                if (window.scrollY > 15) {
-                    setExpanded(true);
-                } else {
-                    setExpanded(false);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     // Terminal typing animation sequence
     useEffect(() => {
@@ -139,12 +112,11 @@ const Hero = () => {
     };
 
     return (
-        <div className={styles.heroScrollWrapper} ref={scrollWrapperRef}>
-            <section className={styles.heroSection} id="about">
-                <div className={`${styles.heroCardBox} ${expanded ? styles.expanded : ''}`}>
-                    <div className={styles.heroCardInner}>
-                        {/* Left Info Column */}
-                        <div className={styles.heroContent}>
+        <section className={styles.heroSection} id="about">
+            <div className={styles.heroCardBox}>
+                <div className={styles.heroCardInner}>
+                    {/* Left Info Column */}
+                    <div className={styles.heroContent}>
                             <p className={styles.greeting}>Hello, I'm</p>
                             <h1 className={styles.title}>
                                 Vikas <span className={styles.highlight}>V</span>
@@ -317,7 +289,6 @@ const Hero = () => {
                     </div>
                 </div>
             </section>
-        </div>
     );
 };
 
