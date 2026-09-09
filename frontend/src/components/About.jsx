@@ -4,64 +4,109 @@ import styles from '../styles/components/About.module.css';
 
 const About = () => {
     useScrollAnimation({ threshold: 0.1 });
-
-    const timelineData = [
-        {
-            year: '2026 – Present',
-            title: 'Aspiring Full-Stack Developer',
-            institution: 'Building with the MERN Stack',
-            description: 'Currently focused on becoming a strong full-stack developer by building real-world web applications using MongoDB, Express.js, React, and Node.js. Continuously improving problem-solving skills, backend development, APIs, and modern web development practices while working on practical projects.'
-        },
-        {
-            year: 'October 2025 – Present',
-            title: 'DSA & MERN Stack Journey',
-            institution: 'Strengthening Core & Development Skills',
-            description: 'Started an intensive journey into Data Structures and Algorithms alongside full-stack web development. Practicing DSA with Python while learning the MERN stack through hands-on projects, focusing on writing efficient solutions and building scalable web applications.'
-        },
-        {
-            year: '2024 – 2025',
-            title: 'Explored Software Development',
-            institution: 'First Year, Exploring Possibilities',
-            description: 'Used my first year of college to explore different areas of technology and software development. Experimented with frontend development, backend programming, databases, APIs, and other development domains to understand my interests and build a strong foundation in programming.'
-        },
-        {
-            year: '2024',
-            title: 'B.Tech Computer Science & Engineering',
-            institution: 'CMR University, Bangalore',
-            description: 'Began my B.Tech journey in Computer Science and Engineering at CMR University, Bangalore. Started building a strong foundation in programming, computer science fundamentals, and problem-solving while exploring different areas of technology through academics and personal projects.'
-        },
-        {
-            year: '2024',
-            title: 'PUC – Science',
-            institution: 'Completed with 89.33%',
-            description: 'Completed my Pre-University Course in the Science stream with 89.33%. This phase strengthened my foundation in mathematics, science, and analytical thinking and motivated me to pursue Computer Science and explore the world of technology.'
-        }
-    ];
+    const [activeTab, setActiveTab] = React.useState('about');
 
     return (
         <section className={styles.aboutSection} id="about">
             <div className={styles.container}>
                 <div className={`${styles.sectionHeader} animate-on-scroll`}>
                     <h2 className={styles.title}>About Me</h2>
-                    <p className={styles.subtitle}>My professional journey and education</p>
+                    <p className={styles.subtitle}>My background, journey, and education</p>
                 </div>
 
-                <div className={styles.timeline}>
-                    {timelineData.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`${styles.timelineItem} animate-on-scroll`}
-                            style={{ transitionDelay: `${index * 200}ms` }}
-                        >
-                            <div className={styles.timelineDot}></div>
-                            <div className={styles.timelineContent}>
-                                <span className={styles.date}>{item.year}</span>
-                                <h3 className={styles.itemTitle}>{item.title}</h3>
-                                <div className={styles.institution}>{item.institution}</div>
-                                <p className={styles.description}>{item.description}</p>
+                {/* Profile Bento Card */}
+                <div className={`${styles.profileCard} animate-on-scroll`}>
+                    <div className={styles.photoContainer}>
+                        <img 
+                            src="/vk%20image.jpeg" 
+                            alt="Vikas V" 
+                            className={styles.profilePhoto} 
+                        />
+                    </div>
+                    <div className={styles.profileBio}>
+                        <div className={styles.headerTopRow}>
+                            <div className={styles.statusBadge}>
+                                <span className={styles.statusDot}></span>
+                                <span>Available for Opportunities</span>
+                            </div>
+
+                            {/* Slider Switch */}
+                            <div className={styles.sliderSwitch}>
+                                <button
+                                    type="button"
+                                    className={`${styles.sliderBtn} ${activeTab === 'about' ? styles.sliderBtnActive : ''}`}
+                                    onClick={() => setActiveTab('about')}
+                                >
+                                    About Me
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`${styles.sliderBtn} ${activeTab === 'education' ? styles.sliderBtnActive : ''}`}
+                                    onClick={() => setActiveTab('education')}
+                                >
+                                    Education
+                                </button>
                             </div>
                         </div>
-                    ))}
+
+                        {activeTab === 'about' ? (
+                            <div className={styles.tabContentFade}>
+                                <h3 className={styles.profileName}>Vikas V</h3>
+                                <p className={styles.profileRole}>Full-Stack Developer & Problem Solver</p>
+                                <p className={styles.profileSummary}>
+                                    I build full-stack web applications with the MERN stack, design reliable REST APIs, and solve algorithmic problems with a focus on clean, efficient code. I enjoy turning ideas into real-world products and continuously improving my skills through hands-on projects and problem solving.
+                                </p>
+                                <div className={styles.tagList}>
+                                    <span className={styles.tag}>Full-Stack</span>
+                                    <span className={styles.tag}>MERN Stack</span>
+                                    <span className={styles.tag}>Python & DSA</span>
+                                    <span className={styles.tag}>REST APIs</span>
+                                    <span className={styles.tag}>Bangalore, IN</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={styles.tabContentFade}>
+                                <h3 className={styles.profileName}>Academic Performance</h3>
+                                
+                                <div className={styles.semGrid}>
+                                    <div className={styles.semCard}>
+                                        <span className={styles.semLabel}>1st Sem</span>
+                                        <span className={styles.semValue}>8.2</span>
+                                    </div>
+                                    <div className={styles.semCard}>
+                                        <span className={styles.semLabel}>2nd Sem</span>
+                                        <span className={styles.semValue}>8.8</span>
+                                    </div>
+                                    <div className={styles.semCard}>
+                                        <span className={styles.semLabel}>3rd Sem</span>
+                                        <span className={styles.semValue}>8.7</span>
+                                    </div>
+                                    <div className={styles.semCard}>
+                                        <span className={styles.semLabel}>4th Sem</span>
+                                        <span className={styles.semValue}>9.0</span>
+                                    </div>
+                                    <div className={`${styles.semCard} ${styles.semCardAvg}`}>
+                                        <span className={styles.semLabel}>Average CGPA</span>
+                                        <span className={styles.semValueAvg}>8.68</span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.pucCard}>
+                                    <div className={styles.pucHeader}>
+                                        <span className={styles.pucTitle}>Pre-University Course (PUC) – Science</span>
+                                        <span className={styles.pucScore}>89.33%</span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.tagList}>
+                                    <span className={styles.tag}>8.68 CGPA</span>
+                                    <span className={styles.tag}>PUC 89.33%</span>
+                                    <span className={styles.tag}>Computer Science</span>
+                                    <span className={styles.tag}>Bangalore, IN</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </section>

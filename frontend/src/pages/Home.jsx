@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
-import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import About from '../components/About';
@@ -16,13 +15,12 @@ const Home = () => {
 
     return (
         <div className={styles.home}>
-            <ScrollProgress />
             <Navbar />
             <main>
                 <Hero />
                 <FeaturedAchievement />
-                <RecentBlogs />
                 <About />
+                <RecentBlogs />
                 <ContactForm />
             </main>
             <Footer />

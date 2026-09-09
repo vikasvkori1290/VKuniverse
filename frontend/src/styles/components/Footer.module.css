@@ -89,11 +89,11 @@
 }
 
 .socialIcon:hover {
-    color: #38bdf8;
-    background: rgba(15, 23, 42, 0.9);
-    border-color: rgba(56, 189, 248, 0.6);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
 .footerBottom {

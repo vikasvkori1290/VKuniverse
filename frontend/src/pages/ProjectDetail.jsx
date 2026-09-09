@@ -4,8 +4,8 @@ import api from '../services/api';
 import { useData } from '../context/DataContext';
 import LikeModal from '../components/common/LikeModal';
 import styles from '../styles/pages/ProjectDetail.module.css';
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
-import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight, FaHeart, FaYoutube } from 'react-icons/fa';
+import { getFileURL, getYouTubeEmbedUrl, FALLBACK_IMAGE } from '../utils/urlHelper';
 
 const ProjectDetail = () => {
     const { updateProjectLikes } = useData() || {};
@@ -124,6 +124,8 @@ const ProjectDetail = () => {
         ? project.screenshots.map(formatImageUrl)
         : project.images?.map(img => formatImageUrl(typeof img === 'object' ? img.url : img)) || [];
 
+    const youtubeEmbedUrl = getYouTubeEmbedUrl(project.youtubeUrl || (project.video?.includes('youtu') ? project.video : null));
+
     return (
         <div className={styles.projectDetail}>
             <div className="container">
@@ -211,6 +213,22 @@ const ProjectDetail = () => {
                         </div>
                     )}
 
+                    {/* YouTube Video Demo Player */}
+                    {youtubeEmbedUrl && (
+                        <div className={styles.videoSection}>
+                            <h2>Video Walkthrough</h2>
+                            <div className={styles.videoWrapper}>
+                                <iframe
+                                    src={youtubeEmbedUrl}
+                                    title={`${project.title} Video Walkthrough`}
+                                    className={styles.videoIframe}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                />
+                            </div>
+                        </div>
+                    )}
+
                     {/* Description */}
                     <div className={styles.description}>
                         <h2>About This Project</h2>
@@ -251,6 +269,16 @@ const ProjectDetail = () => {
                                 className={`btn btn-secondary ${styles.actionBtn}`}
                             >
                                 <FaGithub /> Source Code
+                            </a>
+                        )}
+                        {project.youtubeUrl && (
+                            <a
+                                href={project.youtubeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`btn btn-secondary ${styles.actionBtn}`}
+                            >
+                                <FaYoutube className={styles.youtubeIcon} /> Watch on YouTube
                             </a>
                         )}
                     </div>

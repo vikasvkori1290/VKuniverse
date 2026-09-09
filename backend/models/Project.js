@@ -12,6 +12,10 @@ const projectSchema = mongoose.Schema({
     video: {
         type: String, // URL to the video file
     },
+    youtubeUrl: {
+        type: String, // Optional YouTube Video URL
+        trim: true,
+    },
     techStack: [{
         type: String,
     }],

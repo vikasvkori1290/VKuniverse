@@ -39,6 +39,7 @@ const AdminDashboard = () => {
     description: '',
     images: [], // Array of { url, isThumbnail, order }
     video: '', // Video URL
+    youtubeUrl: '', // YouTube Demo Video URL (optional)
     tags: '',
     liveLink: '',
     githubLink: '',
@@ -74,6 +75,7 @@ const AdminDashboard = () => {
         description: item.description,
         images: item.images || [],
         video: item.video || '',
+        youtubeUrl: item.youtubeUrl || '',
         tags: item.techStack ? item.techStack.join(', ') : '',
         liveLink: item.liveLink || '',
         githubLink: item.githubLink || '',
@@ -135,6 +137,7 @@ const AdminDashboard = () => {
         description: '',
         images: [],
         video: '',
+        youtubeUrl: '',
         tags: '',
         liveLink: '',
         githubLink: '',
@@ -362,13 +365,18 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
+                  <div className={styles.formGroup}>
+                    <label>YouTube Demo URL (Optional - Video player will appear in project detail page)</label>
+                    <input type="text" className={styles.input} placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..." value={projectForm.youtubeUrl} onChange={e => setProjectForm({ ...projectForm, youtubeUrl: e.target.value })} />
+                  </div>
+
                   <div className={styles.buttonGroup}>
                     <button type="submit" className="btn btn-primary">{editingId ? 'Update Project' : 'Add Project'}</button>
                     {editingId && (
                       <button type="button" className="btn btn-secondary" onClick={() => {
                         setEditingId(null);
                         setProjectForm({
-                          title: '', description: '', images: [], video: '', tags: '', liveLink: '', githubLink: '', status: 'completed'
+                          title: '', description: '', images: [], video: '', youtubeUrl: '', tags: '', liveLink: '', githubLink: '', status: 'completed'
                         });
                       }}>Cancel Edit</button>
                     )}

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Achievements from '../components/Achievements';
 import Footer from '../components/Footer';
-import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import styles from '../styles/pages/AchievementsPage.module.css';
@@ -12,7 +11,6 @@ const AchievementsPage = () => {
 
     return (
         <div className={styles.achievementsPage}>
-            <ScrollProgress />
             <Navbar />
             <main className={styles.mainContent}>
                 <Achievements />

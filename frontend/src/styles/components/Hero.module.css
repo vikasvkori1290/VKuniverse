@@ -482,10 +482,10 @@
 
 .socialIcon:hover {
     color: #ffffff;
-    background: rgba(59, 130, 246, 0.6);
-    border-color: #93c5fd;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
 .ctaButtons {
@@ -513,11 +513,11 @@
 }
 
 .minimalProjectsBtn:hover {
-    background: rgba(59, 130, 246, 0.6);
-    border-color: #93c5fd;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
-    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
 }
 
 .btnArrow {

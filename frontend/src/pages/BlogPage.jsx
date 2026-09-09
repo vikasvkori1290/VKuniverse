@@ -5,7 +5,6 @@ import { useData } from '../context/DataContext';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import styles from '../styles/pages/BlogPage.module.css';
 import { getFileURL, FALLBACK_IMAGE } from '../utils/urlHelper';
@@ -35,7 +34,6 @@ const BlogPage = () => {
 
     return (
         <div className={styles.blogPage}>
-            <ScrollProgress />
             <Navbar />
             <main className={styles.main}>
                 <div className="container">

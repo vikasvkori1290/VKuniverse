@@ -5,7 +5,6 @@ import { marked } from 'marked';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import ScrollProgress from '../components/ScrollProgress';
 import ScrollToTop from '../components/ScrollToTop';
 import LikeModal from '../components/common/LikeModal';
 import styles from '../styles/pages/BlogPostPage.module.css';
@@ -233,7 +232,6 @@ const BlogPostPage = () => {
 
     return (
         <div className={styles.blogPostPage}>
-            <ScrollProgress />
             <Navbar />
             <main className={styles.main}>
                 <div className="container">

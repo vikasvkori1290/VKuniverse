@@ -36,6 +36,288 @@
     line-height: 1.5;
 }
 
+/* Profile Bento Card */
+.profileCard {
+    background: #0d0f14;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+    margin-bottom: 0;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profileCard:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.65);
+}
+
+.photoContainer {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #050608;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.profilePhoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.4s ease;
+}
+
+.profileCard:hover .profilePhoto {
+    transform: scale(1.03);
+}
+
+.profileBio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    width: 100%;
+}
+
+.headerTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.sliderSwitch {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.sliderBtn {
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sliderBtn:hover {
+    color: #ffffff;
+}
+
+.sliderBtnActive {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.tabContentFade {
+    width: 100%;
+    animation: tabFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tabFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #4ade80;
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.statusDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.profileName {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.01em;
+}
+
+.profileRole {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
+
+.profileSummary {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+/* Semester GPA Grid & Academic Details */
+.semGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 1.35fr;
+    gap: 8px;
+    width: 100%;
+    margin: 12px 0 10px 0;
+}
+
+.semCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.semCard:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.semLabel {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.semValue {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.semCardAvg {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.semCardAvg .semLabel {
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.semValueAvg {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.pucCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 9px 14px;
+    width: 100%;
+    margin-bottom: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.pucCard:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.pucHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.pucTitle {
+    font-size: 0.82rem;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.pucScore {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: #cbd5e1;
+}
+
+.timelineSectionTitleWrapper {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.timelineSectionTitle {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
 /* Timeline Layout - Alternating Uneven Staggered Boxes */
 .timeline {
     position: relative;
@@ -171,6 +453,43 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .profileCard {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .photoContainer {
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+    }
+
+    .profileBio {
+        align-items: center;
+    }
+
+    .headerTopRow {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .semGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .semCardAvg {
+        grid-column: span 2;
+    }
+
+    .tagList {
+        justify-content: center;
+    }
+
     .timeline {
         padding-left: 28px;
         gap: 20px;

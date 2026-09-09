@@ -45,6 +45,7 @@ const setProject = async (req, res) => {
         liveLink: req.body.liveLink,
         githubLink: req.body.githubLink,
         video: req.body.video,
+        youtubeUrl: req.body.youtubeUrl,
         images: req.body.images,
         status: req.body.status,
         isPublished: req.body.isPublished
