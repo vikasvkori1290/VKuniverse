@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetail from './pages/ProjectDetail';
 import ResumeBuilder from './pages/ResumeBuilder';
+import ResumePreviewPage from './pages/ResumePreviewPage';
 import AchievementsPage from './pages/AchievementsPage';
 import ContactPage from './pages/ContactPage';
 import AdminLogin from './pages/AdminLogin';
@@ -31,7 +32,9 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/resume-builder" element={<ResumeBuilder />} /> {/* Added route */}
+              <Route path="/resume" element={<ResumePreviewPage />} />
+              <Route path="/resume-preview" element={<ResumePreviewPage />} />
+              <Route path="/resume-builder" element={<ResumeBuilder />} />
               <Route path="/achievements" element={<AchievementsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/blog" element={<BlogPage />} />

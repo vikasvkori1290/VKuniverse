@@ -1,0 +1,245 @@
+.pageWrapper {
+    min-height: 100vh;
+    background-color: var(--bg-primary, #08090c);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.mainContent {
+    flex: 1;
+    padding: 120px 0 80px 0;
+    width: 100%;
+}
+
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.backBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.backBtn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-3px);
+}
+
+.actionButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.externalBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50px;
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.externalBtn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.downloadBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50px;
+    color: #08090c;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
+}
+
+.downloadBtn:hover {
+    background: #e2e8f0;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+}
+
+/* Header Section */
+.header {
+    text-align: center;
+    margin-bottom: 32px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.badgeIcon {
+    font-size: 0.82rem;
+    color: #ffffff;
+}
+
+.title {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+}
+
+.subtitle {
+    font-size: 0.98rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Viewer Window Frame */
+.viewerCard {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    background: #0d0f14;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.viewerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.windowControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 60px;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dotRed {
+    background: #ef4444;
+}
+
+.dotYellow {
+    background: #f59e0b;
+}
+
+.dotGreen {
+    background: #10b981;
+}
+
+.viewerTitle {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+    font-family: monospace;
+}
+
+.headerSpacer {
+    width: 60px;
+}
+
+.pdfContainer {
+    width: 100%;
+    height: 80vh;
+    min-height: 700px;
+    background: #151821;
+    position: relative;
+}
+
+.pdfObject,
+.pdfIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.fallbackNotice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 16px;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .mainContent {
+        padding: 90px 0 60px 0;
+    }
+
+    .topBar {
+        justify-content: center;
+    }
+
+    .pdfContainer {
+        height: 70vh;
+        min-height: 500px;
+    }
+}

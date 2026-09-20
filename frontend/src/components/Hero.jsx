@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFileDownload, FaCheck, FaCopy } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFileDownload, FaCheck, FaCopy, FaEye } from 'react-icons/fa';
 import { SiLeetcode, SiCodeforces, SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC, SiPython, SiNodedotjs, SiReact } from 'react-icons/si';
 import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
@@ -157,13 +157,24 @@ const Hero = () => {
                                 <Link to="/projects" className={styles.minimalProjectsBtn}>
                                     View Projects <span className={styles.btnArrow}>&rarr;</span>
                                 </Link>
-                                <a
-                                    href="/vikas%20v's%20resume.pdf"
-                                    download="Vikas_V_Resume.pdf"
-                                    className={styles.minimalResumeBtn}
-                                >
-                                    <FaFileDownload className={styles.resumeIcon} /> Download Resume
-                                </a>
+                                <div className={styles.resumeBtnWrapper}>
+                                    <a
+                                        href="/vikas%20v's%20resume.pdf"
+                                        download="Vikas_V_Resume.pdf"
+                                        className={styles.minimalResumeBtn}
+                                        title="Download Resume PDF"
+                                    >
+                                        <FaFileDownload className={styles.resumeIcon} /> Download Resume
+                                    </a>
+                                    <Link
+                                        to="/resume"
+                                        className={styles.minimalEyeBtn}
+                                        title="Preview Resume"
+                                        aria-label="Preview Resume"
+                                    >
+                                        <FaEye />
+                                    </Link>
+                                </div>
                             </div>
 
                             {/* Mobile-Only Tech Stack */}
