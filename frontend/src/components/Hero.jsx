@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFileDownload, FaCheck, FaCopy, FaEye } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFileDownload, FaCheck, FaCopy, FaEye, FaGraduationCap } from 'react-icons/fa';
 import { SiLeetcode, SiCodeforces, SiExpress, SiTailwindcss, SiMongodb, SiHtml5, SiCss3, SiJavascript, SiC, SiPython, SiNodedotjs, SiReact } from 'react-icons/si';
 import useTypingEffect from '../hooks/useTypingEffect';
 import styles from '../styles/components/Hero.module.css';
@@ -113,10 +113,11 @@ const Hero = () => {
 
     return (
         <section className={styles.heroSection} id="about">
-            <div className={styles.heroCardBox}>
-                <div className={styles.heroCardInner}>
-                    {/* Left Info Column */}
-                    <div className={styles.heroContent}>
+            <div className={styles.heroContainer}>
+                <div className={styles.heroCardBox}>
+                    <div className={styles.heroCardInner}>
+                        {/* Left Info Column */}
+                        <div className={styles.heroContent}>
                             <p className={styles.greeting}>Hello, I'm</p>
                             <h1 className={styles.title}>
                                 Vikas <span className={styles.highlight}>V</span>
@@ -164,7 +165,7 @@ const Hero = () => {
                                         className={styles.minimalResumeBtn}
                                         title="Download Resume PDF"
                                     >
-                                        <FaFileDownload className={styles.resumeIcon} /> Download Resume
+                                        <FaFileDownload className={styles.resumeIcon} /> Resume
                                     </a>
                                     <Link
                                         to="/resume"
@@ -299,7 +300,21 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+
+                {/* GATE Prep Roadmap Button - Centered below the opaque hero card */}
+                <div className={styles.heroBottomRow}>
+                    <a
+                        href="https://vk-gate-prep.vercel.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.minimalGateBtn}
+                        title="GATE Prep Roadmap"
+                    >
+                        <FaGraduationCap className={styles.gateIcon} /> GATE Prep Roadmap
+                    </a>
+                </div>
+            </div>
+        </section>
     );
 };
 
